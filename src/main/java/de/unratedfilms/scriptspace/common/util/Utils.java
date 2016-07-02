@@ -71,7 +71,6 @@ public class Utils {
 
     /**
      * Gets all tile entities within a given AABB.
-     * See {@link net.minecraft.world.WorldServer#getAllTileEntityInBox}.
      */
     @SuppressWarnings ("unchecked")
     public static List<TileEntity> getTileEntitiesInAABB(World world, AxisAlignedBB selAABB) {

@@ -12,7 +12,7 @@ import de.unratedfilms.scriptspace.common.script.api.settings.Setting;
 
 /**
  * A script whose sourcecode has been compiled into a Rhino {@link Script} object.
- * Moreover, this class stores some other information about the script, including the {@link #getSettings() settings array} and the {@link #getRunFunction() run function}.
+ * Moreover, this class stores some other information about the script, including the {@link #getDefaultSettings() settings array} and the {@link #getRunFunction() run function}.
  * Note that this class also holds a reference to the original {@link SourceScript} object.
  *
  * @see SourceScript

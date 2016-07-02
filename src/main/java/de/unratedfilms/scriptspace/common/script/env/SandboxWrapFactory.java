@@ -10,7 +10,7 @@ import org.mozilla.javascript.WrapFactory;
 /**
  * Simple sandbox helper to return our sandboxed java objects.
  *
- * @see http://codeutopia.net/blog/2009/01/02/sandboxing-rhino-in-java/
+ * See http://codeutopia.net/blog/2009/01/02/sandboxing-rhino-in-java/
  */
 class SandboxWrapFactory extends WrapFactory {
 
@@ -25,8 +25,9 @@ class SandboxWrapFactory extends WrapFactory {
      * Simple sandbox for native java objects.
      * This will prevent JS scripts from using methods such as {@link Object#wait()}.
      *
+     * See http://codeutopia.net/blog/2009/01/02/sandboxing-rhino-in-java/
+     *
      * @see ContextFactory
-     * @see http://codeutopia.net/blog/2009/01/02/sandboxing-rhino-in-java/
      */
     @SuppressWarnings ("serial")
     private static class SandboxNativeJavaObject extends NativeJavaObject {
