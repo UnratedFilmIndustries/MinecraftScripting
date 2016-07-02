@@ -1,3 +1,9 @@
+2.1.3
+-----
+
+### Fixes
+* Fixed the fork URL in this very changelog.
+
 2.1.2
 -----
 
@@ -14,4 +20,4 @@
 -----
 
 ### Notes
-* This is the first iteration of the mod, so there aren't any changes to mention here. Note, however, that this mod was forked from: https://github.com/DavidGoldman/GuiLib
+* This is the first iteration of the mod, so there aren't any changes to mention here. Note, however, that this mod was forked from: https://github.com/DavidGoldman/MinecraftScripting
