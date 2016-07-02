@@ -32,7 +32,7 @@ apply plugin: 'maven-publish-auth'
 
 // Basic project information
 group = 'de.unratedfilms'
-version = '2.1.0'
+version = '2.2.0-SNAPSHOT'
 
 // Minimum java version
 sourceCompatibility = 1.7
