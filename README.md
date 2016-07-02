@@ -1,29 +1,21 @@
-In-Game MCEdit Filters & Scripts
-=================
+ScriptSpace
+===========
 
-Forum Link: http://www.minecraftforum.net/topic/1951378-/
+ScriptSpace is a Minecraft mod that allows to run filter scripts which can directly modify a previously selected portion of the world. Think of them as a map-making tool -- they can modify blocks, entities, and tile entities.
 
-If you're trying to clone this repo, be sure to install the following dependencies:
-* [Mozilla Rhino](https://github.com/mozilla/rhino)
-* [GuiLib](https://github.com/DavidGoldman/GuiLib)
+* Users can run scripts which can directly modify a previously selected portion of the Minecraft world. Some filters are included with the mod by default.
+* By default, custom scripts are loaded from the `/mods/scriptspace/scripts` folder, which can be found in the user's Minecraft directory.
+* To see what functions are available to the scripts, check out all of the classes inside the `common.script.api` package. Note that some of the class names may be abbreviated to the scripts; check out `ContextConfigurator.java` in the `common.script.env` package to see which classes have shortened names.
 
-This mod adds Javascript support to Minecraft via Mozilla Rhino.
+In order to use this mod, you first need to install GuiLib as a dependency!
 
-* Users can run regular scripts (extension .js) in-game on either the client or server.
- * To start/stop these scripts, press the binded key (default F7) to open the mod's GUI.
- * Support for these regular scripts is currently in the works - they are lacking a lot of features at the moment. 
+Moreover, the mod provides easy scripting wrappers for the following mods (if they are installed):
 
-* Users can also run filter scripts (extension .filter) which can directly modify the minecraft world. Think of them as a map-making tool - they can modify blocks, entities, and tile entities. Some filters are included with the mod by default. 
+* [Custom NPCs](http://www.kodevelopment.nl/minecraft/customnpcs)
 
-* Scripts are currently saved in the "/scripts/client" and "/scripts/server" folders which can be found in the user's minecraft directory. 
+License
+-------
 
-* To see what functions are available to the scripts, check out all of the classes inside the "scripting.wrapper" package. Note that some of the class names may be abbreviated to the scripts - check "scripting.ScriptingMod.java" to see which classes have shortened names. 
+This project has been forked from: https://github.com/DavidGoldman/MinecraftScripting
 
-Build Instructions:
-* Download the **dependencies** mentioned above along with this mod
-* Download the [Forge src](http://files.minecraftforge.net/). Be sure to get the correct version!
-* Extract the **Forge src** to a desired workspace-containing folder
-* Navigate into the forge folder and run the correct **install** file for your system
-* Once the installer finishes, your Forge workspace is set up at "extract-dir/forge/mcp/"
-* You can place the source files for all dependencies and this mod inside the "src/minecraft/" folder found in the workspace
-* To build in eclipse, select the "eclipse" folder found in the workspace ("extract-dir/forge/mcp/eclipse")
+It may be used under the terms of the GNU General Public License (GPL) v3.0. See the LICENSE.md file or https://www.gnu.org/licenses/gpl-3.0.txt for details.
