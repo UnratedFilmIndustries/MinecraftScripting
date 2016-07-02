@@ -3,6 +3,7 @@ package de.unratedfilms.scriptspace.common.script.api.js;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
+import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeIterator;
 import org.mozilla.javascript.ScriptRuntime;
@@ -19,8 +20,7 @@ import org.mozilla.javascript.annotations.JSGetter;
  * Usage: "for (var coord in new Range(sel.minX, sel.maxX)) ..."
  *
  * Based off of the Range class by Tim Schaub.
- *
- * @see https://gist.github.com/tschaub/3291399
+ * See https://gist.github.com/tschaub/3291399
  */
 @SuppressWarnings ("serial")
 public class Range extends ScriptableObject {
@@ -44,7 +44,7 @@ public class Range extends ScriptableObject {
     }
 
     /**
-     * {@link org.mozilla.javascript.FunctionObject.FunctionObject}
+     * @see FunctionObject
      */
     @JSConstructor
     public static Object constructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr) {
