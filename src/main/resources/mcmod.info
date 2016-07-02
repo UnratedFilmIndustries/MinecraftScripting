@@ -1,0 +1,13 @@
+[
+{
+  "modid": "scriptspace",
+  "name": "ScriptSpace",
+  "description": "A Minecraft mod that allows to run filter scripts which can directly modify a previously selected portion of the world. Think of them as a map-making tool -- they can modify blocks, entities, and tile entities.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://www.unratedfilmindustries.de",
+  "authorList": [ "LoadingByte", "Davidee" ],
+  "credits": "Davidee, who created the MinecraftScripting mod, the base of this mod",
+  "dependencies": [ "guilib" ]
+}
+]

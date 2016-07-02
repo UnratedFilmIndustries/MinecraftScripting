@@ -1,0 +1,34 @@
+key.categories.scriptspace=ScriptSpace
+
+key.scriptspace.createProgram=Create Program from Script
+key.scriptspace.chooseSelection=Choose Held Selection
+
+
+
+item.scriptspace.selection.name=Selection
+item.scriptspace.selection.desc=Right click for block/cuboid/tile; left click for tile entities
+item.scriptspace.selection.selType.none=Selection: Nothing yet
+item.scriptspace.selection.selType.block=Selection: Block
+item.scriptspace.selection.selType.cuboid=Selection: Cuboid
+item.scriptspace.selection.selType.entity=Selection: Entity
+item.scriptspace.selection.selType.tileEntity=Selection: Tile
+
+item.scriptspace.program.name=Program: %s
+item.scriptspace.program.desc=Right click to open GUI
+
+
+
+message.scriptspace.scriptCompilationError=Your script "%s" can't be compiled:
+message.scriptspace.programExecutionError=Your script "%s" has crashed with the following error message:
+message.scriptspace.noChosenSelectionError=In order to run a script, you first need to choose a selection. For that, press '%s' while holding a selection item.
+
+
+
+gui.scriptspace.createProgram.title=Select a script to create a program from:
+gui.scriptspace.createProgram.finish=Create Program
+gui.scriptspace.createProgram.cancel=Cancel
+
+gui.scriptspace.configureProgram.title=Configure program: %s
+gui.scriptspace.configureProgram.applyAndRun=Apply Changes & Run
+gui.scriptspace.configureProgram.apply=Apply Changes
+gui.scriptspace.configureProgram.cancel=Cancel
