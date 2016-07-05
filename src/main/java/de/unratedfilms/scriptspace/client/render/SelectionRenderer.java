@@ -19,6 +19,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
+import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.common.items.ItemSelection;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionBlock;
@@ -56,7 +57,7 @@ public class SelectionRenderer {
 
         // If there's a currently held selection, render it
         ItemStack heldStack = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-        if (heldStack != null && heldStack.getItem() == ItemSelection.INSTANCE) {
+        if (heldStack != null && heldStack.getItem() == CustomItems.SELECTION) {
             Selection heldSelection = ItemSelection.getSelection(heldStack);
             proposeSelectionForRendering(heldSelection);
         }

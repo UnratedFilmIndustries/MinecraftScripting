@@ -18,10 +18,9 @@ import de.unratedfilms.scriptspace.common.selection.SelectionTileEntity;
 import de.unratedfilms.scriptspace.common.selection.SelectionsEncoder;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
 
-public class ItemSelection extends CustomItem {
+public class ItemSelection extends ItemCustom {
 
-    public static final ItemSelection INSTANCE  = new ItemSelection();
-    public static final String        ITEM_NAME = "selection";
+    static final ItemSelection INSTANCE = new ItemSelection();
 
     public static Selection getSelection(ItemStack stack) {
 
@@ -41,10 +40,10 @@ public class ItemSelection extends CustomItem {
 
     private ItemSelection() {
 
-        bFull3D = true;
-        maxStackSize = 1;
-        setUnlocalizedName(ITEM_NAME);
+        setUnlocalizedName("selection");
+        setMaxStackSize(1);
         setCreativeTab(CreativeTabs.tabMisc);
+        setFull3D();
     }
 
     @SuppressWarnings ({ "rawtypes", "unchecked" })

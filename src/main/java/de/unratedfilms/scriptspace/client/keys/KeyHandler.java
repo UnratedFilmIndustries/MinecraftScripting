@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
+import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.common.items.ItemSelection;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.net.NetworkService;
@@ -34,7 +35,7 @@ public class KeyHandler {
 
         // If there's a currently held selection, choose it; otherwise, choose null
         ItemStack heldStack = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-        if (heldStack != null && heldStack.getItem() == ItemSelection.INSTANCE) {
+        if (heldStack != null && heldStack.getItem() == CustomItems.SELECTION) {
             Selection heldSelection = ItemSelection.getSelection(heldStack);
             SelectionStorage.chosenSelection = heldSelection;
         } else {
