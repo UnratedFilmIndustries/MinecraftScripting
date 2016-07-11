@@ -10,6 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionBlock;
 import de.unratedfilms.scriptspace.common.selection.SelectionCuboid;
@@ -77,6 +80,17 @@ public class ItemSelection extends ItemCustom {
      */
 
     @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+
+        // If we're on the client, choose the clicked selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = getSelection(stack);
+        }
+
+        return stack;
+    }
+
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
 
         TileEntity clickedTileEntity = world.getTileEntity(x, y, z);
@@ -95,6 +109,11 @@ public class ItemSelection extends ItemCustom {
 
         setSelection(stack, newSelection);
 
+        // If we're on the client, choose the modified selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = newSelection;
+        }
+
         return true;
     }
 
@@ -103,6 +122,11 @@ public class ItemSelection extends ItemCustom {
 
         SelectionEntity newSelection = new SelectionEntity(entity);
         setSelection(stack, newSelection);
+
+        // If we're on the client, choose the modified selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = newSelection;
+        }
 
         return true;
     }
