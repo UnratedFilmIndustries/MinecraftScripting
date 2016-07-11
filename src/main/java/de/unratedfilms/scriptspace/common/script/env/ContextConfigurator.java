@@ -8,6 +8,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import de.unratedfilms.scriptspace.common.Consts;
 import de.unratedfilms.scriptspace.common.script.api.js.Range;
 import de.unratedfilms.scriptspace.common.script.api.js.TagItr;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBlock;
@@ -64,7 +65,11 @@ class ContextConfigurator {
 
                 .build();
 
-        ABBREVIATIONS = ImmutableMap.<String, Class<?>> builder()
+    }
+
+    static {
+
+        ImmutableMap.Builder<String, Class<?>> abbreviationsBuilder = ImmutableMap.<String, Class<?>> builder()
 
                 // "settings" package
                 .put("SettingBlock", SettingBlock.class)
@@ -84,19 +89,6 @@ class ContextConfigurator {
                 // "wrapper" package
                 .put("Rand", ScriptRandom.class)
                 .put("Selection", ScriptSelection.class)
-
-                // "wrapper.customnpcs.consts" package
-                .put("CNPC_Animation", CNPC_ScriptAnimation.class)
-                .put("CNPC_BossbarType", CNPC_ScriptBossbarType.class)
-                .put("CNPC_MovementBehavior", CNPC_ScriptMovementBehavior.class)
-                .put("CNPC_MovementPathBehavior", CNPC_ScriptMovementPathBehavior.class)
-                .put("CNPC_NameVisibility", CNPC_ScriptNameVisibility.class)
-                .put("CNPC_RespawnBehavior", CNPC_ScriptRespawnBehavior.class)
-                .put("CNPC_RetaliationBehavior", CNPC_ScriptRetaliationBehavior.class)
-                .put("CNPC_RotationBehavior", CNPC_ScriptRotationBehavior.class)
-                .put("CNPC_ShelteringBehavior", CNPC_ScriptShelteringBehavior.class)
-                .put("CNPC_TacticalBehavior", CNPC_ScriptTacticalBehavior.class)
-                .put("CNPC_Visibility", CNPC_ScriptVisibility.class)
 
                 // "wrapper.entity" package
                 .put("Entity", ScriptEntity.class)
@@ -119,9 +111,25 @@ class ContextConfigurator {
 
                 // "wrapper.world" package
                 .put("Block", ScriptBlock.class)
-                .put("Item", ScriptItem.class)
+                .put("Item", ScriptItem.class);
 
-                .build();
+        if (Consts.HASMOD_CUSTOM_NPCS) {
+            // "wrapper.customnpcs.consts" package
+            abbreviationsBuilder
+                    .put("CNPC_Animation", CNPC_ScriptAnimation.class)
+                    .put("CNPC_BossbarType", CNPC_ScriptBossbarType.class)
+                    .put("CNPC_MovementBehavior", CNPC_ScriptMovementBehavior.class)
+                    .put("CNPC_MovementPathBehavior", CNPC_ScriptMovementPathBehavior.class)
+                    .put("CNPC_NameVisibility", CNPC_ScriptNameVisibility.class)
+                    .put("CNPC_RespawnBehavior", CNPC_ScriptRespawnBehavior.class)
+                    .put("CNPC_RetaliationBehavior", CNPC_ScriptRetaliationBehavior.class)
+                    .put("CNPC_RotationBehavior", CNPC_ScriptRotationBehavior.class)
+                    .put("CNPC_ShelteringBehavior", CNPC_ScriptShelteringBehavior.class)
+                    .put("CNPC_TacticalBehavior", CNPC_ScriptTacticalBehavior.class)
+                    .put("CNPC_Visibility", CNPC_ScriptVisibility.class);
+        }
+
+        ABBREVIATIONS = abbreviationsBuilder.build();
 
     }
 
