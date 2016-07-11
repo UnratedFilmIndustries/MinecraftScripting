@@ -1,6 +1,10 @@
 
 package de.unratedfilms.scriptspace.common.script.api.util;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import de.unratedfilms.scriptspace.common.util.Utils;
+
 public class ScriptVec2 {
 
     public double x, y;
@@ -16,34 +20,35 @@ public class ScriptVec2 {
         this.y = y;
     }
 
-    public void add(ScriptVec2 vec) {
+    public ScriptVec2 add(ScriptVec2 vec) {
 
-        x += vec.x;
-        y += vec.y;
+        return add(vec.x, vec.y);
     }
 
-    public void add(double x, double y) {
+    public ScriptVec2 add(double x, double y) {
 
         this.x += x;
         this.y += y;
+
+        return this;
     }
 
-    public void multiply(ScriptVec2 vec) {
+    public ScriptVec2 multiply(ScriptVec2 vec) {
 
-        x *= vec.x;
-        y *= vec.y;
+        return multiply(vec.x, vec.y);
     }
 
-    public void multiply(double x, double y) {
+    public ScriptVec2 multiply(double x, double y) {
 
         this.x *= x;
         this.y *= y;
+
+        return this;
     }
 
-    public void scale(double s) {
+    public ScriptVec2 scale(double scale) {
 
-        x *= s;
-        y *= s;
+        return multiply(scale, scale);
     }
 
     public double length() {
@@ -51,13 +56,15 @@ public class ScriptVec2 {
         return Math.sqrt(x * x + y * y);
     }
 
-    public void normalize() {
+    public ScriptVec2 normalize() {
 
         double l = length();
         if (l > 0) {
             x /= l;
             y /= l;
         }
+
+        return this;
     }
 
     public double distanceTo(ScriptVec2 vec) {
@@ -65,6 +72,48 @@ public class ScriptVec2 {
         double dx = x - vec.x;
         double dy = y - vec.y;
         return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public ScriptVec2 toBlock() {
+
+        x = getBlockX();
+        y = getBlockY();
+
+        return this;
+    }
+
+    public int getBlockX() {
+
+        return Utils.floor(x);
+    }
+
+    public int getBlockY() {
+
+        return Utils.floor(y);
+    }
+
+    @Override
+    public ScriptVec2 clone() {
+
+        return new ScriptVec2(x, y);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+
+        return "(" + x + "|" + y + ")";
     }
 
 }
