@@ -1,5 +1,5 @@
 
-package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
+package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
 import java.util.ArrayList;
 import noppes.npcs.constants.EnumStandingType;
@@ -27,7 +27,7 @@ public class CNPC_ScriptRotationBehavior {
 
     public static String fromNative(EnumStandingType rotationBehavior) {
 
-        return MAPPING.containsValue(rotationBehavior) ? MAPPING.inverse().get(rotationBehavior) : "Free";
+        return MAPPING.inverse().get(rotationBehavior);
     }
 
     public static EnumStandingType toNative(String rotationBehavior) {

@@ -48,9 +48,9 @@ public class CNPC_ScriptFaction {
         return faction.isAggressiveToPlayer(player.entityPlayer);
     }
 
-    public boolean isAggressiveToNpc(CNPC_ScriptEntityCustomNpcBase npc) {
+    public boolean isAggressiveToNpc(CNPC_ScriptEntityCustomNpc npc) {
 
-        return faction.isAggressiveToNpc(npc.entityNpcBase);
+        return faction.isAggressiveToNpc(npc.entityNpc);
     }
 
 }

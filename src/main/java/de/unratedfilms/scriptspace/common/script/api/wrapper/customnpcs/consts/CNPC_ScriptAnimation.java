@@ -1,5 +1,5 @@
 
-package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
+package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
 import java.util.ArrayList;
 import noppes.npcs.constants.EnumAnimation;
@@ -29,7 +29,7 @@ public class CNPC_ScriptAnimation {
 
     public static String fromNative(EnumAnimation animation) {
 
-        return MAPPING.containsValue(animation) ? MAPPING.inverse().get(animation) : "Normal";
+        return MAPPING.containsValue(animation) ? MAPPING.inverse().get(animation) : fromNative(EnumAnimation.NONE);
     }
 
     public static EnumAnimation toNative(String animation) {

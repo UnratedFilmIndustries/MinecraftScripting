@@ -23,8 +23,17 @@ import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec2;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptSelection;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.CNPC_ScriptAnimation;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.CNPC_ScriptRotationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementPathBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptNameVisibility;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRespawnBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRetaliationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRotationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptShelteringBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptTacticalBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptVisibility;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagByte;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagByteArray;
@@ -76,9 +85,18 @@ class ContextConfigurator {
                 .put("Rand", ScriptRandom.class)
                 .put("Selection", ScriptSelection.class)
 
-                // "wrapper.customnpcs" package
+                // "wrapper.customnpcs.consts" package
                 .put("CNPC_Animation", CNPC_ScriptAnimation.class)
+                .put("CNPC_BossbarType", CNPC_ScriptBossbarType.class)
+                .put("CNPC_MovementBehavior", CNPC_ScriptMovementBehavior.class)
+                .put("CNPC_MovementPathBehavior", CNPC_ScriptMovementPathBehavior.class)
+                .put("CNPC_NameVisibility", CNPC_ScriptNameVisibility.class)
+                .put("CNPC_RespawnBehavior", CNPC_ScriptRespawnBehavior.class)
+                .put("CNPC_RetaliationBehavior", CNPC_ScriptRetaliationBehavior.class)
                 .put("CNPC_RotationBehavior", CNPC_ScriptRotationBehavior.class)
+                .put("CNPC_ShelteringBehavior", CNPC_ScriptShelteringBehavior.class)
+                .put("CNPC_TacticalBehavior", CNPC_ScriptTacticalBehavior.class)
+                .put("CNPC_Visibility", CNPC_ScriptVisibility.class)
 
                 // "wrapper.entity" package
                 .put("Entity", ScriptEntity.class)
