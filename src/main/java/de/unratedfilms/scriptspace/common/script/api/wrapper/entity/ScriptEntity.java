@@ -131,14 +131,14 @@ public class ScriptEntity {
         entity.setPosition(x, y, z);
     }
 
-    public void setRotationYaw(float rotationYaw) {
-
-        entity.rotationYaw = rotationYaw;
-    }
-
     public float getRotationYaw() {
 
         return entity.rotationYaw;
+    }
+
+    public void setRotationYaw(float rotationYaw) {
+
+        entity.rotationYaw = rotationYaw;
     }
 
     public void setRotationPitch(float rotationPitch) {
