@@ -20,7 +20,7 @@ public class CNPC_ScriptRespawnBehavior {
 
     }
 
-    public static final String[] getAllRespawnBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

@@ -18,7 +18,7 @@ public class CNPC_ScriptBossbarType {
 
     }
 
-    public static final String[] getBossbarTypes() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

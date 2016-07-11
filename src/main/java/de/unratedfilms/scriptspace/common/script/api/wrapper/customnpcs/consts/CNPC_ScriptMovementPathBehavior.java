@@ -17,7 +17,7 @@ public class CNPC_ScriptMovementPathBehavior {
 
     }
 
-    public static final String[] getAllMovementPathBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

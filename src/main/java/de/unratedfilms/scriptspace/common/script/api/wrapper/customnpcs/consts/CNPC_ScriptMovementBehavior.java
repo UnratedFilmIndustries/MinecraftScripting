@@ -19,7 +19,7 @@ public class CNPC_ScriptMovementBehavior {
 
     }
 
-    public static final String[] getAllMovementBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

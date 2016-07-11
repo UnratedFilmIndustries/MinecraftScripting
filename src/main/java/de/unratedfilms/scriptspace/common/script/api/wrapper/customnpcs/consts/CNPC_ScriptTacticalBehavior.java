@@ -23,7 +23,7 @@ public class CNPC_ScriptTacticalBehavior {
 
     }
 
-    public static final String[] getAllTacticalBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

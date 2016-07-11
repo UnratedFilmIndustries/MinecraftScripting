@@ -22,7 +22,7 @@ public class CNPC_ScriptAnimation {
 
     }
 
-    public static final String[] getAllAnimations() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

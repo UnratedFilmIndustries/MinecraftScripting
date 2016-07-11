@@ -18,7 +18,7 @@ public class CNPC_ScriptShelteringBehavior {
 
     }
 
-    public static final String[] getAllShelteringBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

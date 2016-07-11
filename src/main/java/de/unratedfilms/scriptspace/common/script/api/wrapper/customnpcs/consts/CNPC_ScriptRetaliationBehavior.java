@@ -19,7 +19,7 @@ public class CNPC_ScriptRetaliationBehavior {
 
     }
 
-    public static final String[] getAllRetaliationBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

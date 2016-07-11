@@ -18,7 +18,7 @@ public class CNPC_ScriptNameVisibility {
 
     }
 
-    public static final String[] getAllNameVisibilities() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

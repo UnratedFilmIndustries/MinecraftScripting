@@ -72,16 +72,6 @@ public class CNPC_ScriptDataAi {
         npc.entityNpc.updateAI = true;
     }
 
-    public float getRotationYaw() {
-
-        return npc.getRotationYaw();
-    }
-
-    public void setRotationYaw(float rotationYaw) {
-
-        npc.setRotationYaw(rotationYaw);
-    }
-
     public String getMovementBehavior() {
 
         return CNPC_ScriptMovementBehavior.fromNative(ai.movingType);
@@ -90,6 +80,7 @@ public class CNPC_ScriptDataAi {
     public void setMovementBehavior(String movementBehavior) {
 
         ai.movingType = CNPC_ScriptMovementBehavior.toNative(movementBehavior);
+        npc.entityNpc.updateAI = true;
     }
 
     public String getRotationBehavior() {
@@ -100,6 +91,17 @@ public class CNPC_ScriptDataAi {
     public void setRotationBehavior(String rotationBehavior) {
 
         ai.standingType = CNPC_ScriptRotationBehavior.toNative(rotationBehavior);
+        npc.entityNpc.updateAI = true;
+    }
+
+    public float getRotationYaw() {
+
+        return npc.getRotationYaw();
+    }
+
+    public void setRotationYaw(float rotationYaw) {
+
+        npc.setRotationYaw(rotationYaw);
     }
 
     /**

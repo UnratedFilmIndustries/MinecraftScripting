@@ -18,7 +18,7 @@ public class CNPC_ScriptVisibility {
 
     }
 
-    public static final String[] getAllVisibilities() {
+    public static final String[] get() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }

@@ -20,7 +20,7 @@ public class CNPC_ScriptRotationBehavior {
 
     }
 
-    public static final String[] getAllRotationBehaviors() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }
