@@ -9,6 +9,8 @@
 
 ### Fixes
 * Fixed the mcmod.info file not containing any version information in the dev JAR.
+* Fixed the entire game crashing when the optional CutomNPCs mod wasn't installed.
+* Fixed several issues with script execution that could potentially come up at really rare occasions.
 
 2.1.3
 -----
