@@ -1,7 +1,7 @@
 key.categories.scriptspace=ScriptSpace
 
 key.scriptspace.createProgram=Create Program from Script
-key.scriptspace.chooseSelection=Choose Held Selection
+key.scriptspace.toggleChosenSelectionVisibility=Toggle Chosen Selection Visibility
 
 
 
@@ -20,7 +20,7 @@ item.scriptspace.program.desc=Right click to open GUI
 
 message.scriptspace.scriptCompilationError=Your script "%s" can't be compiled:
 message.scriptspace.programExecutionError=Your script "%s" has crashed with the following error message:
-message.scriptspace.noChosenSelectionError=In order to run a script, you first need to choose a selection. For that, press '%s' while holding a selection item.
+message.scriptspace.noChosenSelectionError=In order to run a script, you first need to choose a selection. For that, either create a new one or right click while holding an existing selection item in your hand.
 
 
 

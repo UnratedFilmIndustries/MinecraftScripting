@@ -7,7 +7,6 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentTranslation;
 import de.unratedfilms.guilib.core.Button;
 import de.unratedfilms.guilib.core.Button.ButtonHandler;
@@ -15,7 +14,6 @@ import de.unratedfilms.guilib.core.Label;
 import de.unratedfilms.guilib.core.Widget;
 import de.unratedfilms.guilib.vanilla.ButtonVanilla;
 import de.unratedfilms.scriptspace.client.gui.SimpleScrollableContainerScreen;
-import de.unratedfilms.scriptspace.client.keys.KeyBindings;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
 import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.api.settings.Setting;
@@ -122,8 +120,7 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
             Selection chosenSelection = SelectionStorage.chosenSelection;
             if (chosenSelection == null) {
                 // If no selection has been chosen yet, inform the player
-                String chooseSelectionKey = GameSettings.getKeyDisplayString(KeyBindings.chooseSelection.getKeyCode());
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".noChosenSelectionError", chooseSelectionKey));
+                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".noChosenSelectionError"));
             } else {
                 // Otherwise, run the new program on the chosen selection
                 NetworkService.DISPATCHER.sendToServer(new RunProgramServerMessage(newProgram, chosenSelection));

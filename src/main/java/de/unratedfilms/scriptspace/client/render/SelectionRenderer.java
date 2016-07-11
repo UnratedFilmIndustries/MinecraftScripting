@@ -50,8 +50,8 @@ public class SelectionRenderer {
 
         renderedSelections.clear();
 
-        // If there's a currently chosen selection, render it
-        if (SelectionStorage.chosenSelection != null) {
+        // If there's a currently chosen selection and the render setting is switched on, render it
+        if (SelectionStorage.chosenSelection != null && SelectionStorage.renderChosenSelection) {
             proposeSelectionForRendering(SelectionStorage.chosenSelection);
         }
 

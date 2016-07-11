@@ -1,14 +1,9 @@
 
 package de.unratedfilms.scriptspace.client.keys;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
-import de.unratedfilms.scriptspace.common.items.CustomItems;
-import de.unratedfilms.scriptspace.common.items.ItemSelection;
-import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.net.NetworkService;
 import de.unratedfilms.scriptspace.net.messages.AvailableScriptsRequestServerMessage;
 
@@ -20,8 +15,8 @@ public class KeyHandler {
 
         if (KeyBindings.createProgram.isPressed()) {
             onCreateProgram();
-        } else if (KeyBindings.chooseSelection.isPressed()) {
-            onChooseSelection();
+        } else if (KeyBindings.toggleChosenSelectionVisibility.isPressed()) {
+            onToggleChosenSelectionVisibility();
         }
     }
 
@@ -31,16 +26,9 @@ public class KeyHandler {
         NetworkService.DISPATCHER.sendToServer(new AvailableScriptsRequestServerMessage());
     }
 
-    private void onChooseSelection() {
+    private void onToggleChosenSelectionVisibility() {
 
-        // If there's a currently held selection, choose it; otherwise, choose null
-        ItemStack heldStack = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-        if (heldStack != null && heldStack.getItem() == CustomItems.SELECTION) {
-            Selection heldSelection = ItemSelection.getSelection(heldStack);
-            SelectionStorage.chosenSelection = heldSelection;
-        } else {
-            SelectionStorage.chosenSelection = null;
-        }
+        SelectionStorage.renderChosenSelection = !SelectionStorage.renderChosenSelection;
     }
 
 }
