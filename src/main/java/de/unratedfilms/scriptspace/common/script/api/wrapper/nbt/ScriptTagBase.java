@@ -20,39 +20,6 @@ import net.minecraft.nbt.NBTTagString;
  */
 public abstract class ScriptTagBase {
 
-    protected final NBTBase base;
-
-    public ScriptTagBase(NBTBase base) {
-
-        this.base = base;
-    }
-
-    public abstract ScriptTagBase copy();
-
-    @Override
-    public String toString() {
-
-        return base.toString();
-    }
-
-    @Override
-    public int hashCode() {
-
-        return base.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj instanceof ScriptTagBase) {
-            return ((ScriptTagBase) obj).base.equals(base);
-        }
-        return false;
-    }
-
-    /**
-     * Called to create a script visible NBT Tag.
-     */
     public static ScriptTagBase createFromNative(NBTBase base) {
 
         if (base instanceof NBTTagByte) {
@@ -89,7 +56,36 @@ public abstract class ScriptTagBase {
             return new ScriptTagString((NBTTagString) base);
         }
         return null;
+    }
 
+    protected final NBTBase base;
+
+    public ScriptTagBase(NBTBase base) {
+
+        this.base = base;
+    }
+
+    public abstract ScriptTagBase copy();
+
+    @Override
+    public String toString() {
+
+        return base.toString();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return base.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj instanceof ScriptTagBase) {
+            return ((ScriptTagBase) obj).base.equals(base);
+        }
+        return false;
     }
 
 }

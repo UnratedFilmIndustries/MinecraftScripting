@@ -69,9 +69,6 @@ public class Utils {
         }
     }
 
-    /**
-     * Gets all tile entities within a given AABB.
-     */
     @SuppressWarnings ("unchecked")
     public static List<TileEntity> getTileEntitiesInAABB(World world, AxisAlignedBB selAABB) {
 
@@ -106,6 +103,7 @@ public class Utils {
     }
 
     /**
+     * @param entity The {@link Entity} whose NBT data should be sent to the client so that the client knows the entitie's current NBT state.
      * @throws IllegalStateException When called from the client.
      */
     public static void syncEntityNBTToClients(Entity entity) {
@@ -127,6 +125,7 @@ public class Utils {
     }
 
     /**
+     * @param tileEntity The {@link TileEntity} whose state data should be sent to the client so that the client knows the tile entitie's current state.
      * @throws IllegalStateException When called from the client.
      */
     public static void syncTileEntityToClients(TileEntity tileEntity) {

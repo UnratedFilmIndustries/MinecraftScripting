@@ -75,6 +75,7 @@ public class CNPC_ScriptDataInventory {
 
     /**
      * @param slot The armor slot to return (0: head, 1: body, 2: legs, 3: boots).
+     * @return The item stack that is currently present in the given armor slot.
      */
     public ScriptItemStack getArmor(int slot) {
 

@@ -3,7 +3,6 @@ package de.unratedfilms.scriptspace.common.script.api.js;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
-import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeIterator;
 import org.mozilla.javascript.ScriptRuntime;
@@ -43,9 +42,6 @@ public class Range extends ScriptableObject {
         this(0, high);
     }
 
-    /**
-     * @see FunctionObject
-     */
     @JSConstructor
     public static Object constructor(Context cx, Object[] args, Function ctorObj, boolean inNewExpr) {
 
