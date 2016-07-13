@@ -1,6 +1,7 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
+import java.util.Locale;
 import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
 import de.unratedfilms.guilib.vanilla.TextFieldVanilla;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingFloat;
@@ -17,7 +18,7 @@ public class SetFloatTextField extends TextFieldVanilla implements SettingWidget
         super(60, 14, new DecimalNumberFilter());
 
         setMaxLength(15);
-        setText("" + setting.value);
+        setText(String.format(Locale.ENGLISH, "%.3f", setting.value));
         this.setting = setting;
 
         xShift = MC.fontRenderer.getStringWidth(setting.displayName) + 10;
