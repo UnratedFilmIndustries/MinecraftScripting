@@ -1,4 +1,5 @@
 block/RemoveBlocks.js
 block/ReplaceBlocks.js
 
+entity/SpawnEntities.js
 entity/RemoveEntities.js
