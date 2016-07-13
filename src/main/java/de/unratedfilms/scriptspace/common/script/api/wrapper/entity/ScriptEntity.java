@@ -3,15 +3,17 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry.EntityRegistration;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.factory.ScriptEntityFactory;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
@@ -31,30 +33,57 @@ public class ScriptEntity {
         return ScriptEntityFactory.createFromNative(entity);
     }
 
-    @SuppressWarnings ("unchecked")
     public static String[] getAllEntityNames() {
 
-        return collectionToSortedArray(EntityList.stringToClassMapping.keySet());
+        return getSortedRealEntities().keySet().toArray(new String[0]);
     }
 
-    @SuppressWarnings ("unchecked")
     public static String[] getAllLivingEntityNames() {
 
         List<String> names = new ArrayList<>();
-        for (Entry<String, Class<?>> entry : ((Map<String, Class<?>>) EntityList.stringToClassMapping).entrySet()) {
-            Class<?> clazz = entry.getValue();
-            if (!Modifier.isAbstract(clazz.getModifiers()) && EntityLiving.class.isAssignableFrom(clazz)) {
+
+        for (Entry<String, Class<? extends Entity>> entry : getSortedRealEntities().entrySet()) {
+            Class<? extends Entity> entityClass = entry.getValue();
+            if (EntityLiving.class.isAssignableFrom(entityClass)) {
                 names.add(entry.getKey());
             }
         }
-        return collectionToSortedArray(names);
+
+        return names.toArray(new String[0]);
     }
 
-    private static String[] collectionToSortedArray(Collection<String> collection) {
+    /*
+     * Mod entities are registered twice. Once entity is called "NAME", while the other one is called "MOD.NAME".
+     * Although both entities actually mean the same entity type, most applications only work with the "MOD.NAME" version.
+     * Therefore, this method filters out all those virtual "NAME" mod entities. Note that vanilla entities are not affected.
+     *
+     * Moreover, all abstract entities are filtered out.
+     * Finally, as a bonus, this method already sorts the entire map by entity name.
+     */
+    @SuppressWarnings ("unchecked")
+    private static SortedMap<String, Class<? extends Entity>> getSortedRealEntities() {
 
-        String[] array = collection.toArray(new String[collection.size()]);
-        Arrays.sort(array);
-        return array;
+        SortedMap<String, Class<? extends Entity>> result = new TreeMap<>();
+
+        for (Entry<String, Class<? extends Entity>> entity : ((Map<String, Class<? extends Entity>>) EntityList.stringToClassMapping).entrySet()) {
+            String entityName = entity.getKey();
+            Class<? extends Entity> entityClass = entity.getValue();
+
+            // Filter out abstract entities
+            if (Modifier.isAbstract(entityClass.getModifiers())) {
+                continue;
+            }
+
+            // Filter out only-"NAME" mod entities; note that EntityRegistration.getEntityName() returns the name without the "MOD." prefix!
+            EntityRegistration modEntity = EntityRegistry.instance().lookupModSpawn(entityClass, false);
+            if (modEntity != null && entityName.equals(modEntity.getEntityName())) {
+                continue;
+            }
+
+            result.put(entityName, entityClass);
+        }
+
+        return result;
     }
 
     public final Entity entity;
