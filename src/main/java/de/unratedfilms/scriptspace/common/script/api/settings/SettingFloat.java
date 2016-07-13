@@ -15,7 +15,7 @@ public class SettingFloat extends Setting {
 
     public SettingFloat(String name, String displayName, float value) {
 
-        this(name, displayName, value, Float.MIN_VALUE, Float.MAX_VALUE);
+        this(name, displayName, value, -Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     public SettingFloat(String name, String displayName, float value, float min, float max) {
