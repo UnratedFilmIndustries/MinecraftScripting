@@ -56,7 +56,6 @@ public class ScriptEntity {
      * Mod entities are registered twice. Once entity is called "NAME", while the other one is called "MOD.NAME".
      * Although both entities actually mean the same entity type, most applications only work with the "MOD.NAME" version.
      * Therefore, this method filters out all those virtual "NAME" mod entities. Note that vanilla entities are not affected.
-     *
      * Moreover, all abstract entities are filtered out.
      * Finally, as a bonus, this method already sorts the entire map by entity name.
      */
@@ -132,7 +131,7 @@ public class ScriptEntity {
 
     public ScriptVec3 getLocation() {
 
-        return new ScriptVec3(entity.posX, entity.posY, entity.posZ);
+        return new ScriptVec3(getX(), getY(), getZ());
     }
 
     public double getX() {
@@ -158,6 +157,21 @@ public class ScriptEntity {
     public void setLocation(double x, double y, double z) {
 
         entity.setPosition(x, y, z);
+    }
+
+    public void setX(double x) {
+
+        setLocation(x, getY(), getZ());
+    }
+
+    public void setY(double y) {
+
+        setLocation(getX(), y, getZ());
+    }
+
+    public void setZ(double z) {
+
+        setLocation(getX(), getY(), z);
     }
 
     public float getRotationYaw() {
