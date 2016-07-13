@@ -1,10 +1,10 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
 import de.unratedfilms.guilib.vanilla.TextFieldVanilla;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingInt;
-import de.unratedfilms.scriptspace.common.util.Utils;
 
 public class SetIntTextField extends TextFieldVanilla implements SettingWidget, Shiftable {
 
@@ -26,7 +26,7 @@ public class SetIntTextField extends TextFieldVanilla implements SettingWidget, 
     @Override
     public SettingInt applySetting() {
 
-        int value = Utils.parseIntWithDMinMax(getText(), setting.value, setting.min, setting.max);
+        int value = NumberUtils.toInt(getText(), setting.value);
         return setting.withValue(value);
     }
 

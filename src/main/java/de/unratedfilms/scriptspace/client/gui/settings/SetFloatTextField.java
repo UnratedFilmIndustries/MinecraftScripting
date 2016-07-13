@@ -2,10 +2,10 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.Locale;
+import org.apache.commons.lang3.math.NumberUtils;
 import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
 import de.unratedfilms.guilib.vanilla.TextFieldVanilla;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingFloat;
-import de.unratedfilms.scriptspace.common.util.Utils;
 
 public class SetFloatTextField extends TextFieldVanilla implements SettingWidget, Shiftable {
 
@@ -27,7 +27,7 @@ public class SetFloatTextField extends TextFieldVanilla implements SettingWidget
     @Override
     public SettingFloat applySetting() {
 
-        float value = Utils.parseFloatWithDMinMax(getText(), setting.value, setting.min, setting.max);
+        float value = NumberUtils.toFloat(getText(), setting.value);
         return setting.withValue(value);
     }
 

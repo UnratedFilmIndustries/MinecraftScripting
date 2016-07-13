@@ -1,6 +1,7 @@
 
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
 public class SettingStringList extends Setting {
@@ -11,7 +12,7 @@ public class SettingStringList extends Setting {
 
     public SettingStringList(String name, String displayName, String[] options) {
 
-        this(name, displayName, options, options[0]);
+        this(name, displayName, options, null);
     }
 
     public SettingStringList(String name, String displayName, String[] options, String selected) {
@@ -21,7 +22,7 @@ public class SettingStringList extends Setting {
         Validate.isTrue(options.length > 0, "Must have at least 1 option");
 
         this.options = options;
-        this.selected = selected;
+        this.selected = !ArrayUtils.contains(options, selected) ? options[0] : selected;
     }
 
     @Override

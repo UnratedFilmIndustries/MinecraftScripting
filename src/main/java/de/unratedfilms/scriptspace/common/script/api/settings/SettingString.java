@@ -1,8 +1,6 @@
 
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
-import org.apache.commons.lang3.Validate;
-
 public class SettingString extends Setting {
 
     public final String string;
@@ -16,8 +14,7 @@ public class SettingString extends Setting {
 
         super(name, displayName);
 
-        Validate.notNull(string);
-        this.string = string;
+        this.string = string == null ? "" : string;
     }
 
     @Override

@@ -26,49 +26,6 @@ public class Utils {
         return (int) Math.floor(value);
     }
 
-    public static int parseIntWithMinMax(String s, int min, int max) throws NumberFormatException {
-
-        int i = Integer.parseInt(s);
-        if (i < min) {
-            return min;
-        }
-        if (i > max) {
-            return max;
-        }
-        return i;
-
-    }
-
-    public static int parseIntWithDMinMax(String s, int _default, int min, int max) {
-
-        try {
-            return parseIntWithMinMax(s, min, max);
-        } catch (NumberFormatException e) {
-            return _default;
-        }
-    }
-
-    public static float parseFloatWithMinMax(String s, float min, float max) throws NumberFormatException {
-
-        float f = Float.parseFloat(s);
-        if (f < min) {
-            return min;
-        }
-        if (f > max) {
-            return max;
-        }
-        return f;
-    }
-
-    public static float parseFloatWithDMinMax(String s, float _default, float min, float max) {
-
-        try {
-            return parseFloatWithMinMax(s, min, max);
-        } catch (NumberFormatException e) {
-            return _default;
-        }
-    }
-
     @SuppressWarnings ("unchecked")
     public static List<TileEntity> getTileEntitiesInAABB(World world, AxisAlignedBB selAABB) {
 
