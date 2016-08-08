@@ -19,7 +19,7 @@ import de.unratedfilms.scriptspace.common.script.api.settings.SettingItemStack;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingString;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptArray;
-import de.unratedfilms.scriptspace.common.script.api.util.ScriptIO;
+import de.unratedfilms.scriptspace.common.script.api.util.ScriptLogger;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec2;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptRandom;
@@ -82,7 +82,7 @@ class ContextConfigurator {
 
                 // "util" package
                 .put("Array", ScriptArray.class)
-                .put("IO", ScriptIO.class)
+                .put("Logger", ScriptLogger.class)
                 .put("Vec2", ScriptVec2.class)
                 .put("Vec3", ScriptVec3.class)
 
