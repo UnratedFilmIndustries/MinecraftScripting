@@ -3,7 +3,6 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import java.util.Random;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
@@ -53,10 +52,9 @@ public class ScriptEntityLivingBase extends ScriptEntity {
         return new ScriptItemStack(entityLivingBase.getEquipmentInSlot(slot));
     }
 
-    public void setCurrentItemOrArmor(int slot, ScriptItemStack is) {
+    public void setCurrentItemOrArmor(int slot, ScriptItemStack stack) {
 
-        ItemStack stack = is == null ? null : is.stack;
-        entityLivingBase.setCurrentItemOrArmor(slot, stack);
+        entityLivingBase.setCurrentItemOrArmor(slot, stack == null || stack.isAir() ? null : stack.stack);
     }
 
     public void setSprinting(boolean sprint) {

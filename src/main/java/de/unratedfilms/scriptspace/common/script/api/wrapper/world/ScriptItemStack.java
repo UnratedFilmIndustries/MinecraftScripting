@@ -1,17 +1,27 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.world;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
+import de.unratedfilms.scriptspace.common.util.NBTUtils;
 
 public class ScriptItemStack {
 
     public final ItemStack stack;
 
+    /**
+     * Creates a new totally empty item stack that represents nothing but "air".
+     */
+    public ScriptItemStack() {
+
+        this(new ItemStack((Item) null));
+    }
+
     public ScriptItemStack(ItemStack is) {
 
-        stack = is;
+        stack = is == null ? new ItemStack((Item) null) : is;
     }
 
     public ScriptItemStack(ScriptItem item, int size, int damage) {
@@ -24,9 +34,14 @@ public class ScriptItemStack {
         stack = new ItemStack(block == null ? null : block.block, size, damage);
     }
 
+    public boolean isAir() {
+
+        return stack.getItem() == null;
+    }
+
     public ScriptItem getItem() {
 
-        return stack.getItem() == null ? null : ScriptItem.fromItem(stack.getItem());
+        return ScriptItem.fromItem(stack.getItem());
     }
 
     public int getStackSize() {
@@ -66,7 +81,9 @@ public class ScriptItemStack {
 
     public ScriptTagCompound writeToTag() {
 
-        return new ScriptTagCompound(stack.writeToNBT(new NBTTagCompound()));
+        NBTTagCompound tag = new NBTTagCompound();
+        NBTUtils.writeItemStack(tag, stack);
+        return new ScriptTagCompound(tag);
     }
 
     public void readFromTag(ScriptTagCompound tag) {

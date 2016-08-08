@@ -26,6 +26,7 @@ public class SetItemStackButton extends SetAbstractItemButton {
 
         if (allItemsCache == null) {
             allItemsCache = new ArrayList<>();
+            allItemsCache.add(new ItemStack((Item) null));
             for (Iterator<Item> iterator = Item.itemRegistry.iterator(); iterator.hasNext();) {
                 Item item = iterator.next();
                 if (item != null && item.getCreativeTab() != null) {

@@ -2,6 +2,8 @@
 package de.unratedfilms.scriptspace.common.util;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
 public class ByteBufUtils2 {
@@ -38,6 +40,17 @@ public class ByteBufUtils2 {
         to.writeInt(x);
         to.writeInt(y);
         to.writeInt(z);
+    }
+
+    public static ItemStack readItemStack(ByteBuf from) {
+
+        ItemStack stack = ByteBufUtils.readItemStack(from);
+        return stack == null ? new ItemStack((Item) null) : stack;
+    }
+
+    public static void writeItemStack(ByteBuf to, ItemStack stack) {
+
+        ByteBufUtils.writeItemStack(to, stack.getItem() == null ? null : stack);
     }
 
     private ByteBufUtils2() {

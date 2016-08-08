@@ -1,6 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.util;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -65,6 +67,17 @@ public class NBTUtils {
         to.setInteger("x", x);
         to.setInteger("y", y);
         to.setInteger("z", z);
+    }
+
+    public static ItemStack readItemStack(NBTTagCompound from) {
+
+        ItemStack stack = ItemStack.loadItemStackFromNBT(from);
+        return stack == null ? new ItemStack((Item) null) : stack;
+    }
+
+    public static void writeItemStack(NBTTagCompound to, ItemStack stack) {
+
+        stack.writeToNBT(to);
     }
 
     private NBTUtils() {
