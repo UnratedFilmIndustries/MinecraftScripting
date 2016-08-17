@@ -31,16 +31,19 @@ import de.unratedfilms.scriptspace.net.messages.RunProgramServerMessage;
 
 public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
-    private static final int V_MARGIN = 10;
-    private static final int H_MARGIN = 10;
+    private static final int          V_MARGIN                = 10;
+    private static final int          H_MARGIN                = 10;
 
-    private final Program    program;
-    private final int        programItemStackSlotId;
+    private final Program             program;
+    private final int                 programItemStackSlotId;
 
-    private Label            titleLabel;
-    private Button           applyAndRunButton;
-    private Button           applyButton;
-    private Button           cancelButton;
+    private Label                     titleLabel;
+    private Button                    applyAndRunButton;
+    private Button                    applyButton;
+    private Button                    cancelButton;
+
+    private SetStringTextField        programTitleSetting;                        // The title setting each program has
+    private final List<SettingWidget> programSpecificSettings = new ArrayList<>(); // The other settings which are defined by the program itself
 
     public ConfigureProgramScreen(GuiScreen parent, Program program, int programItemStackSlotId) {
 
@@ -61,8 +64,16 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
         cancelButton = new ButtonVanilla(60, 20, I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseButtonHandler());
         mainContainer.addWidgets(titleLabel, applyAndRunButton, applyButton, cancelButton);
 
+        // Add a widget which the user can use to change the program's title; it's a "virtual setting" since it's only created for this GUI
+        // Afterwards, the title is stored in a normal String variable (Program.title)
+        programTitleSetting = new SetStringTextField(new SettingString("title", "Title", program.getTitle()));
+        scrollableContainer.addWidgets(programTitleSetting);
+
+        // Add a widget for each setting
         for (Setting setting : program.getSettings()) {
-            scrollableContainer.addWidgets(getSettingWidget(setting));
+            Widget settingWidget = getSettingWidget(setting);
+            scrollableContainer.addWidgets(settingWidget);
+            programSpecificSettings.add((SettingWidget) settingWidget);
         }
     }
 
@@ -100,12 +111,14 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
     private Program applySettings() {
 
+        String title = programTitleSetting.getText();
+
         List<Setting> newSettings = new ArrayList<>();
-        for (Widget widget : scrollableContainer.getWidgets()) {
-            newSettings.add( ((SettingWidget) widget).applySetting());
+        for (SettingWidget widget : programSpecificSettings) {
+            newSettings.add(widget.applySetting());
         }
 
-        return new Program(program.getSourceScript(), newSettings);
+        return new Program(title, program.getSourceScript(), newSettings);
     }
 
     private class ApplyAndRunButtonHandler implements ButtonHandler {

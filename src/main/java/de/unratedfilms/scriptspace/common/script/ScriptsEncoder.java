@@ -34,6 +34,7 @@ public class ScriptsEncoder {
 
     public static Program readProgramBinary(ByteBuf from) {
 
+        String title = ByteBufUtils.readUTF8String(from);
         SourceScript sourceScript = readSourceScriptBinary(from);
 
         Setting[] settings = new Setting[from.readInt()];
@@ -41,11 +42,12 @@ public class ScriptsEncoder {
             settings[i] = SettingsEncoder.readBinary(from);
         }
 
-        return new Program(sourceScript, Arrays.asList(settings));
+        return new Program(title, sourceScript, Arrays.asList(settings));
     }
 
     public static void writeProgramBinary(ByteBuf to, Program program) {
 
+        ByteBufUtils.writeUTF8String(to, program.getTitle());
         writeSourceScriptBinary(to, program.getSourceScript());
 
         to.writeInt(program.getSettings().size());
@@ -74,6 +76,7 @@ public class ScriptsEncoder {
 
     public static Program readProgramNBT(NBTTagCompound from) {
 
+        String title = from.getString("title");
         SourceScript sourceScript = readSourceScriptNBT(from.getCompoundTag("sourceScript"));
 
         List<Setting> settings = new ArrayList<>();
@@ -81,11 +84,12 @@ public class ScriptsEncoder {
             settings.add(SettingsEncoder.readNBT(settingCompound));
         }
 
-        return new Program(sourceScript, settings);
+        return new Program(title, sourceScript, settings);
     }
 
     public static void writeProgramNBT(NBTTagCompound to, Program program) {
 
+        to.setString("title", program.getTitle());
         writeSourceScriptNBT(NBTUtils.addNewCompoundTag(to, "sourceScript"), program.getSourceScript());
 
         NBTTagCompound[] settingCompounds = new NBTTagCompound[program.getSettings().size()];

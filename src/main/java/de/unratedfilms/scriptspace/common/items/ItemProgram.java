@@ -34,7 +34,8 @@ public class ItemProgram extends ItemCustom {
         ScriptsEncoder.writeProgramNBT(tag, program);
         stack.setTagCompound(tag);
 
-        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(INSTANCE.getUnlocalizedName() + ".name", program.getSourceScript().getName()));
+        String programDisplayName = program.getTitle().isEmpty() ? program.getSourceScript().getName() : program.getTitle() + " (" + program.getSourceScript().getName() + ")";
+        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(INSTANCE.getUnlocalizedName() + ".name", programDisplayName));
     }
 
     private ItemProgram() {
