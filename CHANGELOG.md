@@ -5,7 +5,9 @@
 * Vastly improve the CustomNPCs API extension. Using the new API, scripts are now able to edit Custom NPCs to the finest level of detail.
 * Rename the `ScriptIO` class to `ScriptLogger` because that essentially is what the class does.
 * Also greatly improve other minor API components here and there.
+* You can now give each program item a custom title which you can use to briefly describe what the program does. That way, you won't get lost in your mess of different program items anymore.
 * Add proper support for "air" item stacks both to the GUI and the internals.
+* By middle-clicking onto a block or an item setting inside the program configuration screen, you can now obtain the block or item that is stored inside that setting.
 * It is now possible to choose selections by clicking with the selection item. Moreover, as soon as you edit a selection, that selection is automatically chosen.
 * The currently chosen selection can be temporarily hidden and shown again with the key that was previously used to choose a selection.
 
