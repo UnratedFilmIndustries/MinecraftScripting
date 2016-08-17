@@ -9,9 +9,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import de.unratedfilms.guilib.core.Button;
+import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.scriptspace.client.gui.settings.widgets.ItemPopup;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingItemStack;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
+import de.unratedfilms.scriptspace.net.NetworkService;
+import de.unratedfilms.scriptspace.net.messages.GiveItemStackServerMessage;
 
 public class SetItemStackButton extends SetAbstractItemButton {
 
@@ -75,13 +78,17 @@ public class SetItemStackButton extends SetAbstractItemButton {
         return list;
     }
 
-    private class Handler extends LeftButtonHandler {
+    private class Handler implements ButtonHandler {
 
         // Note that button == SetItemStackButton.this
         @Override
-        public void leftButtonClicked(Button button) {
+        public void buttonClicked(Button button, MouseButton mouseButton) {
 
-            MC.displayGuiScreen(new ItemPopup(SetItemStackButton.this, getItems(), (ConfigureProgramScreen) MC.currentScreen));
+            if (mouseButton == MouseButton.LEFT) {
+                MC.displayGuiScreen(new ItemPopup(SetItemStackButton.this, getItems(), (ConfigureProgramScreen) MC.currentScreen));
+            } else if (mouseButton == MouseButton.MIDDLE || mouseButton == MouseButton.RIGHT) {
+                NetworkService.DISPATCHER.sendToServer(new GiveItemStackServerMessage(item));
+            }
         }
 
     }

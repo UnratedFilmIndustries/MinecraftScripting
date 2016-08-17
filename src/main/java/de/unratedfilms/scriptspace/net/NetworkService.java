@@ -15,6 +15,8 @@ import de.unratedfilms.scriptspace.net.messages.ChangeProgramItemServerMessage;
 import de.unratedfilms.scriptspace.net.messages.ChangeProgramItemServerMessage.ChangeProgramItemServerMessageHandler;
 import de.unratedfilms.scriptspace.net.messages.EntityNBTClientMessage;
 import de.unratedfilms.scriptspace.net.messages.EntityNBTClientMessage.EntityNBTClientMessageHandler;
+import de.unratedfilms.scriptspace.net.messages.GiveItemStackServerMessage;
+import de.unratedfilms.scriptspace.net.messages.GiveItemStackServerMessage.GiveItemStackServerMessageHandler;
 import de.unratedfilms.scriptspace.net.messages.RunProgramServerMessage;
 import de.unratedfilms.scriptspace.net.messages.RunProgramServerMessage.RunProgramServerMessageHandler;
 
@@ -35,6 +37,9 @@ public class NetworkService {
 
         // Run program message
         registerMessage(RunProgramServerMessageHandler.class, RunProgramServerMessage.class, Side.SERVER);
+
+        // Give item stack message
+        registerMessage(GiveItemStackServerMessageHandler.class, GiveItemStackServerMessage.class, Side.SERVER);
 
         // Entity NBT message
         registerMessage(EntityNBTClientMessageHandler.class, EntityNBTClientMessage.class, Side.CLIENT);
