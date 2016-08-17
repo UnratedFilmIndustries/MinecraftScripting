@@ -3,6 +3,7 @@ package de.unratedfilms.scriptspace.client.gui.settings.widgets;
 
 import de.unratedfilms.guilib.basic.BasicScreen;
 import de.unratedfilms.guilib.core.Container;
+import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.core.Scrollbar;
 import de.unratedfilms.guilib.focusable.FocusableWidget;
 import de.unratedfilms.guilib.vanilla.ScrollbarVanilla;
@@ -11,7 +12,6 @@ import de.unratedfilms.scriptspace.client.gui.settings.SetStringListButton;
 
 /**
  * A hack-ish way to implement a nice looking drop-down menu with GuiLib.
- *
  */
 public class PopupDropdown extends CustomOverlay {
 
@@ -61,12 +61,10 @@ public class PopupDropdown extends CustomOverlay {
     @Override
     protected void mouseClicked(int mx, int my, int code) {
 
-        if (code == 0) {
-            if (container.inBounds(mx, my)) {
-                container.mouseClicked(mx, my);
-            } else {
-                close();
-            }
+        if (container.inBounds(mx, my)) {
+            container.mouseClicked(mx, my, MouseButton.fromCode(code));
+        } else {
+            close();
         }
     }
 

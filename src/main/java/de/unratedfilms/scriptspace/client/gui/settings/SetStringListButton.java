@@ -2,12 +2,11 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import de.unratedfilms.guilib.core.Button;
 import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
 import de.unratedfilms.guilib.vanilla.ButtonVanilla;
 import de.unratedfilms.scriptspace.client.gui.settings.widgets.PopupDropdown;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
-import de.unratedfilms.scriptspace.common.util.Deobf;
 
 public class SetStringListButton extends ButtonVanilla implements SettingWidget, Shiftable {
 
@@ -18,6 +17,7 @@ public class SetStringListButton extends ButtonVanilla implements SettingWidget,
     public SetStringListButton(SettingStringList setting) {
 
         super(Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.selected) + 8, 15, setting.selected, null);
+        handler = new Handler();
 
         this.setting = setting;
 
@@ -55,11 +55,15 @@ public class SetStringListButton extends ButtonVanilla implements SettingWidget,
         super.draw(mx, my);
     }
 
-    @Override
-    public void handleClick(int mx, int my) {
+    private class Handler extends LeftButtonHandler {
 
-        MC.getSoundHandler().playSound(Deobf.PositionedSoundRecord_create(new ResourceLocation("gui.button.press"), 1.0F));
-        MC.displayGuiScreen(new PopupDropdown(this, setting.options, (ConfigureProgramScreen) MC.currentScreen));
+        // Note that button == SetStringListButton.this
+        @Override
+        public void leftButtonClicked(Button button) {
+
+            MC.displayGuiScreen(new PopupDropdown(SetStringListButton.this, setting.options, (ConfigureProgramScreen) MC.currentScreen));
+        }
+
     }
 
 }

@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Button.ButtonHandler;
+import de.unratedfilms.guilib.core.Button.LeftButtonHandler;
 import de.unratedfilms.guilib.core.Label;
 import de.unratedfilms.guilib.focusable.FocusableLabel;
 import de.unratedfilms.guilib.vanilla.ButtonVanilla;
@@ -67,10 +67,10 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
         cancelButton.setPosition(width / 2 + 2, height - V_MARGIN - 20);
     }
 
-    private class FinishButtonHandler implements ButtonHandler {
+    private class FinishButtonHandler extends LeftButtonHandler {
 
         @Override
-        public void buttonClicked(Button button) {
+        public void leftButtonClicked(Button button) {
 
             FocusableLabel focusedScriptLabel = (FocusableLabel) scrollableContainer.getFocusedWidget();
 

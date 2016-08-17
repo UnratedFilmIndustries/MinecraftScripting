@@ -7,8 +7,9 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 import de.unratedfilms.guilib.basic.BasicScreen;
 import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Button.ButtonHandler;
+import de.unratedfilms.guilib.core.Button.LeftButtonHandler;
 import de.unratedfilms.guilib.core.Container;
+import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.core.Scrollbar;
 import de.unratedfilms.guilib.core.Widget;
 import de.unratedfilms.guilib.vanilla.ScrollbarVanilla;
@@ -16,7 +17,7 @@ import de.unratedfilms.guilib.vanilla.items.ItemButton;
 import de.unratedfilms.scriptspace.client.gui.CustomOverlay;
 import de.unratedfilms.scriptspace.client.gui.settings.SetAbstractItemButton;
 
-public class ItemPopup extends CustomOverlay implements ButtonHandler {
+public class ItemPopup extends CustomOverlay {
 
     private static final int            SCROLLBAR_WIDTH = 10;
 
@@ -42,7 +43,7 @@ public class ItemPopup extends CustomOverlay implements ButtonHandler {
 
         Widget[] widgets = new Widget[options.size()];
         for (int i = 0; i < widgets.length; i++) {
-            widgets[i] = new ItemButton(options.get(i), this);
+            widgets[i] = new ItemButton(options.get(i), new ChooseItemButtonHandler());
         }
 
         container.addWidgets(widgets);
@@ -109,20 +110,21 @@ public class ItemPopup extends CustomOverlay implements ButtonHandler {
     @Override
     protected void mouseClicked(int mx, int my, int code) {
 
-        if (code == 0) {
-            if (container.inBounds(mx, my)) {
-                container.mouseClicked(mx, my);
-            } else {
-                close();
-            }
+        if (container.inBounds(mx, my)) {
+            container.mouseClicked(mx, my, MouseButton.fromCode(code));
+        } else {
+            close();
         }
     }
 
-    @Override
-    public void buttonClicked(Button button) {
+    private class ChooseItemButtonHandler extends LeftButtonHandler {
 
-        itemButton.setItem( ((ItemButton) button).getItem());
-        close();
+        @Override
+        public void leftButtonClicked(Button button) {
+
+            itemButton.setItem( ((ItemButton) button).getItem());
+            close();
+        }
     }
 
 }

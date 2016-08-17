@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentTranslation;
 import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Button.ButtonHandler;
+import de.unratedfilms.guilib.core.Button.LeftButtonHandler;
 import de.unratedfilms.guilib.core.Label;
 import de.unratedfilms.guilib.core.Widget;
 import de.unratedfilms.guilib.vanilla.ButtonVanilla;
@@ -121,10 +121,10 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
         return new Program(title, program.getSourceScript(), newSettings);
     }
 
-    private class ApplyAndRunButtonHandler implements ButtonHandler {
+    private class ApplyAndRunButtonHandler extends LeftButtonHandler {
 
         @Override
-        public void buttonClicked(Button button) {
+        public void leftButtonClicked(Button button) {
 
             // Construct the new program with the new settings and update the item in the player's hand
             Program newProgram = applySettings();
@@ -144,10 +144,10 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
     }
 
-    private class ApplyButtonHandler implements ButtonHandler {
+    private class ApplyButtonHandler extends LeftButtonHandler {
 
         @Override
-        public void buttonClicked(Button button) {
+        public void leftButtonClicked(Button button) {
 
             NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(programItemStackSlotId, applySettings()));
 

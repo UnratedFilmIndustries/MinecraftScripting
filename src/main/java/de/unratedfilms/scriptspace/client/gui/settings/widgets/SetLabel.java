@@ -1,6 +1,7 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings.widgets;
 
+import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
 import de.unratedfilms.guilib.focusable.FocusableWidget;
 
@@ -27,9 +28,9 @@ public class SetLabel extends FocusableWidget implements Shiftable {
     }
 
     @Override
-    public boolean click(int mx, int my) {
+    public boolean click(int mx, int my, MouseButton mouseButton) {
 
-        return inBounds(mx, my);
+        return mouseButton == MouseButton.LEFT && inBounds(mx, my);
     }
 
     public String getText() {
