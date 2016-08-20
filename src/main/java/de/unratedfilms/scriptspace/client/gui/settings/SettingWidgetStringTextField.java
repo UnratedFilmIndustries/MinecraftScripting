@@ -1,17 +1,16 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
-import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
-import de.unratedfilms.guilib.vanilla.TextFieldVanilla;
+import de.unratedfilms.guilib.widgets.view.impl.TextFieldImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingString;
 
-public class SetStringTextField extends TextFieldVanilla implements SettingWidget, Shiftable {
+public class SettingWidgetStringTextField extends TextFieldImpl implements SettingWidget {
 
     private final SettingString setting;
 
     private final int           xShift;
 
-    public SetStringTextField(SettingString setting) {
+    public SettingWidgetStringTextField(SettingString setting) {
 
         super(200, 14, new VanillaFilter());
 
@@ -35,15 +34,9 @@ public class SetStringTextField extends TextFieldVanilla implements SettingWidge
     }
 
     @Override
-    public void shiftY(int dy) {
-
-        y += dy;
-    }
-
-    @Override
     protected void drawBackground() {
 
-        MC.fontRenderer.drawString(setting.displayName, x - xShift, y + 3, 0xffffff);
+        MC.fontRenderer.drawString(setting.displayName, getX() - xShift, getY() + 3, 0xffffff);
         super.drawBackground();
     }
 

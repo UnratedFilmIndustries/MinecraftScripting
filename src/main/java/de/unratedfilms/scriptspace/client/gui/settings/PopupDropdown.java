@@ -1,29 +1,28 @@
 
-package de.unratedfilms.scriptspace.client.gui.settings.widgets;
+package de.unratedfilms.scriptspace.client.gui.settings;
 
-import de.unratedfilms.guilib.basic.BasicScreen;
-import de.unratedfilms.guilib.core.Container;
+import de.unratedfilms.guilib.core.FocusableWidget;
 import de.unratedfilms.guilib.core.MouseButton;
-import de.unratedfilms.guilib.core.Scrollbar;
-import de.unratedfilms.guilib.focusable.FocusableWidget;
-import de.unratedfilms.guilib.vanilla.ScrollbarVanilla;
+import de.unratedfilms.guilib.integration.BasicScreen;
+import de.unratedfilms.guilib.integration.Container;
+import de.unratedfilms.guilib.widgets.model.Scrollbar;
+import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
 import de.unratedfilms.scriptspace.client.gui.CustomOverlay;
-import de.unratedfilms.scriptspace.client.gui.settings.SetStringListButton;
 
 /**
  * A hack-ish way to implement a nice looking drop-down menu with GuiLib.
  */
 public class PopupDropdown extends CustomOverlay {
 
-    private final SetStringListButton button;
-    private final String[]            options;
+    private final SettingWidgetStringListButton button;
+    private final String[]                      options;
 
-    private Scrollbar                 scrollbar;
-    private Container                 container;
-    private int                       x, y;
-    private int                       cWidth, cHeight;
+    private Scrollbar                           scrollbar;
+    private Container                           container;
+    private int                                 x, y;
+    private int                                 cWidth, cHeight;
 
-    public PopupDropdown(SetStringListButton button, String[] options, BasicScreen bg) {
+    public PopupDropdown(SettingWidgetStringListButton button, String[] options, BasicScreen bg) {
 
         super(bg);
 
@@ -34,7 +33,7 @@ public class PopupDropdown extends CustomOverlay {
     @Override
     protected void createGui() {
 
-        scrollbar = new ScrollbarVanilla(7);
+        scrollbar = new ScrollbarImpl(7);
         container = new Container(scrollbar, 0, 0);
         for (String s : options) {
             int width = mc.fontRenderer.getStringWidth(s);
@@ -45,12 +44,12 @@ public class PopupDropdown extends CustomOverlay {
         cWidth += 15; // 4 gap on each side, 7 for the scrollbar
         cHeight = options.length * 11;
 
-        FocusableWidget[] widgets = new FocusableWidget[options.length];
-        for (int i = 0; i < widgets.length; i++) {
-            widgets[i] = new SetLabel(options[i], cWidth - 7);
+        PopupDropdownOption[] optionWidgets = new PopupDropdownOption[options.length];
+        for (int i = 0; i < optionWidgets.length; i++) {
+            optionWidgets[i] = new PopupDropdownOption(options[i], cWidth - 7);
         }
+        container.addWidgets(optionWidgets);
 
-        container.addWidgets(widgets);
         containers.add(container);
         selectedContainer = container;
     }
@@ -62,7 +61,7 @@ public class PopupDropdown extends CustomOverlay {
     protected void mouseClicked(int mx, int my, int code) {
 
         if (container.inBounds(mx, my)) {
-            container.mouseClicked(mx, my, MouseButton.fromCode(code));
+            container.mousePressed(mx, my, MouseButton.fromCode(code));
         } else {
             close();
         }
@@ -76,7 +75,7 @@ public class PopupDropdown extends CustomOverlay {
 
         super.updateScreen();
         if (container.hasFocusedWidget()) {
-            button.setSelectedText( ((SetLabel) container.getFocusedWidget()).getText());
+            button.setSelectedText( ((PopupDropdownOption) container.getFocusedWidget()).getText());
             close();
         }
     }

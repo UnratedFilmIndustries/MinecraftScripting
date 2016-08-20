@@ -2,22 +2,20 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import net.minecraft.client.Minecraft;
-import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
-import de.unratedfilms.guilib.vanilla.ButtonVanilla;
-import de.unratedfilms.scriptspace.client.gui.settings.widgets.PopupDropdown;
+import de.unratedfilms.guilib.widgets.model.Button;
+import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
 
-public class SetStringListButton extends ButtonVanilla implements SettingWidget, Shiftable {
+public class SettingWidgetStringListButton extends ButtonLabelImpl implements SettingWidget {
 
     private final SettingStringList setting;
 
     private final int               xShift;
 
-    public SetStringListButton(SettingStringList setting) {
+    public SettingWidgetStringListButton(SettingStringList setting) {
 
         super(Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.selected) + 8, 15, setting.selected, null);
-        handler = new Handler();
+        setHandler(new Handler());
 
         this.setting = setting;
 
@@ -33,7 +31,7 @@ public class SetStringListButton extends ButtonVanilla implements SettingWidget,
     public void setSelectedText(String text) {
 
         setLabel(text);
-        width = MC.fontRenderer.getStringWidth(text) + 8;
+        setWidth(MC.fontRenderer.getStringWidth(text) + 8);
     }
 
     @Override
@@ -43,15 +41,9 @@ public class SetStringListButton extends ButtonVanilla implements SettingWidget,
     }
 
     @Override
-    public void shiftY(int dy) {
-
-        y += dy;
-    }
-
-    @Override
     public void draw(int mx, int my) {
 
-        MC.fontRenderer.drawString(setting.displayName, x - xShift, y + 3, 0xffffff);
+        MC.fontRenderer.drawString(setting.displayName, getX() - xShift, getY() + 3, 0xffffff);
         super.draw(mx, my);
     }
 
@@ -61,7 +53,7 @@ public class SetStringListButton extends ButtonVanilla implements SettingWidget,
         @Override
         public void leftButtonClicked(Button button) {
 
-            MC.displayGuiScreen(new PopupDropdown(SetStringListButton.this, setting.options, (ConfigureProgramScreen) MC.currentScreen));
+            MC.displayGuiScreen(new PopupDropdown(SettingWidgetStringListButton.this, setting.options, (ConfigureProgramScreen) MC.currentScreen));
         }
 
     }

@@ -9,11 +9,14 @@ import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Button.LeftButtonHandler;
-import de.unratedfilms.guilib.core.Label;
-import de.unratedfilms.guilib.focusable.FocusableLabel;
-import de.unratedfilms.guilib.vanilla.ButtonVanilla;
+import de.unratedfilms.guilib.extra.CloseScreenButtonHandler;
+import de.unratedfilms.guilib.widgets.model.Button;
+import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.widgets.model.Label;
+import de.unratedfilms.guilib.widgets.model.LabelFocusable;
+import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
+import de.unratedfilms.guilib.widgets.view.impl.LabelFocusableImpl;
+import de.unratedfilms.guilib.widgets.view.impl.LabelImpl;
 import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.ScriptCompilationException;
 import de.unratedfilms.scriptspace.common.script.SourceScript;
@@ -45,13 +48,13 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
 
         super.createGui();
 
-        titleLabel = new Label(I18n.format("gui." + MOD_ID + ".createProgram.title"));
-        finishButton = new ButtonVanilla(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.finish"), new FinishButtonHandler());
-        cancelButton = new ButtonVanilla(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseButtonHandler());
+        titleLabel = new LabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.title"));
+        finishButton = new ButtonLabelImpl(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.finish"), new FinishButtonHandler());
+        cancelButton = new ButtonLabelImpl(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
         mainContainer.addWidgets(titleLabel, finishButton, cancelButton);
 
         for (SourceScript script : scripts) {
-            FocusableLabel scriptLabel = new FocusableLabel(script.getName(), false);
+            LabelFocusable scriptLabel = new LabelFocusableImpl(script.getName());
             scriptLabel.setUserData(script);
             scrollableContainer.addWidgets(scriptLabel);
         }
@@ -62,7 +65,7 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
 
         super.revalidateGui();
 
-        titleLabel.setPosition(width / 2, V_MARGIN);
+        titleLabel.setPosition( (width - titleLabel.getWidth()) / 2, V_MARGIN);
         finishButton.setPosition(width / 2 - 150, height - V_MARGIN - 20);
         cancelButton.setPosition(width / 2 + 2, height - V_MARGIN - 20);
     }
@@ -72,7 +75,7 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
         @Override
         public void leftButtonClicked(Button button) {
 
-            FocusableLabel focusedScriptLabel = (FocusableLabel) scrollableContainer.getFocusedWidget();
+            LabelFocusable focusedScriptLabel = (LabelFocusable) scrollableContainer.getFocusedWidget();
 
             if (focusedScriptLabel != null) {
                 SourceScript selectedScript = (SourceScript) focusedScriptLabel.getUserData();

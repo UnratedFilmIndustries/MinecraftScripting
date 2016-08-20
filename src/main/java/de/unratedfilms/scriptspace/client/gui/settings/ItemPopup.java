@@ -1,33 +1,33 @@
 
-package de.unratedfilms.scriptspace.client.gui.settings.widgets;
+package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
-import de.unratedfilms.guilib.basic.BasicScreen;
-import de.unratedfilms.guilib.core.Button;
-import de.unratedfilms.guilib.core.Button.LeftButtonHandler;
-import de.unratedfilms.guilib.core.Container;
 import de.unratedfilms.guilib.core.MouseButton;
-import de.unratedfilms.guilib.core.Scrollbar;
 import de.unratedfilms.guilib.core.Widget;
-import de.unratedfilms.guilib.vanilla.ScrollbarVanilla;
-import de.unratedfilms.guilib.vanilla.items.ItemButton;
+import de.unratedfilms.guilib.integration.BasicScreen;
+import de.unratedfilms.guilib.integration.Container;
+import de.unratedfilms.guilib.widgets.model.Button;
+import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.widgets.model.ButtonItem;
+import de.unratedfilms.guilib.widgets.model.Scrollbar;
+import de.unratedfilms.guilib.widgets.view.impl.ButtonItemImpl;
+import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
 import de.unratedfilms.scriptspace.client.gui.CustomOverlay;
-import de.unratedfilms.scriptspace.client.gui.settings.SetAbstractItemButton;
 
 public class ItemPopup extends CustomOverlay {
 
-    private static final int            SCROLLBAR_WIDTH = 10;
+    private static final int                      SCROLLBAR_WIDTH = 10;
 
-    private final List<ItemStack>       options;
-    private final SetAbstractItemButton itemButton;
+    private final List<ItemStack>                 options;
+    private final SettingWidgetAbstractItemButton itemButton;
 
-    private Scrollbar                   scrollbar;
-    private Container                   container;
+    private Scrollbar                             scrollbar;
+    private Container                             container;
 
-    public ItemPopup(SetAbstractItemButton itemButton, List<ItemStack> options, BasicScreen bg) {
+    public ItemPopup(SettingWidgetAbstractItemButton itemButton, List<ItemStack> options, BasicScreen bg) {
 
         super(bg);
 
@@ -38,12 +38,12 @@ public class ItemPopup extends CustomOverlay {
     @Override
     protected void createGui() {
 
-        scrollbar = new ScrollbarVanilla(SCROLLBAR_WIDTH);
+        scrollbar = new ScrollbarImpl(SCROLLBAR_WIDTH);
         container = new Container(scrollbar, 0, 0);
 
         Widget[] widgets = new Widget[options.size()];
         for (int i = 0; i < widgets.length; i++) {
-            widgets[i] = new ItemButton(options.get(i), new ChooseItemButtonHandler());
+            widgets[i] = new ButtonItemImpl(options.get(i), new ChooseItemButtonHandler());
         }
 
         container.addWidgets(widgets);
@@ -57,8 +57,8 @@ public class ItemPopup extends CustomOverlay {
         super.revalidateGui();
         List<Widget> widgets = container.getWidgets();
 
-        int xButtons = width / ItemButton.WIDTH - 6;
-        int yButtons = height / ItemButton.HEIGHT - 5;
+        int xButtons = width / ButtonItemImpl.WIDTH - 6;
+        int yButtons = height / ButtonItemImpl.HEIGHT - 5;
 
         int lines = widgets.size() / xButtons;
         if (widgets.size() % xButtons != 0) {
@@ -66,8 +66,8 @@ public class ItemPopup extends CustomOverlay {
         }
         yButtons = MathHelper.clamp_int(yButtons, 1, lines);
 
-        int cWidth = xButtons * ItemButton.WIDTH + SCROLLBAR_WIDTH;
-        int cHeight = yButtons * ItemButton.HEIGHT;
+        int cWidth = xButtons * ButtonItemImpl.WIDTH + SCROLLBAR_WIDTH;
+        int cHeight = yButtons * ButtonItemImpl.HEIGHT;
         int startX = (width - cWidth) / 2;
         int startY = (height - cHeight) / 2;
 
@@ -77,11 +77,11 @@ public class ItemPopup extends CustomOverlay {
         for (Widget w : widgets) {
             w.setPosition(x, y);
             lineCount++;
-            x += ItemButton.HEIGHT;
+            x += ButtonItemImpl.HEIGHT;
             if (lineCount + 1 > xButtons) {
                 lineCount = 0;
                 x = startX;
-                y += ItemButton.HEIGHT;
+                y += ButtonItemImpl.HEIGHT;
             }
         }
 
@@ -111,7 +111,7 @@ public class ItemPopup extends CustomOverlay {
     protected void mouseClicked(int mx, int my, int code) {
 
         if (container.inBounds(mx, my)) {
-            container.mouseClicked(mx, my, MouseButton.fromCode(code));
+            container.mousePressed(mx, my, MouseButton.fromCode(code));
         } else {
             close();
         }
@@ -122,7 +122,7 @@ public class ItemPopup extends CustomOverlay {
         @Override
         public void leftButtonClicked(Button button) {
 
-            itemButton.setItem( ((ItemButton) button).getItem());
+            itemButton.setItemStack( ((ButtonItem) button).getItemStack());
             close();
         }
     }

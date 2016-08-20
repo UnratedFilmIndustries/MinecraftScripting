@@ -2,10 +2,10 @@
 package de.unratedfilms.scriptspace.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import de.unratedfilms.guilib.core.Container;
-import de.unratedfilms.guilib.core.Scrollbar;
 import de.unratedfilms.guilib.core.Widget;
-import de.unratedfilms.guilib.vanilla.ScrollbarVanilla;
+import de.unratedfilms.guilib.integration.Container;
+import de.unratedfilms.guilib.widgets.model.Scrollbar;
+import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
 
 /**
  * A screen which simply implements a scrollable container with something above and something below it.
@@ -46,7 +46,7 @@ public abstract class SimpleScrollableContainerScreen extends CustomScreen {
 
         mainContainer = new Container();
 
-        scrollbar = new ScrollbarVanilla(SCROLLBAR_WIDTH);
+        scrollbar = new ScrollbarImpl(SCROLLBAR_WIDTH);
         scrollableContainer = new Container(scrollbar, 10, 2 * SCROLLABLE_CONTAINER_V_PADDING);
 
         containers.add(scrollableContainer);

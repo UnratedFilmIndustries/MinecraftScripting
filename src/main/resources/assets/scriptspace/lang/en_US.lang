@@ -24,6 +24,8 @@ message.scriptspace.noChosenSelectionError=In order to run a script, you first n
 
 
 
+gui.scriptspace.itemButton.give=Middle or right click to put this item in your inventory
+
 gui.scriptspace.createProgram.title=Select a script to create a program from:
 gui.scriptspace.createProgram.finish=Create Program
 gui.scriptspace.createProgram.cancel=Cancel

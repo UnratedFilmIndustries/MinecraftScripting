@@ -1,15 +1,14 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
-import de.unratedfilms.guilib.core.Scrollbar.Shiftable;
-import de.unratedfilms.guilib.vanilla.CheckboxVanilla;
+import de.unratedfilms.guilib.widgets.view.impl.CheckboxImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBoolean;
 
-public class SetCheckbox extends CheckboxVanilla implements SettingWidget, Shiftable {
+public class SettingWidgetCheckbox extends CheckboxImpl implements SettingWidget {
 
     private final SettingBoolean setting;
 
-    public SetCheckbox(SettingBoolean setting) {
+    public SettingWidgetCheckbox(SettingBoolean setting) {
 
         super(setting.displayName, setting.enabled);
 
@@ -20,12 +19,6 @@ public class SetCheckbox extends CheckboxVanilla implements SettingWidget, Shift
     public SettingBoolean applySetting() {
 
         return setting.withValue(isChecked());
-    }
-
-    @Override
-    public void shiftY(int dy) {
-
-        y += dy;
     }
 
 }
