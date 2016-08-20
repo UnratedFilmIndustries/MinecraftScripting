@@ -7,7 +7,7 @@
 * Also greatly improve other minor API components here and there.
 * You can now give each program item a custom title which you can use to briefly describe what the program does. That way, you won't get lost in your mess of different program items anymore.
 * Add proper support for "air" item stacks both to the GUI and the internals.
-* By middle-clicking onto a block or an item setting inside the program configuration screen, you can now obtain the block or item that is stored inside that setting.
+* By middle- or right-clicking onto a block or an item setting inside the program configuration screen, you can now obtain the block or item that is stored inside that setting.
 * It is now possible to choose selections by clicking with the selection item. Moreover, as soon as you edit a selection, that selection is automatically chosen.
 * The currently chosen selection can be temporarily hidden and shown again with the key that was previously used to choose a selection.
 
@@ -15,6 +15,9 @@
 * Fixed the mcmod.info file not containing any version information in the dev JAR.
 * Fixed the entire game crashing when the optional CutomNPCs mod wasn't installed.
 * Fixed several issues with script execution that could potentially come up at really rare occasions.
+
+### Notes
+* Upgrade to version 1.2.0 of GuiLib. If you want to use this version of ScriptSpace, you absolutely need to upgrade to that version of GuiLib!
 
 2.1.3
 -----
