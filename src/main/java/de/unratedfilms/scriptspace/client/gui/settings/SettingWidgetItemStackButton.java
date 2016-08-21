@@ -63,12 +63,12 @@ public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButto
         List<ItemStack> list = new ArrayList<>();
         for (ItemStack item : MC.thePlayer.inventory.mainInventory) {
             if (item != null) {
-                list.add(item);
+                list.add(item.copy());
             }
         }
         for (ItemStack armor : MC.thePlayer.inventory.armorInventory) {
             if (armor != null) {
-                list.add(armor);
+                list.add(armor.copy());
             }
         }
         list.addAll(getAllItems());
