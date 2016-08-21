@@ -20,9 +20,9 @@ import de.unratedfilms.scriptspace.common.script.api.settings.SettingString;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptArray;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptLogger;
+import de.unratedfilms.scriptspace.common.script.api.util.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec2;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptSelection;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
@@ -83,11 +83,11 @@ class ContextConfigurator {
                 // "util" package
                 .put("Array", ScriptArray.class)
                 .put("Logger", ScriptLogger.class)
+                .put("Rand", ScriptRandom.class)
                 .put("Vec2", ScriptVec2.class)
                 .put("Vec3", ScriptVec3.class)
 
                 // "wrapper" package
-                .put("Rand", ScriptRandom.class)
                 .put("Selection", ScriptSelection.class)
 
                 // "wrapper.entity" package

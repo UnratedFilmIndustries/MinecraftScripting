@@ -1,5 +1,5 @@
 
-package de.unratedfilms.scriptspace.common.script.api.wrapper;
+package de.unratedfilms.scriptspace.common.script.api.util;
 
 import java.util.Random;
 
