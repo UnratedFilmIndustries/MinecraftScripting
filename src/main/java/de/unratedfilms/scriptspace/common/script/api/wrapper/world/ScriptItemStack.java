@@ -24,9 +24,29 @@ public class ScriptItemStack {
         stack = is == null ? new ItemStack((Item) null) : is;
     }
 
+    public ScriptItemStack(ScriptItem item) {
+
+        this(item, 1);
+    }
+
+    public ScriptItemStack(ScriptItem item, int size) {
+
+        this(item, size, 0);
+    }
+
     public ScriptItemStack(ScriptItem item, int size, int damage) {
 
         stack = new ItemStack(item == null ? null : item.item, size, damage);
+    }
+
+    public ScriptItemStack(ScriptBlock block) {
+
+        this(block, 1);
+    }
+
+    public ScriptItemStack(ScriptBlock block, int size) {
+
+        this(block, size, 0);
     }
 
     public ScriptItemStack(ScriptBlock block, int size, int damage) {
