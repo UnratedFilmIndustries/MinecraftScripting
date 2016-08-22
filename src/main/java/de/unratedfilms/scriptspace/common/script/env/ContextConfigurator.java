@@ -50,6 +50,7 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagString
 import de.unratedfilms.scriptspace.common.script.api.wrapper.tileentity.ScriptTileEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItem;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
 class ContextConfigurator {
 
@@ -111,7 +112,8 @@ class ContextConfigurator {
 
                 // "wrapper.world" package
                 .put("Block", ScriptBlock.class)
-                .put("Item", ScriptItem.class);
+                .put("Item", ScriptItem.class)
+                .put("ItemStack", ScriptItemStack.class);
 
         if (Consts.HASMOD_CUSTOM_NPCS) {
             // "wrapper.customnpcs.consts" package
