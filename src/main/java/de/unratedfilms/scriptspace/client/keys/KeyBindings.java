@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.client.keys;
 
-import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
+import net.minecraft.client.settings.KeyBinding;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import de.unratedfilms.scriptspace.common.Consts;
 

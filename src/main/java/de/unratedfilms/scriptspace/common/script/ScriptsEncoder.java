@@ -1,7 +1,6 @@
 
 package de.unratedfilms.scriptspace.common.script;
 
-import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +10,7 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import de.unratedfilms.scriptspace.common.script.api.settings.Setting;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingsEncoder;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;
+import io.netty.buffer.ByteBuf;
 
 public class ScriptsEncoder {
 

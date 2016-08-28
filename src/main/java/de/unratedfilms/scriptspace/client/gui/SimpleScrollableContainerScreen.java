@@ -17,7 +17,7 @@ public abstract class SimpleScrollableContainerScreen extends CustomScreen {
     private static final int SCROLLABLE_CONTAINER_H_PADDING        = 10; // The horizontal padding between the edge of the container and the widgets
     private static final int SCROLLABLE_CONTAINER_V_PADDING        = 10; // The vertical padding between the edge of the container and the widgets
 
-    private static final int SCROLLABLE_CONTAINER_WIDGET_V_PADDING = 5; // The vertical padding between to widgets inside the container
+    private static final int SCROLLABLE_CONTAINER_WIDGET_V_PADDING = 5;  // The vertical padding between to widgets inside the container
 
     private static final int SCROLLBAR_WIDTH                       = 10;
 

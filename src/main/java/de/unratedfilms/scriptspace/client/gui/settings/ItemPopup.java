@@ -2,9 +2,9 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.List;
+import org.lwjgl.opengl.GL11;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.opengl.GL11;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.core.Widget;
 import de.unratedfilms.guilib.integration.BasicScreen;

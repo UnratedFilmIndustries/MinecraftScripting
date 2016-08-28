@@ -1,11 +1,11 @@
 
 package de.unratedfilms.scriptspace.common.selection;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import de.unratedfilms.scriptspace.common.util.ByteBufUtils2;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
+import io.netty.buffer.ByteBuf;
 
 public class SelectionsEncoder {
 

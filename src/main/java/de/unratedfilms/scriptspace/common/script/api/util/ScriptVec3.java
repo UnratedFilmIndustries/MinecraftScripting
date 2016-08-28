@@ -1,9 +1,9 @@
 
 package de.unratedfilms.scriptspace.common.script.api.util;
 
-import net.minecraft.util.Vec3;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import net.minecraft.util.Vec3;
 import de.unratedfilms.scriptspace.common.util.Utils;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
 

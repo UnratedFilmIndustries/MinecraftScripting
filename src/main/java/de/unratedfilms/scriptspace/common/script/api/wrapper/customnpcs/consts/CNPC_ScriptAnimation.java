@@ -2,8 +2,8 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
 import java.util.ArrayList;
-import noppes.npcs.constants.EnumAnimation;
 import com.google.common.collect.ImmutableBiMap;
+import noppes.npcs.constants.EnumAnimation;
 
 public class CNPC_ScriptAnimation {
 

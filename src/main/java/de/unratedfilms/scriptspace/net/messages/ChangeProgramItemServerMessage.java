@@ -1,10 +1,9 @@
 
 package de.unratedfilms.scriptspace.net.messages;
 
-import io.netty.buffer.ByteBuf;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.Validate;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -12,6 +11,7 @@ import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.common.items.ItemProgram;
 import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.ScriptsEncoder;
+import io.netty.buffer.ByteBuf;
 
 /**
  * This message tells the server that it should set the {@link Program} stored in a given {@link ItemProgram} to the supplied program object.

@@ -43,7 +43,7 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
     private Button                       applyButton;
     private Button                       cancelButton;
 
-    private SettingWidgetStringTextField programTitleSetting;                        // The title setting each program has
+    private SettingWidgetStringTextField programTitleSetting;                         // The title setting each program has
     private final List<SettingWidget>    programSpecificSettings = new ArrayList<>(); // The other settings which are defined by the program itself
 
     public ConfigureProgramScreen(GuiScreen parent, Program program, int programItemStackSlotId) {

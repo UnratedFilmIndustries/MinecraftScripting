@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
-import noppes.npcs.DataInventory;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
+import noppes.npcs.DataInventory;
 
 public class CNPC_ScriptDataInventory {
 

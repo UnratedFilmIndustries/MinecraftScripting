@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.client.gui;
 
-import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
+import net.minecraft.client.gui.GuiScreen;
 import de.unratedfilms.guilib.integration.BasicScreen;
 
 public abstract class CustomScreen extends BasicScreen {

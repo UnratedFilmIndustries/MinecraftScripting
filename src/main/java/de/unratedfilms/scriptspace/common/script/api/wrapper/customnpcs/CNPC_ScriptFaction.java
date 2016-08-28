@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
-import noppes.npcs.controllers.Faction;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityPlayer;
+import noppes.npcs.controllers.Faction;
 
 public class CNPC_ScriptFaction {
 

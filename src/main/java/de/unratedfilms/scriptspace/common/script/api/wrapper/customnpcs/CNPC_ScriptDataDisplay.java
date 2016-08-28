@@ -1,14 +1,14 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
-import noppes.npcs.DataDisplay;
-import noppes.npcs.ModelData;
-import noppes.npcs.entity.EntityCustomNpc;
-import noppes.npcs.util.ValueUtil;
 import com.mojang.authlib.GameProfile;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptNameVisibility;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptVisibility;
+import noppes.npcs.DataDisplay;
+import noppes.npcs.ModelData;
+import noppes.npcs.entity.EntityCustomNpc;
+import noppes.npcs.util.ValueUtil;
 
 public class CNPC_ScriptDataDisplay {
 
@@ -80,8 +80,7 @@ public class CNPC_ScriptDataDisplay {
         if (name == null || name.isEmpty()) {
             display.playerProfile = null;
             display.skinType = 0;
-        }
-        else {
+        } else {
             display.playerProfile = new GameProfile(null, name);
             display.skinType = 1;
         }

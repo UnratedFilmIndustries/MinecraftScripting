@@ -2,9 +2,9 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity.factory;
 
 import net.minecraft.entity.Entity;
-import noppes.npcs.entity.EntityNPCInterface;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.CNPC_ScriptEntityCustomNpc;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntity;
+import noppes.npcs.entity.EntityNPCInterface;
 
 class ScriptEntityFactoryCustomNPCs {
 

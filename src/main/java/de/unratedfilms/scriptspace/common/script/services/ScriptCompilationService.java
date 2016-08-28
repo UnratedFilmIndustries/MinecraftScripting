@@ -3,13 +3,13 @@ package de.unratedfilms.scriptspace.common.script.services;
 
 import static de.unratedfilms.scriptspace.common.Consts.LOGGER;
 import static de.unratedfilms.scriptspace.common.Consts.MOD_ID;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import de.unratedfilms.scriptspace.common.script.CompiledScript;
 import de.unratedfilms.scriptspace.common.script.ScriptCompilationException;
 import de.unratedfilms.scriptspace.common.script.SourceScript;

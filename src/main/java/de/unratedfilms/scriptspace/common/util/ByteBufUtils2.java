@@ -1,10 +1,10 @@
 
 package de.unratedfilms.scriptspace.common.util;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.ByteBufUtils;
+import io.netty.buffer.ByteBuf;
 
 public class ByteBufUtils2 {
 

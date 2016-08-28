@@ -3,13 +3,13 @@ package de.unratedfilms.scriptspace.common.selection;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import org.apache.commons.lang3.Validate;
 import de.unratedfilms.scriptspace.common.util.Utils;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
 

@@ -1,15 +1,15 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
-import noppes.npcs.NoppesUtilServer;
-import noppes.npcs.controllers.Line;
-import noppes.npcs.entity.EntityNPCInterface;
-import noppes.npcs.util.ValueUtil;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityLivingBase;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityPlayer;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 import de.unratedfilms.scriptspace.common.util.Utils;
+import noppes.npcs.NoppesUtilServer;
+import noppes.npcs.controllers.Line;
+import noppes.npcs.entity.EntityNPCInterface;
+import noppes.npcs.util.ValueUtil;
 
 /**
  * Most of this code has just been copied from Noppes' CustomNPCs API and its implementation.

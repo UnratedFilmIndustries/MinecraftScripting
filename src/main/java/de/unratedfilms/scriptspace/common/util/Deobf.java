@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.util;
 
-import net.minecraft.server.management.ServerConfigurationManager;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.server.management.ServerConfigurationManager;
 
 public class Deobf {
 

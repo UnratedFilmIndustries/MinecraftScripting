@@ -1,9 +1,9 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRespawnBehavior;
 import noppes.npcs.DataStats;
 import noppes.npcs.util.ValueUtil;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRespawnBehavior;
 
 public class CNPC_ScriptDataStats {
 

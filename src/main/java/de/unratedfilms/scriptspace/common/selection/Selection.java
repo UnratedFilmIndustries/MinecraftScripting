@@ -3,6 +3,7 @@ package de.unratedfilms.scriptspace.common.selection;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
@@ -11,7 +12,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import org.apache.commons.lang3.Validate;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

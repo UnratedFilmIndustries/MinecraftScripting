@@ -2,7 +2,6 @@
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
 import static net.minecraftforge.common.util.Constants.NBT.TAG_STRING;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -10,6 +9,7 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 import de.unratedfilms.scriptspace.common.util.ByteBufUtils2;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;
+import io.netty.buffer.ByteBuf;
 
 public class SettingsEncoder {
 

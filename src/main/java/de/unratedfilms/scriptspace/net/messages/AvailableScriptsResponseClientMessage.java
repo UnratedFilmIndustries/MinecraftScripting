@@ -1,12 +1,11 @@
 
 package de.unratedfilms.scriptspace.net.messages;
 
-import io.netty.buffer.ByteBuf;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import net.minecraft.client.Minecraft;
 import org.apache.commons.lang3.Validate;
+import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -16,6 +15,7 @@ import de.unratedfilms.scriptspace.client.gui.CreateProgramScreen;
 import de.unratedfilms.scriptspace.common.script.ScriptsEncoder;
 import de.unratedfilms.scriptspace.common.script.SourceScript;
 import de.unratedfilms.scriptspace.common.script.services.ScriptSourceService;
+import io.netty.buffer.ByteBuf;
 
 /**
  * After the client asked the server for all available {@link SourceScript}s using an {@link AvailableScriptsRequestServerMessage},

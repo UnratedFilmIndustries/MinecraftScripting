@@ -3,8 +3,6 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
 import java.util.ArrayList;
 import java.util.List;
-import noppes.npcs.DataAI;
-import noppes.npcs.util.ValueUtil;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementBehavior;
@@ -14,6 +12,8 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.C
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptShelteringBehavior;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptTacticalBehavior;
 import de.unratedfilms.scriptspace.common.util.Utils;
+import noppes.npcs.DataAI;
+import noppes.npcs.util.ValueUtil;
 
 public class CNPC_ScriptDataAi {
 
