@@ -17,7 +17,6 @@ public class CommonHandler {
     public void preInit(FMLPreInitializationEvent event) {
 
         // Retrieve dynamic "constants"
-        Consts.MOD_VERSION = event.getModMetadata().version;
         Consts.MINECRAFT_DIR = Paths.get(".");
 
         // Initialize the configuration
