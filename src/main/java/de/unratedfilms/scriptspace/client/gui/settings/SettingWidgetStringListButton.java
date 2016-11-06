@@ -1,61 +1,40 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
-import net.minecraft.client.Minecraft;
-import de.unratedfilms.guilib.widgets.model.Button;
-import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
+import java.util.ArrayList;
+import java.util.List;
+import de.unratedfilms.guilib.widgets.model.Dropdown.GenericOption;
+import de.unratedfilms.guilib.widgets.view.impl.DropdownLabelImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
 
-public class SettingWidgetStringListButton extends ButtonLabelImpl implements SettingWidget {
+public class SettingWidgetStringListButton extends SettingWidget<SettingStringList> {
 
-    private final SettingStringList setting;
-
-    private final int               xShift;
+    private final DropdownLabelImpl<GenericOption<String>> dropdown;
 
     public SettingWidgetStringListButton(SettingStringList setting) {
 
-        super(Minecraft.getMinecraft().fontRenderer.getStringWidth(setting.selected) + 8, 15, setting.selected, null);
-        setHandler(new Handler());
+        super(setting);
 
-        this.setting = setting;
+        List<GenericOption<String>> options = new ArrayList<>();
+        for (String optionString : setting.options) {
+            options.add(new GenericOption<>(optionString));
+        }
+        dropdown = new DropdownLabelImpl<>(options);
+        dropdown.setSelectedOption(new GenericOption<>(setting.selected));
+        settingContainer.addWidget(dropdown);
 
-        xShift = MC.fontRenderer.getStringWidth(setting.displayName) + 10;
+        // ----- Revalidation -----
+
+        settingContainer.appendLayoutManager(() -> {
+            // The width of the dropdown button should always be equal to the width of the dropdown menu
+            dropdown.setSize(dropdown.getExtWidth(), 14);
+        });
     }
 
     @Override
     public SettingStringList applySetting() {
 
-        return setting.withValue(getLabel());
-    }
-
-    public void setSelectedText(String text) {
-
-        setLabel(text);
-        setWidth(MC.fontRenderer.getStringWidth(text) + 8);
-    }
-
-    @Override
-    public void setPosition(int x, int y) {
-
-        super.setPosition(x + xShift, y);
-    }
-
-    @Override
-    public void draw(int mx, int my) {
-
-        MC.fontRenderer.drawString(setting.displayName, getX() - xShift, getY() + 3, 0xffffff);
-        super.draw(mx, my);
-    }
-
-    private class Handler extends LeftButtonHandler {
-
-        // Note that button == SetStringListButton.this
-        @Override
-        public void leftButtonClicked(Button button) {
-
-            MC.displayGuiScreen(new PopupDropdown(SettingWidgetStringListButton.this, setting.options, (ConfigureProgramScreen) MC.currentScreen));
-        }
-
+        return setting.withValue(dropdown.getSelectedOption().getDisplayObject());
     }
 
 }

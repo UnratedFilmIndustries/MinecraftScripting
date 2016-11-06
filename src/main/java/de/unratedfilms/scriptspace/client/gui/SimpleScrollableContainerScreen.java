@@ -2,9 +2,12 @@
 package de.unratedfilms.scriptspace.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import de.unratedfilms.guilib.core.Widget;
-import de.unratedfilms.guilib.integration.Container;
+import de.unratedfilms.guilib.extra.FlowLayoutManager;
+import de.unratedfilms.guilib.extra.FlowLayoutManager.Axis;
+import de.unratedfilms.guilib.widgets.model.ContainerFlexible;
 import de.unratedfilms.guilib.widgets.model.Scrollbar;
+import de.unratedfilms.guilib.widgets.view.impl.ContainerClippingImpl;
+import de.unratedfilms.guilib.widgets.view.impl.ContainerScrollableImpl;
 import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
 
 /**
@@ -14,22 +17,20 @@ import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
  */
 public abstract class SimpleScrollableContainerScreen extends CustomScreen {
 
-    private static final int SCROLLABLE_CONTAINER_H_PADDING        = 10; // The horizontal padding between the edge of the container and the widgets
-    private static final int SCROLLABLE_CONTAINER_V_PADDING        = 10; // The vertical padding between the edge of the container and the widgets
+    private static final int    SCROLLABLE_CONTAINER_H_PADDING        = 10; // The horizontal padding between the edge of the container and the widgets
+    private static final int    SCROLLABLE_CONTAINER_V_PADDING        = 10; // The vertical padding between the edge of the container and the widgets
 
-    private static final int SCROLLABLE_CONTAINER_WIDGET_V_PADDING = 5;  // The vertical padding between to widgets inside the container
+    private static final int    SCROLLABLE_CONTAINER_WIDGET_V_PADDING = 5;  // The vertical padding between to widgets inside the container
 
-    private static final int SCROLLBAR_WIDTH                       = 10;
+    protected final int         scrollableContainerMarginLeft;
+    protected final int         scrollableContainerMarginRight;
+    protected final int         scrollableContainerMarginTop;
+    protected final int         scrollableContainerMarginBottom;
 
-    protected final int      scrollableContainerMarginLeft;
-    protected final int      scrollableContainerMarginRight;
-    protected final int      scrollableContainerMarginTop;
-    protected final int      scrollableContainerMarginBottom;
+    protected ContainerFlexible mainContainer;
 
-    protected Container      mainContainer;
-
-    protected Container      scrollableContainer;
-    protected Scrollbar      scrollbar;
+    protected ContainerFlexible scrollableContainer;
+    protected Scrollbar         scrollbar;
 
     protected SimpleScrollableContainerScreen(GuiScreen parent, int scrollableContainerMarginLeft, int scrollableContainerMarginRight, int scrollableContainerMarginTop, int scrollableContainerMarginBottom) {
 
@@ -44,43 +45,35 @@ public abstract class SimpleScrollableContainerScreen extends CustomScreen {
     @Override
     protected void createGui() {
 
-        mainContainer = new Container();
+        mainContainer = new ContainerClippingImpl();
+        setRootWidget(mainContainer);
 
-        scrollbar = new ScrollbarImpl(SCROLLBAR_WIDTH);
-        scrollableContainer = new Container(scrollbar, 10, 2 * SCROLLABLE_CONTAINER_V_PADDING);
+        scrollbar = new ScrollbarImpl(2 * SCROLLABLE_CONTAINER_V_PADDING);
+        scrollableContainer = new ContainerScrollableImpl(scrollbar, 10);
+        mainContainer.addWidget(scrollableContainer);
 
-        containers.add(scrollableContainer);
-        containers.add(mainContainer);
-        selectedContainer = scrollableContainer;
-    }
+        // ----- Revalidation -----
 
-    @Override
-    protected void revalidateGui() {
+        mainContainer.appendLayoutManager(() -> {
+            int scLeft = scrollableContainerMarginLeft;
+            int scRight = mainContainer.getWidth() - scrollableContainerMarginRight;
+            int scTop = scrollableContainerMarginTop;
+            int scBottom = mainContainer.getHeight() - scrollableContainerMarginBottom;
+            int scWidth = scRight - scLeft;
+            int scHeight = scBottom - scTop;
+            scrollableContainer.setBounds(scLeft, scTop, scWidth, scHeight);
+        });
 
-        mainContainer.revalidate(0, 0, width, height);
-
-        int scLeft = scrollableContainerMarginLeft;
-        int scRight = width - scrollableContainerMarginRight - SCROLLBAR_WIDTH;
-        int scTop = scrollableContainerMarginTop;
-        int scBottom = height - scrollableContainerMarginBottom;
-        int scWidth = scRight - scLeft;
-        int scHeight = scBottom - scTop;
-
-        int y = scTop + SCROLLABLE_CONTAINER_V_PADDING;
-        for (Widget widget : scrollableContainer.getWidgets()) {
-            widget.setPosition(scLeft + SCROLLABLE_CONTAINER_H_PADDING, y);
-            y += widget.getHeight() + SCROLLABLE_CONTAINER_WIDGET_V_PADDING;
-        }
-
-        scrollbar.setPosition(scRight, scTop);
-        scrollableContainer.revalidate(scLeft, scTop, scWidth, scHeight);
+        scrollableContainer.appendLayoutManager(() -> {
+            scrollbar.setPosition(scrollableContainer.getWidth() - scrollbar.getWidth(), 0);
+        }).appendLayoutManager(new FlowLayoutManager(scrollableContainer, Axis.Y, SCROLLABLE_CONTAINER_H_PADDING, SCROLLABLE_CONTAINER_V_PADDING, SCROLLABLE_CONTAINER_WIDGET_V_PADDING));
     }
 
     @Override
     public void drawBackground() {
 
-        drawRect(0, 0, width, height, 0x80101010);
-        drawRect(scrollableContainer.left(), scrollableContainer.top(), scrollableContainer.right(), scrollableContainer.bottom(), 0x80101010);
+        drawRect(0, 0, mainContainer.getWidth(), mainContainer.getHeight(), 0x80101010);
+        drawRect(scrollableContainer.getX(), scrollableContainer.getY(), scrollableContainer.getX() + scrollableContainer.getWidth(), scrollableContainer.getY() + scrollableContainer.getHeight(), 0x80101010);
     }
 
 }

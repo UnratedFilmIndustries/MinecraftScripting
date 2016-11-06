@@ -11,6 +11,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import de.unratedfilms.guilib.extra.CloseScreenButtonHandler;
 import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.widgets.model.ButtonLabel;
 import de.unratedfilms.guilib.widgets.model.Label;
 import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
 import de.unratedfilms.guilib.widgets.view.impl.LabelImpl;
@@ -39,12 +40,12 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
     private final int                    programItemStackSlotId;
 
     private Label                        titleLabel;
-    private Button                       applyAndRunButton;
-    private Button                       applyButton;
-    private Button                       cancelButton;
+    private ButtonLabel                  applyAndRunButton;
+    private ButtonLabel                  applyButton;
+    private ButtonLabel                  cancelButton;
 
     private SettingWidgetStringTextField programTitleSetting;                         // The title setting each program has
-    private final List<SettingWidget>    programSpecificSettings = new ArrayList<>(); // The other settings which are defined by the program itself
+    private final List<SettingWidget<?>> programSpecificSettings = new ArrayList<>(); // The other settings which are defined by the program itself
 
     public ConfigureProgramScreen(GuiScreen parent, Program program, int programItemStackSlotId) {
 
@@ -60,9 +61,9 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
         super.createGui();
 
         titleLabel = new LabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.title", program.getSourceScript().getName()));
-        applyAndRunButton = new ButtonLabelImpl(120, 20, I18n.format("gui." + MOD_ID + ".configureProgram.applyAndRun"), new ApplyAndRunButtonHandler());
-        applyButton = new ButtonLabelImpl(120, 20, I18n.format("gui." + MOD_ID + ".configureProgram.apply"), new ApplyButtonHandler());
-        cancelButton = new ButtonLabelImpl(60, 20, I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
+        applyAndRunButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.applyAndRun"), new ApplyAndRunButtonHandler());
+        applyButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.apply"), new ApplyButtonHandler());
+        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
         mainContainer.addWidgets(titleLabel, applyAndRunButton, applyButton, cancelButton);
 
         // Add a widget which the user can use to change the program's title; it's a "virtual setting" since it's only created for this GUI
@@ -72,24 +73,22 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
         // Add a widget for each setting
         for (Setting setting : program.getSettings()) {
-            SettingWidget settingWidget = getSettingWidget(setting);
+            SettingWidget<?> settingWidget = getSettingWidget(setting);
             scrollableContainer.addWidgets(settingWidget);
             programSpecificSettings.add(settingWidget);
         }
+
+        // ----- Revalidation -----
+
+        mainContainer.appendLayoutManager(() -> {
+            titleLabel.setPosition( (mainContainer.getWidth() - titleLabel.getWidth()) / 2, V_MARGIN);
+            applyAndRunButton.setBounds(mainContainer.getWidth() / 2 - 154, height - V_MARGIN - 20, 120, 20);
+            applyButton.setBounds(mainContainer.getWidth() / 2 - 30, mainContainer.getHeight() - V_MARGIN - 20, 120, 20);
+            cancelButton.setBounds(mainContainer.getWidth() / 2 + 94, mainContainer.getHeight() - V_MARGIN - 20, 60, 20);
+        });
     }
 
-    @Override
-    protected void revalidateGui() {
-
-        super.revalidateGui();
-
-        titleLabel.setPosition( (width - titleLabel.getWidth()) / 2, V_MARGIN);
-        applyAndRunButton.setPosition(width / 2 - 154, height - V_MARGIN - 20);
-        applyButton.setPosition(width / 2 - 30, height - V_MARGIN - 20);
-        cancelButton.setPosition(width / 2 + 94, height - V_MARGIN - 20);
-    }
-
-    private SettingWidget getSettingWidget(Setting setting) {
+    private SettingWidget<?> getSettingWidget(Setting setting) {
 
         if (setting instanceof SettingBoolean) {
             return new SettingWidgetCheckbox((SettingBoolean) setting);
@@ -112,10 +111,10 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
     private Program applySettings() {
 
-        String title = programTitleSetting.getText();
+        String title = programTitleSetting.applySetting().string;
 
         List<Setting> newSettings = new ArrayList<>();
-        for (SettingWidget widget : programSpecificSettings) {
+        for (SettingWidget<?> widget : programSpecificSettings) {
             newSettings.add(widget.applySetting());
         }
 

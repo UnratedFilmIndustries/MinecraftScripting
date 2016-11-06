@@ -1,24 +1,26 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
+import de.unratedfilms.guilib.widgets.model.Checkbox;
 import de.unratedfilms.guilib.widgets.view.impl.CheckboxImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBoolean;
 
-public class SettingWidgetCheckbox extends CheckboxImpl implements SettingWidget {
+public class SettingWidgetCheckbox extends SettingWidget<SettingBoolean> {
 
-    private final SettingBoolean setting;
+    private final Checkbox checkbox;
 
     public SettingWidgetCheckbox(SettingBoolean setting) {
 
-        super(setting.displayName, setting.enabled);
+        super(setting);
 
-        this.setting = setting;
+        checkbox = new CheckboxImpl(null, setting.enabled);
+        settingContainer.addWidget(checkbox);
     }
 
     @Override
     public SettingBoolean applySetting() {
 
-        return setting.withValue(isChecked());
+        return setting.withValue(checkbox.isChecked());
     }
 
 }

@@ -3,44 +3,36 @@ package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.Locale;
 import org.apache.commons.lang3.math.NumberUtils;
+import de.unratedfilms.guilib.widgets.model.TextField;
+import de.unratedfilms.guilib.widgets.model.TextField.DecimalNumberFilter;
 import de.unratedfilms.guilib.widgets.view.impl.TextFieldImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingFloat;
 
-public class SettingWidgetFloatTextField extends TextFieldImpl implements SettingWidget {
+public class SettingWidgetFloatTextField extends SettingWidget<SettingFloat> {
 
-    private final SettingFloat setting;
-
-    private final int          xShift;
+    private final TextField textField;
 
     public SettingWidgetFloatTextField(SettingFloat setting) {
 
-        super(60, 14, new DecimalNumberFilter());
+        super(setting);
 
-        setMaxLength(15);
-        setText(String.format(Locale.ENGLISH, "%.3f", setting.value));
-        this.setting = setting;
+        textField = new TextFieldImpl(new DecimalNumberFilter());
+        textField.setMaxLength(15);
+        textField.setText(String.format(Locale.ENGLISH, "%.3f", setting.value));
+        settingContainer.addWidget(textField);
 
-        xShift = MC.fontRenderer.getStringWidth(setting.displayName) + 10;
+        // ----- Revalidation -----
+
+        settingContainer.appendLayoutManager(() -> {
+            textField.setSize(60, 14);
+        });
     }
 
     @Override
     public SettingFloat applySetting() {
 
-        float value = NumberUtils.toFloat(getText(), setting.value);
+        float value = NumberUtils.toFloat(textField.getText(), setting.value);
         return setting.withValue(value);
-    }
-
-    @Override
-    public void setPosition(int x, int y) {
-
-        super.setPosition(x + xShift, y);
-    }
-
-    @Override
-    protected void drawBackground() {
-
-        MC.fontRenderer.drawString(setting.displayName, getX() - xShift, getY() + 3, 0xffffff);
-        super.drawBackground();
     }
 
 }

@@ -1,43 +1,35 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
+import de.unratedfilms.guilib.widgets.model.TextField;
+import de.unratedfilms.guilib.widgets.model.TextField.VanillaFilter;
 import de.unratedfilms.guilib.widgets.view.impl.TextFieldImpl;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingString;
 
-public class SettingWidgetStringTextField extends TextFieldImpl implements SettingWidget {
+public class SettingWidgetStringTextField extends SettingWidget<SettingString> {
 
-    private final SettingString setting;
-
-    private final int           xShift;
+    private final TextField textField;
 
     public SettingWidgetStringTextField(SettingString setting) {
 
-        super(200, 14, new VanillaFilter());
+        super(setting);
 
-        setMaxLength(100);
-        setText(setting.string);
-        this.setting = setting;
+        textField = new TextFieldImpl(new VanillaFilter());
+        textField.setMaxLength(100);
+        textField.setText(setting.string);
+        settingContainer.addWidget(textField);
 
-        xShift = MC.fontRenderer.getStringWidth(setting.displayName) + 10;
+        // ----- Revalidation -----
+
+        settingContainer.appendLayoutManager(() -> {
+            textField.setHeight(14);
+        });
     }
 
     @Override
     public SettingString applySetting() {
 
-        return setting.withValue(getText());
-    }
-
-    @Override
-    public void setPosition(int x, int y) {
-
-        super.setPosition(x + xShift, y);
-    }
-
-    @Override
-    protected void drawBackground() {
-
-        MC.fontRenderer.drawString(setting.displayName, getX() - xShift, getY() + 3, 0xffffff);
-        super.drawBackground();
+        return setting.withValue(textField.getText());
     }
 
 }

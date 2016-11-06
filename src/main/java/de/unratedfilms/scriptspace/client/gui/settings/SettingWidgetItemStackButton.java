@@ -13,7 +13,7 @@ import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingItemStack;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
-public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButton {
+public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButton<SettingItemStack> {
 
     private static List<ItemStack> allItemsCache = null;
 
@@ -42,20 +42,16 @@ public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButto
         return allItemsCache;
     }
 
-    private final SettingItemStack setting;
-
     public SettingWidgetItemStackButton(SettingItemStack setting) {
 
-        super(setting.displayName, setting.stack.stack, null);
-        setHandler(new Handler());
-
-        this.setting = setting;
+        super(setting, setting.stack.stack, null);
+        button.setHandler(new Handler());
     }
 
     @Override
     public SettingItemStack applySetting() {
 
-        return setting.withValue(new ScriptItemStack(getItemStack()));
+        return setting.withValue(new ScriptItemStack(button.getItemStack()));
     }
 
     private List<ItemStack> getItems() {

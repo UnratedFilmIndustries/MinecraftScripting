@@ -13,7 +13,7 @@ import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 
-public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton {
+public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton<SettingBlock> {
 
     private static List<ItemStack> blocks = null;
 
@@ -21,8 +21,8 @@ public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton {
 
     public SettingWidgetBlockButton(SettingBlock setting) {
 
-        super(setting.displayName, new ItemStack(setting.block.block, 1, setting.block.data), null);
-        setHandler(new Handler());
+        super(setting, new ItemStack(setting.block.block, 1, setting.block.data), null);
+        button.setHandler(new Handler());
 
         this.setting = setting;
     }
@@ -30,8 +30,9 @@ public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton {
     @Override
     public SettingBlock applySetting() {
 
-        Block block = Block.getBlockFromItem(getItemStack().getItem());
-        int blockData = getItemStack().getItem() != null ? getItemStack().getItemDamage() : 0;
+        ItemStack stack = button.getItemStack();
+        Block block = Block.getBlockFromItem(stack.getItem());
+        int blockData = stack.getItem() != null ? stack.getItemDamage() : 0;
 
         return setting.withValue(ScriptBlock.fromBlock(block, blockData));
     }

@@ -10,10 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import de.unratedfilms.guilib.extra.CloseScreenButtonHandler;
-import de.unratedfilms.guilib.widgets.model.Button;
-import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.widgets.model.ButtonLabel;
 import de.unratedfilms.guilib.widgets.model.Label;
-import de.unratedfilms.guilib.widgets.model.LabelFocusable;
 import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
 import de.unratedfilms.guilib.widgets.view.impl.LabelFocusableImpl;
 import de.unratedfilms.guilib.widgets.view.impl.LabelImpl;
@@ -32,8 +30,7 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
     private final List<SourceScript> scripts;
 
     private Label                    titleLabel;
-    private Button                   finishButton;
-    private Button                   cancelButton;
+    private ButtonLabel              cancelButton;
 
     public CreateProgramScreen(GuiScreen parent, Set<SourceScript> scripts) {
 
@@ -49,47 +46,42 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
         super.createGui();
 
         titleLabel = new LabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.title"));
-        finishButton = new ButtonLabelImpl(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.finish"), new FinishButtonHandler());
-        cancelButton = new ButtonLabelImpl(148, 20, I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
-        mainContainer.addWidgets(titleLabel, finishButton, cancelButton);
+        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
+        mainContainer.addWidgets(titleLabel, cancelButton);
 
         for (SourceScript script : scripts) {
-            LabelFocusable scriptLabel = new LabelFocusableImpl(script.getName());
-            scriptLabel.setUserData(script);
-            scrollableContainer.addWidgets(scriptLabel);
+            scrollableContainer.addWidgets(new CreateProgramFocusableLabel(script));
         }
+
+        // ----- Revalidation -----
+
+        mainContainer.appendLayoutManager(() -> {
+            titleLabel.setPosition( (mainContainer.getWidth() - titleLabel.getWidth()) / 2, V_MARGIN);
+            cancelButton.setBounds(mainContainer.getWidth() / 2 - 100, mainContainer.getHeight() - V_MARGIN - 20, 200, 20);
+        });
     }
 
-    @Override
-    protected void revalidateGui() {
+    private class CreateProgramFocusableLabel extends LabelFocusableImpl {
 
-        super.revalidateGui();
+        private CreateProgramFocusableLabel(SourceScript script) {
 
-        titleLabel.setPosition( (width - titleLabel.getWidth()) / 2, V_MARGIN);
-        finishButton.setPosition(width / 2 - 150, height - V_MARGIN - 20);
-        cancelButton.setPosition(width / 2 + 2, height - V_MARGIN - 20);
-    }
+            super(script.getName());
 
-    private class FinishButtonHandler extends LeftButtonHandler {
+            setUserData(script);
+        }
 
         @Override
-        public void leftButtonClicked(Button button) {
+        public void focusGained() {
 
-            LabelFocusable focusedScriptLabel = (LabelFocusable) scrollableContainer.getFocusedWidget();
+            try {
+                Program program = new Program((SourceScript) getUserData());
 
-            if (focusedScriptLabel != null) {
-                SourceScript selectedScript = (SourceScript) focusedScriptLabel.getUserData();
-
-                try {
-                    Program program = new Program(selectedScript);
-
-                    // Adds a new item stack with the given program to the players inventory
-                    NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(-1, program));
-                } catch (ScriptCompilationException e) {
-                    ScriptCompilationService.sendErrorMessagesOnCompilationException(e, Minecraft.getMinecraft().thePlayer);
-                } finally {
-                    close();
-                }
+                // Adds a new item stack with the given program to the players inventory
+                NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(-1, program));
+            } catch (ScriptCompilationException e) {
+                ScriptCompilationService.sendErrorMessagesOnCompilationException(e, Minecraft.getMinecraft().thePlayer);
+            } finally {
+                close();
             }
         }
 
