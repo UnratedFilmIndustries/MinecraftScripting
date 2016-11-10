@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.integration.BasicScreen;
+import de.unratedfilms.guilib.integration.OverlayScreen;
 import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
 import de.unratedfilms.guilib.widgets.model.ButtonItem;
@@ -16,9 +17,8 @@ import de.unratedfilms.guilib.widgets.view.impl.ButtonItemImpl;
 import de.unratedfilms.guilib.widgets.view.impl.ContainerClippingImpl;
 import de.unratedfilms.guilib.widgets.view.impl.ContainerScrollableImpl;
 import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
-import de.unratedfilms.scriptspace.client.gui.CustomOverlay;
 
-public class ItemPopup extends CustomOverlay {
+public class ItemPopup extends OverlayScreen {
 
     private final List<ItemStack>                    options;
     private final SettingWidgetAbstractItemButton<?> itemButton;

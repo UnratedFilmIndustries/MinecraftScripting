@@ -4,6 +4,7 @@ package de.unratedfilms.scriptspace.client.gui;
 import net.minecraft.client.gui.GuiScreen;
 import de.unratedfilms.guilib.extra.FlowLayoutManager;
 import de.unratedfilms.guilib.extra.FlowLayoutManager.Axis;
+import de.unratedfilms.guilib.integration.BasicScreen;
 import de.unratedfilms.guilib.widgets.model.ContainerFlexible;
 import de.unratedfilms.guilib.widgets.model.Scrollbar;
 import de.unratedfilms.guilib.widgets.view.impl.ContainerClippingImpl;
@@ -15,7 +16,7 @@ import de.unratedfilms.guilib.widgets.view.impl.ScrollbarImpl;
  * All widgets inside the container are rendered on top of each other.
  * It is not possible to render two widgets beside each other.
  */
-public abstract class SimpleScrollableContainerScreen extends CustomScreen {
+public abstract class SimpleScrollableContainerScreen extends BasicScreen {
 
     private static final int    SCROLLABLE_CONTAINER_H_PADDING        = 10; // The horizontal padding between the edge of the container and the widgets
     private static final int    SCROLLABLE_CONTAINER_V_PADDING        = 10; // The vertical padding between the edge of the container and the widgets
