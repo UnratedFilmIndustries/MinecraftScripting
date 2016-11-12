@@ -36,10 +36,12 @@ public abstract class SettingWidgetAbstractItemButton<S extends Setting> extends
         }
 
         @Override
-        public void setItemStack(ItemStack itemStack) {
+        public CustomizedItemButton setItemStack(ItemStack itemStack) {
 
             super.setItemStack(itemStack);
             zLevel = itemStack.getItem() != null && itemStack.hasEffect(0) ? 50 : 0;
+
+            return this;
         }
 
         @Override
