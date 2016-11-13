@@ -14,7 +14,7 @@ public class SettingWidgetCheckbox extends SettingWidget<SettingBoolean> {
         super(setting);
 
         checkbox = new CheckboxImpl(null, setting.enabled);
-        settingContainer.addWidget(checkbox);
+        settingContainer.addWidgets(checkbox);
     }
 
     @Override

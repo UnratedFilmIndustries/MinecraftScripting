@@ -19,7 +19,7 @@ public class SettingWidgetFloatTextField extends SettingWidget<SettingFloat> {
         textField = new TextFieldImpl(new DecimalNumberFilter());
         textField.setMaxLength(15);
         textField.setText(String.format(Locale.ENGLISH, "%.3f", setting.value));
-        settingContainer.addWidget(textField);
+        settingContainer.addWidgets(textField);
 
         // ----- Revalidation -----
 

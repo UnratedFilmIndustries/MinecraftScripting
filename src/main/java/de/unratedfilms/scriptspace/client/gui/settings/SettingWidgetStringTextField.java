@@ -17,7 +17,7 @@ public class SettingWidgetStringTextField extends SettingWidget<SettingString> {
         textField = new TextFieldImpl(new VanillaFilter());
         textField.setMaxLength(100);
         textField.setText(setting.string);
-        settingContainer.addWidget(textField);
+        settingContainer.addWidgets(textField);
 
         // ----- Revalidation -----
 

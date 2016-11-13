@@ -51,7 +51,7 @@ public abstract class SimpleScrollableContainerScreen extends BasicScreen {
 
         scrollbar = new ScrollbarImpl(2 * SCROLLABLE_CONTAINER_V_PADDING);
         scrollableContainer = new ContainerScrollableImpl(scrollbar, 10);
-        mainContainer.addWidget(scrollableContainer);
+        mainContainer.addWidgets(scrollableContainer);
 
         // ----- Revalidation -----
 

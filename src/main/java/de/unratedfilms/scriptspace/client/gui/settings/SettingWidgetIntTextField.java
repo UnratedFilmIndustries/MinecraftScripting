@@ -18,7 +18,7 @@ public class SettingWidgetIntTextField extends SettingWidget<SettingInt> {
         textField = new TextFieldImpl(new IntegerNumberFilter());
         textField.setMaxLength(15);
         textField.setText(String.valueOf(setting.value));
-        settingContainer.addWidget(textField);
+        settingContainer.addWidgets(textField);
 
         // ----- Revalidation -----
 

@@ -25,7 +25,7 @@ public abstract class SettingWidgetAbstractItemButton<S extends Setting> extends
         super(setting);
 
         button = new CustomizedItemButton(item, handler);
-        settingContainer.addWidget(button);
+        settingContainer.addWidgets(button);
     }
 
     private static class CustomizedItemButton extends ButtonItemImpl {

@@ -21,7 +21,7 @@ public class SettingWidgetStringListButton extends SettingWidget<SettingStringLi
         }
         dropdown = new DropdownLabelImpl<>(options);
         dropdown.setSelectedOption(new GenericOption<>(setting.selected));
-        settingContainer.addWidget(dropdown);
+        settingContainer.addWidgets(dropdown);
 
         // ----- Revalidation -----
 

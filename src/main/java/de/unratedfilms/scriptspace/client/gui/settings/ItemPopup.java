@@ -44,7 +44,7 @@ public class ItemPopup extends OverlayScreen {
 
         scrollbar = new ScrollbarImpl(0);
         scrollableContainer = new ContainerScrollableImpl(scrollbar, 0);
-        mainContainer.addWidget(scrollableContainer);
+        mainContainer.addWidgets(scrollableContainer);
 
         ButtonItem[] buttons = new ButtonItem[options.size()];
         for (int i = 0; i < buttons.length; i++) {
