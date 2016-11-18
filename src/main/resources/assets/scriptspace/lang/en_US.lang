@@ -33,3 +33,4 @@ gui.scriptspace.configureProgram.title=Configure program: %s
 gui.scriptspace.configureProgram.applyAndRun=Apply Changes & Run
 gui.scriptspace.configureProgram.apply=Apply Changes
 gui.scriptspace.configureProgram.cancel=Cancel
+gui.scriptspace.configureProgram.programTitle=Program title

@@ -68,7 +68,7 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
         // Add a widget which the user can use to change the program's title; it's a "virtual setting" since it's only created for this GUI
         // Afterwards, the title is stored in a normal String variable (Program.title)
-        programTitleSetting = new SettingWidgetStringTextField(new SettingString("title", "Title", program.getTitle()));
+        programTitleSetting = new SettingWidgetStringTextField(new SettingString("title", I18n.format("gui." + MOD_ID + ".configureProgram.programTitle"), program.getTitle()));
         scrollableContainer.addWidgets(programTitleSetting);
 
         // Add a widget for each setting
