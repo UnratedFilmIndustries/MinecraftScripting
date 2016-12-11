@@ -25,7 +25,7 @@ public class SettingWidgetStringListButton extends SettingWidget<SettingStringLi
 
         // ----- Revalidation -----
 
-        settingContainer.appendLayoutManager(() -> {
+        settingContainer.appendLayoutManager(c -> {
             // The width of the dropdown button should always be equal to the width of the dropdown menu
             dropdown.setSize(dropdown.getExtWidth(), 14);
         });

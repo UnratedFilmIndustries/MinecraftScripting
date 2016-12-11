@@ -3,9 +3,9 @@ package de.unratedfilms.scriptspace.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
 import de.unratedfilms.guilib.core.Axis;
-import de.unratedfilms.guilib.extra.AlignLayoutManager;
-import de.unratedfilms.guilib.extra.FlowLayoutManager;
 import de.unratedfilms.guilib.integration.BasicScreen;
+import de.unratedfilms.guilib.layouts.AlignLayout;
+import de.unratedfilms.guilib.layouts.FlowLayout;
 import de.unratedfilms.guilib.widgets.model.ContainerFlexible;
 import de.unratedfilms.guilib.widgets.model.Scrollbar;
 import de.unratedfilms.guilib.widgets.view.impl.ContainerClippingImpl;
@@ -57,7 +57,7 @@ public abstract class SimpleScrollableContainerScreen extends BasicScreen {
         // ----- Revalidation -----
 
         mainContainer
-                .appendLayoutManager(() -> {
+                .appendLayoutManager(c -> {
                     int scLeft = scrollableContainerMarginLeft;
                     int scRight = mainContainer.getWidth() - scrollableContainerMarginRight;
                     int scTop = scrollableContainerMarginTop;
@@ -68,11 +68,11 @@ public abstract class SimpleScrollableContainerScreen extends BasicScreen {
                 });
 
         scrollableContainer
-                .appendLayoutManager(() -> {
+                .appendLayoutManager(c -> {
                     scrollbar.setPosition(scrollableContainer.getWidth() - scrollbar.getWidth(), 0);
                 })
-                .appendLayoutManager(new AlignLayoutManager(scrollableContainer, Axis.X, SCROLLABLE_CONTAINER_H_PADDING))
-                .appendLayoutManager(new FlowLayoutManager(scrollableContainer, Axis.Y, SCROLLABLE_CONTAINER_V_PADDING, SCROLLABLE_CONTAINER_WIDGET_V_PADDING));
+                .appendLayoutManager(new AlignLayout(Axis.X, SCROLLABLE_CONTAINER_H_PADDING))
+                .appendLayoutManager(new FlowLayout(Axis.Y, SCROLLABLE_CONTAINER_V_PADDING, SCROLLABLE_CONTAINER_WIDGET_V_PADDING));
     }
 
     @Override

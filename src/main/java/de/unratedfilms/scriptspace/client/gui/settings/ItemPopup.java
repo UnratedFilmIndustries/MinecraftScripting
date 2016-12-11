@@ -54,7 +54,7 @@ public class ItemPopup extends OverlayScreen {
 
         // ----- Revalidation -----
 
-        mainContainer.appendLayoutManager(() -> {
+        mainContainer.appendLayoutManager(c -> {
             int xButtons = mainContainer.getWidth() / ButtonItemImpl.SIZE - 6;
             int yButtons = mainContainer.getHeight() / ButtonItemImpl.SIZE - 5;
 
@@ -72,7 +72,7 @@ public class ItemPopup extends OverlayScreen {
             scrollableContainer.setBounds(startX, startY, cWidth, cHeight);
         });
 
-        scrollableContainer.appendLayoutManager(() -> {
+        scrollableContainer.appendLayoutManager(c -> {
             scrollbar.setPosition(scrollableContainer.getWidth() - scrollbar.getWidth(), 0);
 
             int x = 0;

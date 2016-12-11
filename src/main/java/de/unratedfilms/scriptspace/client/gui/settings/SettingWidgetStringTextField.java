@@ -21,7 +21,7 @@ public class SettingWidgetStringTextField extends SettingWidget<SettingString> {
 
         // ----- Revalidation -----
 
-        settingContainer.appendLayoutManager(() -> {
+        settingContainer.appendLayoutManager(c -> {
             textField.setHeight(14);
         });
     }

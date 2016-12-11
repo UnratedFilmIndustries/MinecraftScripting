@@ -24,7 +24,7 @@ public abstract class SettingWidget<S extends Setting> extends ContainerAdjustin
 
         // ----- Revalidation -----
 
-        appendLayoutManager(() -> {
+        appendLayoutManager(c -> {
             settingContainer.setX(MC.fontRenderer.getStringWidth(label.getText()) + 10);
         });
     }

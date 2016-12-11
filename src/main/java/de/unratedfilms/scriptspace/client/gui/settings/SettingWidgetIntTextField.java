@@ -22,7 +22,7 @@ public class SettingWidgetIntTextField extends SettingWidget<SettingInt> {
 
         // ----- Revalidation -----
 
-        settingContainer.appendLayoutManager(() -> {
+        settingContainer.appendLayoutManager(c -> {
             textField.setSize(60, 14);
         });
     }
