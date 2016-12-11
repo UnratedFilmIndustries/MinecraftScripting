@@ -82,7 +82,7 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
 
         mainContainer.appendLayoutManager(() -> {
             titleLabel.setPosition( (mainContainer.getWidth() - titleLabel.getWidth()) / 2, V_MARGIN);
-            applyAndRunButton.setBounds(mainContainer.getWidth() / 2 - 154, height - V_MARGIN - 20, 120, 20);
+            applyAndRunButton.setBounds(mainContainer.getWidth() / 2 - 154, mainContainer.getHeight() - V_MARGIN - 20, 120, 20);
             applyButton.setBounds(mainContainer.getWidth() / 2 - 30, mainContainer.getHeight() - V_MARGIN - 20, 120, 20);
             cancelButton.setBounds(mainContainer.getWidth() / 2 + 94, mainContainer.getHeight() - V_MARGIN - 20, 60, 20);
         });

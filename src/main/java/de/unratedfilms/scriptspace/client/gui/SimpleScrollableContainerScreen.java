@@ -2,8 +2,9 @@
 package de.unratedfilms.scriptspace.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import de.unratedfilms.guilib.core.Axis;
+import de.unratedfilms.guilib.extra.AlignLayoutManager;
 import de.unratedfilms.guilib.extra.FlowLayoutManager;
-import de.unratedfilms.guilib.extra.FlowLayoutManager.Axis;
 import de.unratedfilms.guilib.integration.BasicScreen;
 import de.unratedfilms.guilib.widgets.model.ContainerFlexible;
 import de.unratedfilms.guilib.widgets.model.Scrollbar;
@@ -55,19 +56,23 @@ public abstract class SimpleScrollableContainerScreen extends BasicScreen {
 
         // ----- Revalidation -----
 
-        mainContainer.appendLayoutManager(() -> {
-            int scLeft = scrollableContainerMarginLeft;
-            int scRight = mainContainer.getWidth() - scrollableContainerMarginRight;
-            int scTop = scrollableContainerMarginTop;
-            int scBottom = mainContainer.getHeight() - scrollableContainerMarginBottom;
-            int scWidth = scRight - scLeft;
-            int scHeight = scBottom - scTop;
-            scrollableContainer.setBounds(scLeft, scTop, scWidth, scHeight);
-        });
+        mainContainer
+                .appendLayoutManager(() -> {
+                    int scLeft = scrollableContainerMarginLeft;
+                    int scRight = mainContainer.getWidth() - scrollableContainerMarginRight;
+                    int scTop = scrollableContainerMarginTop;
+                    int scBottom = mainContainer.getHeight() - scrollableContainerMarginBottom;
+                    int scWidth = scRight - scLeft;
+                    int scHeight = scBottom - scTop;
+                    scrollableContainer.setBounds(scLeft, scTop, scWidth, scHeight);
+                });
 
-        scrollableContainer.appendLayoutManager(() -> {
-            scrollbar.setPosition(scrollableContainer.getWidth() - scrollbar.getWidth(), 0);
-        }).appendLayoutManager(new FlowLayoutManager(scrollableContainer, Axis.Y, SCROLLABLE_CONTAINER_H_PADDING, SCROLLABLE_CONTAINER_V_PADDING, SCROLLABLE_CONTAINER_WIDGET_V_PADDING));
+        scrollableContainer
+                .appendLayoutManager(() -> {
+                    scrollbar.setPosition(scrollableContainer.getWidth() - scrollbar.getWidth(), 0);
+                })
+                .appendLayoutManager(new AlignLayoutManager(scrollableContainer, Axis.X, SCROLLABLE_CONTAINER_H_PADDING))
+                .appendLayoutManager(new FlowLayoutManager(scrollableContainer, Axis.Y, SCROLLABLE_CONTAINER_V_PADDING, SCROLLABLE_CONTAINER_WIDGET_V_PADDING));
     }
 
     @Override
