@@ -8,9 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatComponentTranslation;
-import de.unratedfilms.guilib.extra.CloseScreenButtonHandler;
-import de.unratedfilms.guilib.widgets.model.Button;
-import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.core.MouseButton;
+import de.unratedfilms.guilib.widgets.model.Button.FilteredButtonHandler;
 import de.unratedfilms.guilib.widgets.model.ButtonLabel;
 import de.unratedfilms.guilib.widgets.model.Label;
 import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
@@ -61,9 +60,15 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
         super.createGui();
 
         titleLabel = new LabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.title", program.getSourceScript().getName()));
-        applyAndRunButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.applyAndRun"), new ApplyAndRunButtonHandler());
-        applyButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.apply"), new ApplyButtonHandler());
-        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
+        applyAndRunButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.applyAndRun"), new FilteredButtonHandler(MouseButton.LEFT, (b, mb) -> {
+            runProgram(applySettings());
+            close();
+        }));
+        applyButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".configureProgram.apply"), new FilteredButtonHandler(MouseButton.LEFT, (b, mb) -> {
+            applySettings();
+            close();
+        }));
+        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new FilteredButtonHandler(MouseButton.LEFT, (b, mb) -> close()));
         mainContainer.addWidgets(titleLabel, applyAndRunButton, applyButton, cancelButton);
 
         // Add a widget which the user can use to change the program's title; it's a "virtual setting" since it's only created for this GUI
@@ -118,42 +123,24 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
             newSettings.add(widget.applySetting());
         }
 
-        return new Program(title, program.getSourceScript(), newSettings);
+        Program newProgram = new Program(title, program.getSourceScript(), newSettings);
+
+        // Update the item in the player's hand
+        NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(programItemStackSlotId, newProgram));
+
+        return newProgram;
     }
 
-    private class ApplyAndRunButtonHandler extends LeftButtonHandler {
+    private void runProgram(Program program) {
 
-        @Override
-        public void leftButtonClicked(Button button) {
-
-            // Construct the new program with the new settings and update the item in the player's hand
-            Program newProgram = applySettings();
-            NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(programItemStackSlotId, newProgram));
-
-            Selection chosenSelection = SelectionStorage.chosenSelection;
-            if (chosenSelection == null) {
-                // If no selection has been chosen yet, inform the player
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".noChosenSelectionError"));
-            } else {
-                // Otherwise, run the new program on the chosen selection
-                NetworkService.DISPATCHER.sendToServer(new RunProgramServerMessage(newProgram, chosenSelection));
-            }
-
-            close();
+        Selection chosenSelection = SelectionStorage.chosenSelection;
+        if (chosenSelection == null) {
+            // If no selection has been chosen yet, inform the player
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".noChosenSelectionError"));
+        } else {
+            // Otherwise, run the new program on the chosen selection
+            NetworkService.DISPATCHER.sendToServer(new RunProgramServerMessage(program, chosenSelection));
         }
-
-    }
-
-    private class ApplyButtonHandler extends LeftButtonHandler {
-
-        @Override
-        public void leftButtonClicked(Button button) {
-
-            NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(programItemStackSlotId, applySettings()));
-
-            close();
-        }
-
     }
 
 }

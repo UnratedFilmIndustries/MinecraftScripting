@@ -8,8 +8,7 @@ import net.minecraft.util.MathHelper;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.integration.BasicScreen;
 import de.unratedfilms.guilib.integration.OverlayScreen;
-import de.unratedfilms.guilib.widgets.model.Button;
-import de.unratedfilms.guilib.widgets.model.Button.LeftButtonHandler;
+import de.unratedfilms.guilib.widgets.model.Button.FilteredButtonHandler;
 import de.unratedfilms.guilib.widgets.model.ButtonItem;
 import de.unratedfilms.guilib.widgets.model.ContainerFlexible;
 import de.unratedfilms.guilib.widgets.model.Scrollbar;
@@ -48,7 +47,10 @@ public class ItemPopup extends OverlayScreen {
 
         ButtonItem[] buttons = new ButtonItem[options.size()];
         for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new ButtonItemImpl(options.get(i), new ChooseItemButtonHandler());
+            buttons[i] = new ButtonItemImpl(options.get(i), new FilteredButtonHandler(MouseButton.LEFT, (b, mb) -> {
+                itemButton.button.setItemStack( ((ButtonItem) b).getItemStack());
+                close();
+            }));
         }
         scrollableContainer.addWidgets(buttons);
 
@@ -117,16 +119,6 @@ public class ItemPopup extends OverlayScreen {
         if (scrollableContainer.inGlobalBounds(getRootViewport(), mx, my)) {
             scrollableContainer.mousePressed(getRootViewport(), mx, my, MouseButton.fromCode(code));
         } else {
-            close();
-        }
-    }
-
-    private class ChooseItemButtonHandler extends LeftButtonHandler {
-
-        @Override
-        public void leftButtonClicked(Button button) {
-
-            itemButton.button.setItemStack( ((ButtonItem) button).getItemStack());
             close();
         }
     }

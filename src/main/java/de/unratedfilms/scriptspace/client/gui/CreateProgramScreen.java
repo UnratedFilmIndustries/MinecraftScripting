@@ -9,7 +9,8 @@ import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import de.unratedfilms.guilib.extra.CloseScreenButtonHandler;
+import de.unratedfilms.guilib.core.MouseButton;
+import de.unratedfilms.guilib.widgets.model.Button.FilteredButtonHandler;
 import de.unratedfilms.guilib.widgets.model.ButtonLabel;
 import de.unratedfilms.guilib.widgets.model.Label;
 import de.unratedfilms.guilib.widgets.view.impl.ButtonLabelImpl;
@@ -46,7 +47,7 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
         super.createGui();
 
         titleLabel = new LabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.title"));
-        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new CloseScreenButtonHandler(this));
+        cancelButton = new ButtonLabelImpl(I18n.format("gui." + MOD_ID + ".createProgram.cancel"), new FilteredButtonHandler(MouseButton.LEFT, (b, mb) -> close()));
         mainContainer.addWidgets(titleLabel, cancelButton);
 
         for (SourceScript script : scripts) {
