@@ -7,8 +7,8 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.Scriptable;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import de.unratedfilms.scriptspace.common.script.CompiledScript;
 import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.ProgramExecutionException;
@@ -65,8 +65,8 @@ public class ProgramExecutionService {
 
         LOGGER.error("Error executing script '{}': {}", e.getProgram(), e.getMessage());
 
-        e.getCauser().addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".programExecutionError", e.getProgram().getSourceScript().getName()));
-        e.getCauser().addChatMessage(new ChatComponentText(e.getMessage()));
+        e.getCauser().sendMessage(new TextComponentTranslation("message." + MOD_ID + ".programExecutionError", e.getProgram().getSourceScript().getName()));
+        e.getCauser().sendMessage(new TextComponentString(e.getMessage()));
     }
 
     private ProgramExecutionService() {

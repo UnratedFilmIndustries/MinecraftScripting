@@ -24,12 +24,12 @@ public class ScriptTagDouble extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagDouble((NBTTagDouble) tag.copy());
+        return new ScriptTagDouble(tag.copy());
     }
 
     public double getValue() {
 
-        return tag.func_150286_g();
+        return tag.getDouble();
     }
 
 }

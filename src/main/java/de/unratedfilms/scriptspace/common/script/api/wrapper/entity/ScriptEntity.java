@@ -12,8 +12,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry.EntityRegistration;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.factory.ScriptEntityFactory;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
@@ -104,7 +104,7 @@ public class ScriptEntity {
 
     public String getEntityName() {
 
-        return entity.getCommandSenderName();
+        return entity.getName();
     }
 
     public ScriptTagCompound writeToTag() {
@@ -221,7 +221,7 @@ public class ScriptEntity {
 
     public ScriptWorld getWorld() {
 
-        return new ScriptWorld(entity.worldObj);
+        return new ScriptWorld(entity.world);
     }
 
     public float getFallDistance() {
@@ -246,7 +246,7 @@ public class ScriptEntity {
 
     public void setDead() {
 
-        entity.worldObj.removeEntity(entity);
+        entity.world.removeEntity(entity);
     }
 
     public double getDistanceToEntity(ScriptEntity se) {

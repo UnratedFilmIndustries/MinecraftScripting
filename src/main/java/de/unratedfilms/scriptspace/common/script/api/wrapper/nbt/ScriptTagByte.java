@@ -24,12 +24,12 @@ public class ScriptTagByte extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagByte((NBTTagByte) tag.copy());
+        return new ScriptTagByte(tag.copy());
     }
 
     public byte getValue() {
 
-        return tag.func_150290_f();
+        return tag.getByte();
     }
 
 }

@@ -7,20 +7,20 @@ import java.util.List;
 import org.apache.commons.lang3.Validate;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class SelectionTileEntity extends Selection {
 
-    public final Vec3i selectedTileEntityLocation;
+    public final BlockPos selectedTileEntityLocation;
 
     public SelectionTileEntity(TileEntity selectedTileEntity) {
 
-        this(selectedTileEntity.getWorldObj().provider.dimensionId, new Vec3i(selectedTileEntity.xCoord, selectedTileEntity.yCoord, selectedTileEntity.zCoord));
+        this(selectedTileEntity.getWorld().provider.getDimension(), selectedTileEntity.getPos());
     }
 
-    public SelectionTileEntity(int dimensionId, Vec3i selectedTileEntityLocation) {
+    public SelectionTileEntity(int dimensionId, BlockPos selectedTileEntityLocation) {
 
         super(dimensionId);
 
@@ -30,13 +30,13 @@ public class SelectionTileEntity extends Selection {
 
     public TileEntity getSelectedTileEntity() {
 
-        return getWorld().getTileEntity(selectedTileEntityLocation.x, selectedTileEntityLocation.y, selectedTileEntityLocation.z);
+        return getWorld().getTileEntity(selectedTileEntityLocation);
     }
 
     @Override
-    public Vec3 getCenter() {
+    public Vec3d getCenter() {
 
-        return Vec3.createVectorHelper(selectedTileEntityLocation.x + 0.5, selectedTileEntityLocation.y + 0.5, selectedTileEntityLocation.z + 0.5);
+        return new Vec3d(selectedTileEntityLocation.getX() + 0.5, selectedTileEntityLocation.getY() + 0.5, selectedTileEntityLocation.getZ() + 0.5);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class SelectionTileEntity extends Selection {
     @Override
     public boolean intersects(double x, double y, double z) {
 
-        return getAABB().isVecInside(Vec3.createVectorHelper(x, y, z));
+        return getAABB().isVecInside(new Vec3d(x, y, z));
     }
 
     @Override
-    public List<Vec3> getLocations(double distance) {
+    public List<Vec3d> getLocations(double distance) {
 
         return Arrays.asList(getCenter());
     }

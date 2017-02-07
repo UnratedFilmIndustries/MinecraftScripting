@@ -48,7 +48,7 @@ public class ScriptBlock {
 
     public String getBlockName() {
 
-        return Block.blockRegistry.getNameForObject(block);
+        return Block.REGISTRY.getNameForObject(block);
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 
 public class SelectionEntity extends Selection {
 
@@ -31,26 +31,25 @@ public class SelectionEntity extends Selection {
     }
 
     @Override
-    public Vec3 getCenter() {
+    public Vec3d getCenter() {
 
-        Entity selectedEntity = getSelectedEntity();
-        return Vec3.createVectorHelper(selectedEntity.posX, selectedEntity.posY, selectedEntity.posZ);
+        return getSelectedEntity().getPositionVector();
     }
 
     @Override
     public AxisAlignedBB getAABB() {
 
-        return getSelectedEntity().boundingBox;
+        return getSelectedEntity().getEntityBoundingBox();
     }
 
     @Override
     public boolean intersects(double x, double y, double z) {
 
-        return getAABB().isVecInside(Vec3.createVectorHelper(x, y, z));
+        return getAABB().isVecInside(new Vec3d(x, y, z));
     }
 
     @Override
-    public List<Vec3> getLocations(double distance) {
+    public List<Vec3d> getLocations(double distance) {
 
         return Arrays.asList(getCenter());
     }

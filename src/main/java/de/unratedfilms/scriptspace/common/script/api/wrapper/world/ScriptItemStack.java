@@ -3,13 +3,11 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.world;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
-import de.unratedfilms.scriptspace.common.util.NBTUtils;
 
 public class ScriptItemStack {
 
-    public final ItemStack stack;
+    public /* should really be final */ ItemStack stack;
 
     /**
      * Creates a new totally empty item stack that represents nothing but "air".
@@ -66,12 +64,12 @@ public class ScriptItemStack {
 
     public int getStackSize() {
 
-        return stack.stackSize;
+        return stack.getCount();
     }
 
     public void setStackSize(int size) {
 
-        stack.stackSize = size;
+        stack.setCount(size);
     }
 
     public int getItemDamage() {
@@ -101,14 +99,12 @@ public class ScriptItemStack {
 
     public ScriptTagCompound writeToTag() {
 
-        NBTTagCompound tag = new NBTTagCompound();
-        NBTUtils.writeItemStack(tag, stack);
-        return new ScriptTagCompound(tag);
+        return new ScriptTagCompound(stack.serializeNBT());
     }
 
     public void readFromTag(ScriptTagCompound tag) {
 
-        stack.readFromNBT(tag.tag);
+        stack = new ItemStack(tag.tag);
     }
 
 }

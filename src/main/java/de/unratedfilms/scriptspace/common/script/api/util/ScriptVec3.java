@@ -3,9 +3,9 @@ package de.unratedfilms.scriptspace.common.script.api.util;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import de.unratedfilms.scriptspace.common.util.Utils;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public class ScriptVec3 {
 
@@ -23,14 +23,14 @@ public class ScriptVec3 {
         this.z = z;
     }
 
-    public ScriptVec3(Vec3 vec3) {
+    public ScriptVec3(Vec3d vec3) {
 
         this(vec3.xCoord, vec3.yCoord, vec3.zCoord);
     }
 
     public ScriptVec3(Vec3i vec3i) {
 
-        this(vec3i.x, vec3i.y, vec3i.z);
+        this(vec3i.getX(), vec3i.getY(), vec3i.getZ());
     }
 
     public ScriptVec3 add(ScriptVec3 vec) {

@@ -9,9 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionBlock;
@@ -19,7 +20,6 @@ import de.unratedfilms.scriptspace.common.selection.SelectionCuboid;
 import de.unratedfilms.scriptspace.common.selection.SelectionEntity;
 import de.unratedfilms.scriptspace.common.selection.SelectionTileEntity;
 import de.unratedfilms.scriptspace.common.selection.SelectionsEncoder;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public class ItemSelection extends ItemCustom {
 
@@ -45,7 +45,7 @@ public class ItemSelection extends ItemCustom {
 
         setUnlocalizedName("selection");
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(CreativeTabs.MISC);
         setFull3D();
     }
 
@@ -101,10 +101,10 @@ public class ItemSelection extends ItemCustom {
         if (clickedTileEntity != null) {
             newSelection = new SelectionTileEntity(clickedTileEntity);
         } else if (oldSelection instanceof SelectionBlock) {
-            Vec3i corner1 = ((SelectionBlock) oldSelection).blockLocation;
-            newSelection = new SelectionCuboid(world.provider.dimensionId, corner1, new Vec3i(x, y, z));
+            BlockPos corner1 = ((SelectionBlock) oldSelection).blockLocation;
+            newSelection = new SelectionCuboid(world.provider.getDimension(), corner1, new BlockPos(x, y, z));
         } else {
-            newSelection = new SelectionBlock(world.provider.dimensionId, new Vec3i(x, y, z));
+            newSelection = new SelectionBlock(world.provider.getDimension(), new BlockPos(x, y, z));
         }
 
         setSelection(stack, newSelection);

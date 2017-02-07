@@ -24,12 +24,12 @@ public class ScriptTagShort extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagShort((NBTTagShort) tag.copy());
+        return new ScriptTagShort(tag.copy());
     }
 
     public short getValue() {
 
-        return tag.func_150289_e();
+        return tag.getShort();
     }
 
 }

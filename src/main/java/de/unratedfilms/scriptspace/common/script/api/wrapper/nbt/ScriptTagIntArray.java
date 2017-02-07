@@ -24,12 +24,12 @@ public class ScriptTagIntArray extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagIntArray((NBTTagIntArray) arr.copy());
+        return new ScriptTagIntArray(arr.copy());
     }
 
     public int[] getValue() {
 
-        return arr.func_150302_c();
+        return arr.getIntArray();
     }
 
 }

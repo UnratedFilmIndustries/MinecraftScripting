@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.tileentity.ScriptTileEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptWorld;
 import de.unratedfilms.scriptspace.common.selection.Selection;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public class ScriptSelection {
 
@@ -88,7 +88,7 @@ public class ScriptSelection {
 
         List<ScriptVec3> locations = new ArrayList<>();
 
-        for (Vec3 location : selection.getLocations(distance)) {
+        for (Vec3d location : selection.getLocations(distance)) {
             locations.add(new ScriptVec3(location));
         }
 
@@ -102,7 +102,7 @@ public class ScriptSelection {
 
         List<ScriptVec3> blockLocations = new ArrayList<>();
 
-        for (Vec3i blockLocation : selection.getBlockLocations()) {
+        for (BlockPos blockLocation : selection.getBlockLocations()) {
             blockLocations.add(new ScriptVec3(blockLocation));
         }
 

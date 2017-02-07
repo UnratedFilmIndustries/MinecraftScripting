@@ -3,10 +3,9 @@ package de.unratedfilms.scriptspace.client.main;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import de.unratedfilms.scriptspace.client.keys.KeyBindings;
 import de.unratedfilms.scriptspace.client.keys.KeyHandler;
 import de.unratedfilms.scriptspace.client.render.SelectionRenderer;
@@ -31,7 +30,7 @@ public class ClientHandler extends CommonHandler {
 
         // Initialize the key system
         KeyBindings.initialize();
-        FMLCommonHandler.instance().bus().register(new KeyHandler());
+        MinecraftForge.EVENT_BUS.register(new KeyHandler());
     }
 
     @Override
@@ -41,7 +40,6 @@ public class ClientHandler extends CommonHandler {
 
         // Initialize the selection renderer
         SelectionRenderer selectionRenderer = new SelectionRenderer();
-        FMLCommonHandler.instance().bus().register(selectionRenderer);
         MinecraftForge.EVENT_BUS.register(selectionRenderer);
     }
 

@@ -32,7 +32,7 @@ public class ScriptTileEntity {
 
     public ScriptWorld getWorld() {
 
-        return new ScriptWorld(tile.getWorldObj());
+        return new ScriptWorld(tile.getWorld());
     }
 
     public String getInternalName() {
@@ -67,27 +67,27 @@ public class ScriptTileEntity {
 
     public ScriptBlock getBlock() {
 
-        return ScriptBlock.atLocation(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
+        return ScriptBlock.atLocation(tile.getWorld(), tile.getPos().getX(), tile.getPos().getX(), tile.getPos().getX());
     }
 
     public ScriptVec3 getLocation() {
 
-        return new ScriptVec3(getX(), getY(), getZ());
+        return new ScriptVec3(tile.getPos());
     }
 
     public int getX() {
 
-        return tile.xCoord;
+        return tile.getPos().getX();
     }
 
     public int getY() {
 
-        return tile.yCoord;
+        return tile.getPos().getY();
     }
 
     public int getZ() {
 
-        return tile.zCoord;
+        return tile.getPos().getZ();
     }
 
     private static String getInternalName(TileEntity te) {

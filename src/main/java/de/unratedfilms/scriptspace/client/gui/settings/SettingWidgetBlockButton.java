@@ -2,7 +2,6 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -43,8 +42,7 @@ public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton<Se
         if (blocks == null) {
             blocks = new ArrayList<>();
             blocks.add(new ItemStack(Block.getBlockFromName("air"), 0, 0)); // same as null, 0, 0
-            for (Iterator<Item> iterator = Item.itemRegistry.iterator(); iterator.hasNext();) {
-                Item item = iterator.next();
+            for (Item item : Item.REGISTRY) {
                 if (item instanceof ItemBlock) {
                     item.getSubItems(item, null, blocks);
                 }

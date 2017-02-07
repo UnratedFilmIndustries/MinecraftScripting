@@ -2,7 +2,6 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
@@ -26,15 +25,14 @@ public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButto
         if (allItemsCache == null) {
             allItemsCache = new ArrayList<>();
             allItemsCache.add(new ItemStack((Item) null));
-            for (Iterator<Item> iterator = Item.itemRegistry.iterator(); iterator.hasNext();) {
-                Item item = iterator.next();
+            for (Item item : Item.REGISTRY) {
                 if (item != null && item.getCreativeTab() != null) {
                     item.getSubItems(item, null, allItemsCache);
                 }
             }
-            for (Enchantment ench : Enchantment.enchantmentsList) {
+            for (Enchantment ench : Enchantment.REGISTRY) {
                 if (ench != null && ench.type != null) {
-                    Items.enchanted_book.func_92113_a(ench, allItemsCache);
+                    Items.ENCHANTED_BOOK.getAll(ench, allItemsCache);
                 }
             }
         }
@@ -57,12 +55,12 @@ public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButto
     private List<ItemStack> getItems() {
 
         List<ItemStack> list = new ArrayList<>();
-        for (ItemStack item : MC.thePlayer.inventory.mainInventory) {
+        for (ItemStack item : MC.player.inventory.mainInventory) {
             if (item != null) {
                 list.add(item.copy());
             }
         }
-        for (ItemStack armor : MC.thePlayer.inventory.armorInventory) {
+        for (ItemStack armor : MC.player.inventory.armorInventory) {
             if (armor != null) {
                 list.add(armor.copy());
             }

@@ -4,20 +4,19 @@ package de.unratedfilms.scriptspace.common.selection;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
-import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import de.unratedfilms.scriptspace.common.util.Utils;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public class SelectionBlock extends Selection {
 
-    public final Vec3i blockLocation;
+    public final BlockPos blockLocation;
 
-    public SelectionBlock(int dimensionId, Vec3i blockLocation) {
+    public SelectionBlock(int dimensionId, BlockPos blockLocation) {
 
         super(dimensionId);
 
@@ -26,32 +25,32 @@ public class SelectionBlock extends Selection {
     }
 
     @Override
-    public Vec3 getCenter() {
+    public Vec3d getCenter() {
 
-        return Vec3.createVectorHelper(blockLocation.x + 0.5, blockLocation.y + 0.5, blockLocation.z + 0.5);
+        return new Vec3d(blockLocation.getX() + 0.5, blockLocation.getY() + 0.5, blockLocation.getZ() + 0.5);
     }
 
     @Override
     public AxisAlignedBB getAABB() {
 
-        return AxisAlignedBB.getBoundingBox(blockLocation.x, blockLocation.y, blockLocation.z, blockLocation.x + 1, blockLocation.y + 1, blockLocation.z + 1);
+        return new AxisAlignedBB(blockLocation);
     }
 
     @Override
     public boolean intersects(double x, double y, double z) {
 
-        return getAABB().isVecInside(Vec3.createVectorHelper(x, y, z));
+        return getAABB().isVecInside(new Vec3d(x, y, z));
     }
 
     @Override
-    public List<Vec3> getLocations(double distance) {
+    public List<Vec3d> getLocations(double distance) {
 
-        List<Vec3> locations = new ArrayList<>();
+        List<Vec3d> locations = new ArrayList<>();
 
-        for (double x = blockLocation.x; x < blockLocation.x + 1 - Utils.DOUBLE_EPSILON; x += distance) {
-            for (double y = blockLocation.y; y < blockLocation.y + 1 - Utils.DOUBLE_EPSILON; y += distance) {
-                for (double z = blockLocation.z; z < blockLocation.z + 1 - Utils.DOUBLE_EPSILON; z += distance) {
-                    locations.add(Vec3.createVectorHelper(x, y, z));
+        for (double x = blockLocation.getX(); x < blockLocation.getX() + 1 - Utils.DOUBLE_EPSILON; x += distance) {
+            for (double y = blockLocation.getY(); y < blockLocation.getY() + 1 - Utils.DOUBLE_EPSILON; y += distance) {
+                for (double z = blockLocation.getZ(); z < blockLocation.getZ() + 1 - Utils.DOUBLE_EPSILON; z += distance) {
+                    locations.add(new Vec3d(x, y, z));
                 }
             }
         }
@@ -60,18 +59,9 @@ public class SelectionBlock extends Selection {
     }
 
     @Override
-    @SuppressWarnings ("unchecked")
     public List<Entity> getEntities() {
 
-        return getWorld().getEntitiesWithinAABBExcludingEntity(null, getAABB(), new IEntitySelector() {
-
-            @Override
-            public boolean isEntityApplicable(Entity entity) {
-
-                return ! (entity instanceof EntityPlayer);
-            }
-
-        });
+        return getWorld().getEntitiesWithinAABB(Entity.class, getAABB(), (entity) -> ! (entity instanceof EntityPlayer));
     }
 
     @Override

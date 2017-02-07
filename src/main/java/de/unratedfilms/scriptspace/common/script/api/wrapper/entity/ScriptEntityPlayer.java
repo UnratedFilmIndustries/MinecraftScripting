@@ -2,8 +2,8 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.world.WorldSettings.GameType;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.GameType;
 
 public class ScriptEntityPlayer extends ScriptEntityLivingBase {
 
@@ -18,7 +18,7 @@ public class ScriptEntityPlayer extends ScriptEntityLivingBase {
 
     public String getUsername() {
 
-        return entityPlayer.getCommandSenderName();
+        return entityPlayer.getName();
     }
 
     public void addXPLevels(int levels) {
@@ -48,7 +48,7 @@ public class ScriptEntityPlayer extends ScriptEntityLivingBase {
 
     public void addChatMessage(String str) {
 
-        entityPlayer.addChatComponentMessage(new ChatComponentText(str));
+        entityPlayer.sendMessage(new TextComponentString(str));
     }
 
     public void setGameType(int id) {

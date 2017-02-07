@@ -24,12 +24,12 @@ public class ScriptTagInt extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagInt((NBTTagInt) tag.copy());
+        return new ScriptTagInt(tag.copy());
     }
 
     public int getValue() {
 
-        return tag.func_150287_d();
+        return tag.getInt();
     }
 
 }

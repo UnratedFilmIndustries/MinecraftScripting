@@ -2,9 +2,9 @@
 package de.unratedfilms.scriptspace.common.selection;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import de.unratedfilms.scriptspace.common.util.ByteBufUtils2;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 import io.netty.buffer.ByteBuf;
 
 public class SelectionsEncoder {
@@ -21,17 +21,17 @@ public class SelectionsEncoder {
 
         switch (discriminator) {
             case 0:
-                Vec3i blockLocation = ByteBufUtils2.readVec3i(from);
+                BlockPos blockLocation = ByteBufUtils2.readVec3i(from);
                 return new SelectionBlock(dimensionId, blockLocation);
             case 1:
-                Vec3i corner1 = ByteBufUtils2.readVec3i(from);
-                Vec3i corner2 = ByteBufUtils2.readVec3i(from);
+                BlockPos corner1 = ByteBufUtils2.readVec3i(from);
+                BlockPos corner2 = ByteBufUtils2.readVec3i(from);
                 return new SelectionCuboid(dimensionId, corner1, corner2);
             case 2:
                 int entityId = from.readInt();
                 return new SelectionEntity(dimensionId, entityId);
             case 3:
-                Vec3i tileEntityLocation = ByteBufUtils2.readVec3i(from);
+                BlockPos tileEntityLocation = ByteBufUtils2.readVec3i(from);
                 return new SelectionTileEntity(dimensionId, tileEntityLocation);
         }
 
@@ -64,8 +64,7 @@ public class SelectionsEncoder {
         else if (selection instanceof SelectionTileEntity) {
             to.writeByte(3);
             SelectionTileEntity tileEntity = (SelectionTileEntity) selection;
-            Vec3i tileEntityLocation = tileEntity.selectedTileEntityLocation;
-            ByteBufUtils2.writeVec3i(to, tileEntityLocation.x, tileEntityLocation.y, tileEntityLocation.z);
+            ByteBufUtils2.writeVec3i(to, tileEntity.selectedTileEntityLocation);
         }
 
         else {
@@ -85,17 +84,17 @@ public class SelectionsEncoder {
 
         switch (discriminator) {
             case 0:
-                Vec3i blockLocation = NBTUtils.readVec3i(from.getCompoundTag("blockLocation"));
+                BlockPos blockLocation = NBTUtils.readVec3i(from.getCompoundTag("blockLocation"));
                 return new SelectionBlock(dimensionId, blockLocation);
             case 1:
-                Vec3i corner1 = NBTUtils.readVec3i(from.getCompoundTag("corner1"));
-                Vec3i corner2 = NBTUtils.readVec3i(from.getCompoundTag("corner2"));
+                BlockPos corner1 = NBTUtils.readVec3i(from.getCompoundTag("corner1"));
+                BlockPos corner2 = NBTUtils.readVec3i(from.getCompoundTag("corner2"));
                 return new SelectionCuboid(dimensionId, corner1, corner2);
             case 2:
                 int entityId = from.getInteger("entityId");
                 return new SelectionEntity(dimensionId, entityId);
             case 3:
-                Vec3i tileEntityLocation = NBTUtils.readVec3i(from.getCompoundTag("tileEntityLocation"));
+                BlockPos tileEntityLocation = NBTUtils.readVec3i(from.getCompoundTag("tileEntityLocation"));
                 return new SelectionTileEntity(dimensionId, tileEntityLocation);
         }
 
@@ -128,8 +127,7 @@ public class SelectionsEncoder {
         else if (selection instanceof SelectionTileEntity) {
             to.setByte("discriminator", (byte) 3);
             SelectionTileEntity tileEntity = (SelectionTileEntity) selection;
-            Vec3i tileEntityLocation = tileEntity.selectedTileEntityLocation;
-            NBTUtils.writeVec3i(NBTUtils.addNewCompoundTag(to, "tileEntityLocation"), tileEntityLocation.x, tileEntityLocation.y, tileEntityLocation.z);
+            NBTUtils.writeVec3i(NBTUtils.addNewCompoundTag(to, "tileEntityLocation"), tileEntity.selectedTileEntityLocation);
         }
 
         else {

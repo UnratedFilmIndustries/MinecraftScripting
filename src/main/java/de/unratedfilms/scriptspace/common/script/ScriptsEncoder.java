@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
-import cpw.mods.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import de.unratedfilms.scriptspace.common.script.api.settings.Setting;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingsEncoder;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;

@@ -5,12 +5,12 @@ import org.apache.commons.lang3.Validate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 
 /**
@@ -56,8 +56,8 @@ public class EntityNBTClientMessage implements IMessage {
 
             Minecraft mc = Minecraft.getMinecraft();
 
-            if (mc.theWorld != null) {
-                Entity e = mc.theWorld.getEntityByID(message.entityId);
+            if (mc.world != null) {
+                Entity e = mc.world.getEntityByID(message.entityId);
                 if (e != null) {
                     e.readFromNBT(message.tag);
                 }

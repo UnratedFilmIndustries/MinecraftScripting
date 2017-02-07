@@ -1,11 +1,11 @@
 
 package de.unratedfilms.scriptspace.common.util;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 
 public class NBTUtils {
 
@@ -52,14 +52,14 @@ public class NBTUtils {
         return to;
     }
 
-    public static Vec3i readVec3i(NBTTagCompound from) {
+    public static BlockPos /* subclass of Vec3i, but more commonly used */ readVec3i(NBTTagCompound from) {
 
-        return new Vec3i(from.getInteger("x"), from.getInteger("y"), from.getInteger("z"));
+        return new BlockPos(from.getInteger("x"), from.getInteger("y"), from.getInteger("z"));
     }
 
     public static void writeVec3i(NBTTagCompound to, Vec3i vec3i) {
 
-        writeVec3i(to, vec3i.x, vec3i.y, vec3i.z);
+        writeVec3i(to, vec3i.getX(), vec3i.getY(), vec3i.getZ());
     }
 
     public static void writeVec3i(NBTTagCompound to, int x, int y, int z) {
@@ -67,17 +67,6 @@ public class NBTUtils {
         to.setInteger("x", x);
         to.setInteger("y", y);
         to.setInteger("z", z);
-    }
-
-    public static ItemStack readItemStack(NBTTagCompound from) {
-
-        ItemStack stack = ItemStack.loadItemStackFromNBT(from);
-        return stack == null ? new ItemStack((Item) null) : stack;
-    }
-
-    public static void writeItemStack(NBTTagCompound to, ItemStack stack) {
-
-        stack.writeToNBT(to);
     }
 
     private NBTUtils() {

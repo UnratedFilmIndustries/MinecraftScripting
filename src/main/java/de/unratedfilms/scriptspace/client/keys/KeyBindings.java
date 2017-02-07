@@ -3,7 +3,7 @@ package de.unratedfilms.scriptspace.client.keys;
 
 import org.lwjgl.input.Keyboard;
 import net.minecraft.client.settings.KeyBinding;
-import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import de.unratedfilms.scriptspace.common.Consts;
 
 public class KeyBindings {

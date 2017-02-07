@@ -7,16 +7,16 @@ import org.apache.commons.lang3.Validate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import de.unratedfilms.scriptspace.common.util.ReflectionHelper;
-import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public abstract class Selection {
 
@@ -55,9 +55,9 @@ public abstract class Selection {
         if (Minecraft.getMinecraft().isSingleplayer()) {
             return DimensionManager.getWorld(dimensionId);
         } else {
-            World currentWorld = Minecraft.getMinecraft().theWorld;
-            Validate.validState(currentWorld.provider.dimensionId == dimensionId,
-                    "You called Selection.getWorld() on the client, and the player is in dimension %d instead of %d", currentWorld.provider.dimensionId, dimensionId);
+            World currentWorld = Minecraft.getMinecraft().world;
+            Validate.validState(currentWorld.provider.getDimension() == dimensionId,
+                    "You called Selection.getWorld() on the client, and the player is in dimension %d instead of %d", currentWorld.provider.getDimension(), dimensionId);
             return currentWorld;
         }
 
@@ -69,7 +69,7 @@ public abstract class Selection {
      *
      * @return The center of the shape.
      */
-    public abstract Vec3 getCenter();
+    public abstract Vec3d getCenter();
 
     /**
      * Returns the rounded block center location of the shape.
@@ -77,10 +77,10 @@ public abstract class Selection {
      *
      * @return The center location of the shape as a rounded block location.
      */
-    public Vec3i getBlockCenter() {
+    public BlockPos getBlockCenter() {
 
         // floor rounding
-        return new Vec3i(getCenter());
+        return new BlockPos(getCenter());
     }
 
     /**
@@ -120,14 +120,14 @@ public abstract class Selection {
      * @param distance The distance between the returned vectors.
      * @return The vectors inside the shape separated by the given distance.
      */
-    public abstract List<Vec3> getLocations(double distance);
+    public abstract List<Vec3d> getLocations(double distance);
 
-    public List<Vec3i> getBlockLocations() {
+    public List<BlockPos> getBlockLocations() {
 
-        List<Vec3i> blockLocations = new ArrayList<>();
+        List<BlockPos> blockLocations = new ArrayList<>();
 
-        for (Vec3 location : getLocations(1)) {
-            blockLocations.add(new Vec3i(location));
+        for (Vec3d location : getLocations(1)) {
+            blockLocations.add(new BlockPos(location));
         }
 
         return blockLocations;

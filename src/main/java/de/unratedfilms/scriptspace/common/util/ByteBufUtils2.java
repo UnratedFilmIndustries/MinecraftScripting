@@ -3,7 +3,9 @@ package de.unratedfilms.scriptspace.common.util;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.network.ByteBufUtils;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 
 public class ByteBufUtils2 {
@@ -25,14 +27,14 @@ public class ByteBufUtils2 {
         }
     }
 
-    public static Vec3i readVec3i(ByteBuf from) {
+    public static BlockPos /* subclass of Vec3i, but more commonly used */ readVec3i(ByteBuf from) {
 
-        return new Vec3i(from.readInt(), from.readInt(), from.readInt());
+        return new BlockPos(from.readInt(), from.readInt(), from.readInt());
     }
 
     public static void writeVec3i(ByteBuf to, Vec3i vec3i) {
 
-        writeVec3i(to, vec3i.x, vec3i.y, vec3i.z);
+        writeVec3i(to, vec3i.getX(), vec3i.getY(), vec3i.getZ());
     }
 
     public static void writeVec3i(ByteBuf to, int x, int y, int z) {

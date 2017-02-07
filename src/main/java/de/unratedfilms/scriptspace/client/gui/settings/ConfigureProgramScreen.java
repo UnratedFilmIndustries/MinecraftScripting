@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentTranslation;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.widgets.model.Button.FilteredButtonHandler;
 import de.unratedfilms.guilib.widgets.model.ButtonLabel;
@@ -136,7 +136,7 @@ public class ConfigureProgramScreen extends SimpleScrollableContainerScreen {
         Selection chosenSelection = SelectionStorage.chosenSelection;
         if (chosenSelection == null) {
             // If no selection has been chosen yet, inform the player
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".noChosenSelectionError"));
+            Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("message." + MOD_ID + ".noChosenSelectionError"));
         } else {
             // Otherwise, run the new program on the chosen selection
             NetworkService.DISPATCHER.sendToServer(new RunProgramServerMessage(program, chosenSelection));

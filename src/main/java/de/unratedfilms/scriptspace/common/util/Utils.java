@@ -3,7 +3,6 @@ package de.unratedfilms.scriptspace.common.util;
 
 import static de.unratedfilms.scriptspace.common.Consts.LOGGER;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import de.unratedfilms.scriptspace.net.NetworkService;
@@ -26,7 +25,6 @@ public class Utils {
         return (int) Math.floor(value);
     }
 
-    @SuppressWarnings ("unchecked")
     public static List<TileEntity> getTileEntitiesInAABB(World world, AxisAlignedBB selAABB) {
 
         List<TileEntity> tileEntities = new ArrayList<>();
@@ -44,10 +42,10 @@ public class Utils {
                 Chunk chunk = world.getChunkFromChunkCoords(x, z);
 
                 if (chunk != null) {
-                    for (TileEntity tileEntity : (Collection<TileEntity>) chunk.chunkTileEntityMap.values()) {
+                    for (TileEntity tileEntity : chunk.getTileEntityMap().values()) {
                         if (!tileEntity.isInvalid()) {
-                            if (tileEntity.xCoord >= minX && tileEntity.yCoord >= minY && tileEntity.zCoord >= minZ &&
-                                    tileEntity.xCoord <= maxX && tileEntity.yCoord <= maxY && tileEntity.zCoord <= maxZ) {
+                            if (tileEntity.getPos().getX() >= minX && tileEntity.getPos().getY() >= minY && tileEntity.getPos().getZ() >= minZ &&
+                                    tileEntity.getPos().getX() <= maxX && tileEntity.getPos().getY() <= maxY && tileEntity.getPos().getZ() <= maxZ) {
                                 tileEntities.add(tileEntity);
                             }
                         }
@@ -89,7 +87,7 @@ public class Utils {
 
         Packet packet = tileEntity.getDescriptionPacket();
         if (packet != null) {
-            int dim = tileEntity.getWorldObj().provider.dimensionId;
+            int dim = tileEntity.getWorld().provider.getDimension();
             MinecraftServer.getServer().getConfigurationManager().sendPacketToAllPlayersInDimension(packet, dim);
         }
     }

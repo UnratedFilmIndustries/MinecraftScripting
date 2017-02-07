@@ -80,7 +80,7 @@ public class CreateProgramScreen extends SimpleScrollableContainerScreen {
                 // Adds a new item stack with the given program to the players inventory
                 NetworkService.DISPATCHER.sendToServer(new ChangeProgramItemServerMessage(-1, program));
             } catch (ScriptCompilationException e) {
-                ScriptCompilationService.sendErrorMessagesOnCompilationException(e, Minecraft.getMinecraft().thePlayer);
+                ScriptCompilationService.sendErrorMessagesOnCompilationException(e, Minecraft.getMinecraft().player);
             } finally {
                 close();
             }

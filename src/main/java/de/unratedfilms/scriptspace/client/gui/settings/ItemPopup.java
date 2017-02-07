@@ -4,7 +4,7 @@ package de.unratedfilms.scriptspace.client.gui.settings;
 import java.util.List;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.integration.BasicScreen;
 import de.unratedfilms.guilib.integration.OverlayScreen;
@@ -64,7 +64,7 @@ public class ItemPopup extends OverlayScreen {
             if (buttons.length % xButtons != 0) {
                 lines++;
             }
-            yButtons = MathHelper.clamp_int(yButtons, 1, lines);
+            yButtons = MathHelper.clamp(yButtons, 1, lines);
 
             int cWidth = xButtons * ButtonItemImpl.SIZE + scrollbar.getWidth();
             int cHeight = yButtons * ButtonItemImpl.SIZE;

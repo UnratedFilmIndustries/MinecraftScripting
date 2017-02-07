@@ -8,8 +8,8 @@ import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import de.unratedfilms.scriptspace.common.script.CompiledScript;
 import de.unratedfilms.scriptspace.common.script.ScriptCompilationException;
 import de.unratedfilms.scriptspace.common.script.SourceScript;
@@ -64,8 +64,8 @@ public class ScriptCompilationService {
 
         sendErrorMessagesOnCompilationException(e);
 
-        causer.addChatMessage(new ChatComponentTranslation("message." + MOD_ID + ".scriptCompilationError", e.getSourceScript().getName()));
-        causer.addChatMessage(new ChatComponentText(e.getMessage()));
+        causer.sendMessage(new TextComponentTranslation("message." + MOD_ID + ".scriptCompilationError", e.getSourceScript().getName()));
+        causer.sendMessage(new TextComponentString(e.getMessage()));
     }
 
     private ScriptCompilationService() {

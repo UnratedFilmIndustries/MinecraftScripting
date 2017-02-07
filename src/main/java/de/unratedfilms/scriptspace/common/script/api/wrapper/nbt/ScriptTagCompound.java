@@ -27,7 +27,7 @@ public class ScriptTagCompound extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagCompound((NBTTagCompound) tag.copy());
+        return new ScriptTagCompound(tag.copy());
     }
 
     // -------------------------SETS-------------------------

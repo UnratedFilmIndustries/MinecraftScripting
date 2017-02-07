@@ -29,7 +29,7 @@ public class ScriptTagByteArray extends ScriptTagBase {
 
     public byte[] getValue() {
 
-        return arr.func_150292_c();
+        return arr.getByteArray();
     }
 
 }

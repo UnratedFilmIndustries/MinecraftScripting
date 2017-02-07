@@ -24,12 +24,12 @@ public class ScriptTagFloat extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagFloat((NBTTagFloat) tag.copy());
+        return new ScriptTagFloat(tag.copy());
     }
 
     public float getValue() {
 
-        return tag.func_150288_h();
+        return tag.getFloat();
     }
 
 }

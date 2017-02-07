@@ -1,8 +1,8 @@
 
 package de.unratedfilms.scriptspace.client.keys;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
 import de.unratedfilms.scriptspace.net.NetworkService;
 import de.unratedfilms.scriptspace.net.messages.AvailableScriptsRequestServerMessage;

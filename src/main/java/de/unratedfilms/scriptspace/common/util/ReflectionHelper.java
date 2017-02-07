@@ -22,7 +22,7 @@ public class ReflectionHelper {
             ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE = EntityLivingBase.class.getDeclaredFields()[ENTITY_LIVING_BASE__POTION_FIELD_INDEX];
             ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE.setAccessible(true);
 
-            TILE_ENTITY__CLASS_TO_NAME = cpw.mods.fml.relauncher.ReflectionHelper.getPrivateValue(TileEntity.class, null, TILE_ENTITY__CLASS_TO_NAME_INDEX);
+            TILE_ENTITY__CLASS_TO_NAME = net.minecraftforge.fml.relauncher.ReflectionHelper.getPrivateValue(TileEntity.class, null, TILE_ENTITY__CLASS_TO_NAME_INDEX);
         }
         // Rethrow all exceptions because we can't recover from this error
         catch (RuntimeException e) {

@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ScriptTagList extends ScriptTagBase {
 
@@ -47,7 +47,7 @@ public class ScriptTagList extends ScriptTagBase {
     @Override
     public ScriptTagBase copy() {
 
-        return new ScriptTagList((NBTTagList) list.copy());
+        return new ScriptTagList(list.copy());
     }
 
     public void appendTag(ScriptTagBase tag) {

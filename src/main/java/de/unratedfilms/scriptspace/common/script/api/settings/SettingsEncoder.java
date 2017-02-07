@@ -3,8 +3,9 @@ package de.unratedfilms.scriptspace.common.script.api.settings;
 
 import static net.minecraftforge.common.util.Constants.NBT.TAG_STRING;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 import de.unratedfilms.scriptspace.common.util.ByteBufUtils2;
@@ -131,7 +132,7 @@ public class SettingsEncoder {
                 int blockData = from.getInteger("blockData");
                 return new SettingBlock(name, displayName, ScriptBlock.fromBlock(Block.getBlockById(blockId), blockData));
             case 6:
-                return new SettingItemStack(name, displayName, new ScriptItemStack(NBTUtils.readItemStack(from.getCompoundTag("itemStack"))));
+                return new SettingItemStack(name, displayName, new ScriptItemStack(new ItemStack(from.getCompoundTag("itemStack"))));
         }
 
         throw new IllegalArgumentException("Unknown setting discriminator: " + discriminator);
@@ -187,7 +188,7 @@ public class SettingsEncoder {
         else if (setting instanceof SettingItemStack) {
             to.setByte("discriminator", (byte) 6);
             SettingItemStack settingItemStack = (SettingItemStack) setting;
-            NBTUtils.writeItemStack(NBTUtils.addNewCompoundTag(to, "itemStack"), settingItemStack.stack.stack);
+            settingItemStack.stack.stack.writeToNBT(NBTUtils.addNewCompoundTag(to, "itemStack"));
         }
 
         else {
