@@ -56,12 +56,14 @@ public class EntityNBTClientMessage implements IMessage {
 
             Minecraft mc = Minecraft.getMinecraft();
 
-            if (mc.world != null) {
-                Entity e = mc.world.getEntityByID(message.entityId);
-                if (e != null) {
-                    e.readFromNBT(message.tag);
+            mc.addScheduledTask(() -> {
+                if (mc.world != null) {
+                    Entity e = mc.world.getEntityByID(message.entityId);
+                    if (e != null) {
+                        e.readFromNBT(message.tag);
+                    }
                 }
-            }
+            });
 
             // No reply
             return null;

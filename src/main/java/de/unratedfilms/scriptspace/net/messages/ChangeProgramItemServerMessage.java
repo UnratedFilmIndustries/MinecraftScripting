@@ -2,6 +2,7 @@
 package de.unratedfilms.scriptspace.net.messages;
 
 import org.apache.commons.lang3.Validate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -56,20 +57,22 @@ public class ChangeProgramItemServerMessage implements IMessage {
 
             EntityPlayerMP sourcePlayer = ctx.getServerHandler().playerEntity;
 
-            ItemStack programItemStack;
-            if (message.slotId == -1) {
-                programItemStack = new ItemStack(CustomItems.PROGRAM);
-                ItemProgram.setProgram(programItemStack, message.program);
-                sourcePlayer.inventory.addItemStackToInventory(programItemStack);
-            } else {
-                programItemStack = sourcePlayer.inventory.getStackInSlot(message.slotId);
-
-                // Only continue if the slot id was -1 or pointed to a real program item stack
-                if (programItemStack != null && programItemStack.getItem().equals(CustomItems.PROGRAM)) {
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                ItemStack programItemStack;
+                if (message.slotId == -1) {
+                    programItemStack = new ItemStack(CustomItems.PROGRAM);
                     ItemProgram.setProgram(programItemStack, message.program);
-                    sourcePlayer.inventory.setInventorySlotContents(message.slotId, programItemStack);
+                    sourcePlayer.inventory.addItemStackToInventory(programItemStack);
+                } else {
+                    programItemStack = sourcePlayer.inventory.getStackInSlot(message.slotId);
+
+                    // Only continue if the slot id was -1 or pointed to a real program item stack
+                    if (programItemStack != null && programItemStack.getItem().equals(CustomItems.PROGRAM)) {
+                        ItemProgram.setProgram(programItemStack, message.program);
+                        sourcePlayer.inventory.setInventorySlotContents(message.slotId, programItemStack);
+                    }
                 }
-            }
+            });
 
             // No reply
             return null;

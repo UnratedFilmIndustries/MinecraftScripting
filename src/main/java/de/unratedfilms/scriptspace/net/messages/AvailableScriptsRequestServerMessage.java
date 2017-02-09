@@ -30,6 +30,7 @@ public class AvailableScriptsRequestServerMessage implements IMessage {
         @Override
         public AvailableScriptsResponseClientMessage onMessage(AvailableScriptsRequestServerMessage message, MessageContext ctx) {
 
+            // The provider method is functional and therefore thread-safe; we do not need to care about threading here
             Set<SourceScript> availableScripts = ScriptSourceService.getAvailableScripts();
             SourceScript[] availableScriptsArr = availableScripts.toArray(new SourceScript[availableScripts.size()]);
 

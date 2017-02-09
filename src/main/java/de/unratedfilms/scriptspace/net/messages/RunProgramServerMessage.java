@@ -2,6 +2,7 @@
 package de.unratedfilms.scriptspace.net.messages;
 
 import org.apache.commons.lang3.Validate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -59,13 +60,15 @@ public class RunProgramServerMessage implements IMessage {
 
             EntityPlayerMP sourcePlayer = ctx.getServerHandler().playerEntity;
 
-            try {
-                ProgramExecutionService.executeProgram(message.program, sourcePlayer, message.selection);
-            } catch (ScriptCompilationException e) {
-                ScriptCompilationService.sendErrorMessagesOnCompilationException(e, sourcePlayer);
-            } catch (ProgramExecutionException e) {
-                ProgramExecutionService.sendErrorMessagesOnExecutionException(e);
-            }
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                try {
+                    ProgramExecutionService.executeProgram(message.program, sourcePlayer, message.selection);
+                } catch (ScriptCompilationException e) {
+                    ScriptCompilationService.sendErrorMessagesOnCompilationException(e, sourcePlayer);
+                } catch (ProgramExecutionException e) {
+                    ProgramExecutionService.sendErrorMessagesOnExecutionException(e);
+                }
+            });
 
             // No reply
             return null;

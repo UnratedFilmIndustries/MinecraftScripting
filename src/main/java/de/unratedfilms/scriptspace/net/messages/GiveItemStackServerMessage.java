@@ -2,6 +2,7 @@
 package de.unratedfilms.scriptspace.net.messages;
 
 import org.apache.commons.lang3.Validate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -46,7 +47,10 @@ public class GiveItemStackServerMessage implements IMessage {
         public IMessage onMessage(GiveItemStackServerMessage message, MessageContext ctx) {
 
             EntityPlayerMP sourcePlayer = ctx.getServerHandler().playerEntity;
-            sourcePlayer.inventory.addItemStackToInventory(message.stack);
+
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                sourcePlayer.inventory.addItemStackToInventory(message.stack);
+            });
 
             // No reply
             return null;

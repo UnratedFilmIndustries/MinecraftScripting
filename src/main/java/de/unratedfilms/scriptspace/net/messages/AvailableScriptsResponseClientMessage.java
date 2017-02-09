@@ -67,8 +67,10 @@ public class AvailableScriptsResponseClientMessage implements IMessage {
             // And, of course, the scripts which are stored on the server
             allAvailableScripts.addAll(Arrays.asList(message.availableScripts));
 
-            // Open a create program GUI that displays the scripts
-            Minecraft.getMinecraft().displayGuiScreen(new CreateProgramScreen(null, allAvailableScripts));
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                // Open a create program GUI that displays the scripts
+                Minecraft.getMinecraft().displayGuiScreen(new CreateProgramScreen(null, allAvailableScripts));
+            });
 
             // No reply
             return null;
