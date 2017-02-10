@@ -2,6 +2,7 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import net.minecraft.entity.passive.EntityWolf;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptDyeColor;
 
 public class ScriptEntityWolf extends ScriptEntityTameable {
 
@@ -24,14 +25,14 @@ public class ScriptEntityWolf extends ScriptEntityTameable {
         entityWolf.setAngry(angry);
     }
 
-    public int getCollarColor() {
+    public String getCollarColor() {
 
-        return entityWolf.getCollarColor();
+        return ScriptDyeColor.fromNative(entityWolf.getCollarColor());
     }
 
-    public void setCollarColor(int color) {
+    public void setCollarColor(String color) {
 
-        entityWolf.setCollarColor(color);
+        entityWolf.setCollarColor(ScriptDyeColor.toNative(color));
     }
 
 }

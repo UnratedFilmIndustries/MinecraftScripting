@@ -1,12 +1,12 @@
 
 package de.unratedfilms.scriptspace.client.gui.settings;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBlock;
@@ -14,9 +14,10 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 
 public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton<SettingBlock> {
 
-    private static List<ItemStack> blocks = null;
+    // getSubItems() only accepts NonNullList
+    private static NonNullList<ItemStack> blocks = null;
 
-    private final SettingBlock     setting;
+    private final SettingBlock            setting;
 
     public SettingWidgetBlockButton(SettingBlock setting) {
 
@@ -36,11 +37,10 @@ public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton<Se
         return setting.withValue(ScriptBlock.fromBlock(block, blockData));
     }
 
-    @SuppressWarnings ("unchecked")
     private static List<ItemStack> getBlocks() {
 
         if (blocks == null) {
-            blocks = new ArrayList<>();
+            blocks = NonNullList.create();
             blocks.add(new ItemStack(Block.getBlockFromName("air"), 0, 0)); // same as null, 0, 0
             for (Item item : Item.REGISTRY) {
                 if (item instanceof ItemBlock) {

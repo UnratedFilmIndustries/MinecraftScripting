@@ -42,9 +42,14 @@ public class ScriptEntityLivingBase extends ScriptEntity {
         entityLivingBase.clearActivePotions();
     }
 
-    public ScriptItemStack getHeldItem() {
+    public ScriptItemStack getHeldItemMainhand() {
 
-        return new ScriptItemStack(entityLivingBase.getHeldItem());
+        return new ScriptItemStack(entityLivingBase.getHeldItemMainhand());
+    }
+
+    public ScriptItemStack getHeldItemOffhand() {
+
+        return new ScriptItemStack(entityLivingBase.getHeldItemOffhand());
     }
 
     public ScriptItemStack getCurrentItemOrArmor(int slot) {

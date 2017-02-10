@@ -5,10 +5,15 @@ import static de.unratedfilms.scriptspace.client.render.RenderSettings.SEL_CORNE
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -123,10 +128,9 @@ public class SelectionRenderer {
     private void drawBoundingBox(RenderGlobal r, float f, CachedSelection selection, TileEntity tile, RenderSetting[] settings) {
 
         if (tile.getWorld().provider.getDimension() == selection.original.dimensionId) {
-            Block block = tile.getWorld().getBlock(tile.xCoord, tile.yCoord, tile.zCoord);
-            if (block != null) {
-                block.setBlockBoundsBasedOnState(tile.getWorld(), tile.xCoord, tile.yCoord, tile.zCoord);
-                AxisAlignedBB aabb = block.getSelectedBoundingBoxFromPool(tile.getWorld(), tile.xCoord, tile.yCoord, tile.zCoord);
+            IBlockState blockState = tile.getWorld().getBlockState(tile.getPos());
+            if (blockState != null) {
+                AxisAlignedBB aabb = blockState.getBoundingBox(tile.getWorld(), tile.getPos()).offset(tile.getPos());
 
                 EntityPlayer player = Minecraft.getMinecraft().player;
                 double playerX = player.lastTickPosX + (player.posX - player.lastTickPosX) * f;
@@ -139,46 +143,50 @@ public class SelectionRenderer {
 
     private void drawOutline(RenderGlobal r, float partial, AxisAlignedBB aabb, RenderSetting[] settings) {
 
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 
         int originalDepth = GL11.glGetInteger(GL11.GL_DEPTH_FUNC);
+
         Tessellator tes = Tessellator.getInstance();
+        VertexBuffer vb = tes.getBuffer();
 
         for (RenderSetting s : settings) {
-            GL11.glColor4f(s.r, s.g, s.b, s.a);
-            GL11.glDepthFunc(s.depthFunc);
+            GlStateManager.color(s.r, s.g, s.b, s.a);
+            GlStateManager.depthFunc(s.depthFunc);
 
-            tes.startDrawing(3);
-            tes.addVertex(aabb.minX, aabb.minY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.minY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.minY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.minY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.minY, aabb.minZ);
+            vb.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+            vb.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.minY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.minY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.minY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
             tes.draw();
-            tes.startDrawing(3);
-            tes.addVertex(aabb.minX, aabb.maxY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.maxY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.maxY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.maxY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.maxY, aabb.minZ);
+
+            vb.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+            vb.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.maxY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.maxY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.maxY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
             tes.draw();
-            tes.startDrawing(1);
-            tes.addVertex(aabb.minX, aabb.minY, aabb.minZ);
-            tes.addVertex(aabb.minX, aabb.maxY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.minY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.maxY, aabb.minZ);
-            tes.addVertex(aabb.maxX, aabb.minY, aabb.maxZ);
-            tes.addVertex(aabb.maxX, aabb.maxY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.minY, aabb.maxZ);
-            tes.addVertex(aabb.minX, aabb.maxY, aabb.maxZ);
+
+            vb.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+            vb.pos(aabb.minX, aabb.minY, aabb.minZ).endVertex();
+            vb.pos(aabb.minX, aabb.maxY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.minY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.maxY, aabb.minZ).endVertex();
+            vb.pos(aabb.maxX, aabb.minY, aabb.maxZ).endVertex();
+            vb.pos(aabb.maxX, aabb.maxY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.minY, aabb.maxZ).endVertex();
+            vb.pos(aabb.minX, aabb.maxY, aabb.maxZ).endVertex();
             tes.draw();
         }
 
-        GL11.glDepthFunc(originalDepth);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GlStateManager.depthFunc(originalDepth);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
     }
 
     private static class CachedSelection {

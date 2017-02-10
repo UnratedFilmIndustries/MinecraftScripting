@@ -2,6 +2,7 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import net.minecraft.entity.passive.EntitySheep;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptDyeColor;
 
 public class ScriptEntitySheep extends ScriptEntityAgeable {
 
@@ -14,14 +15,14 @@ public class ScriptEntitySheep extends ScriptEntityAgeable {
         this.entitySheep = entitySheep;
     }
 
-    public int getFleeceColor() {
+    public String getFleeceColor() {
 
-        return entitySheep.getFleeceColor();
+        return ScriptDyeColor.fromNative(entitySheep.getFleeceColor());
     }
 
-    public void setFleeceColor(int color) {
+    public void setFleeceColor(String color) {
 
-        entitySheep.setFleeceColor(color);
+        entitySheep.setFleeceColor(ScriptDyeColor.toNative(color));
     }
 
     public boolean getSheared() {

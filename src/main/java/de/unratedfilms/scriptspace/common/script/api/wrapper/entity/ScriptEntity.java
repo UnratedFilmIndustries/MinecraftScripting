@@ -12,8 +12,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.factory.ScriptEntityFactory;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
@@ -24,7 +27,7 @@ public class ScriptEntity {
 
     public static ScriptEntity createEntityByName(String name, ScriptWorld world) {
 
-        Entity e = EntityList.createEntityByName(name, world.world);
+        Entity e = EntityList.createEntityByIDFromName(new ResourceLocation(name), world.world);
         return e != null ? createFromNative(e) : null;
     }
 
@@ -53,7 +56,7 @@ public class ScriptEntity {
     }
 
     /*
-     * Mod entities are registered twice. Once entity is called "NAME", while the other one is called "MOD.NAME".
+     * Mod entities are registered twice. One entity is called "NAME", while the other one is called "MOD.NAME".
      * Although both entities actually mean the same entity type, most applications only work with the "MOD.NAME" version.
      * Therefore, this method filters out all those virtual "NAME" mod entities. Note that vanilla entities are not affected.
      * Moreover, all abstract entities are filtered out.
@@ -64,9 +67,9 @@ public class ScriptEntity {
 
         SortedMap<String, Class<? extends Entity>> result = new TreeMap<>();
 
-        for (Entry<String, Class<? extends Entity>> entity : ((Map<String, Class<? extends Entity>>) EntityList.stringToClassMapping).entrySet()) {
-            String entityName = entity.getKey();
-            Class<? extends Entity> entityClass = entity.getValue();
+        for (EntityEntry entityEntry : ForgeRegistries.ENTITIES) {
+            String entityName = entityEntry.getRegistryName().toString();
+            Class<? extends Entity> entityClass = entityEntry.getEntityClass();
 
             // Filter out abstract entities
             if (Modifier.isAbstract(entityClass.getModifiers())) {
@@ -74,6 +77,7 @@ public class ScriptEntity {
             }
 
             // Filter out only-"NAME" mod entities; note that EntityRegistration.getEntityName() returns the name without the "MOD." prefix!
+            // TODO: Can we remove this only-"NAME" filtering in 1.11?
             EntityRegistration modEntity = EntityRegistry.instance().lookupModSpawn(entityClass, false);
             if (modEntity != null && entityName.equals(modEntity.getEntityName())) {
                 continue;

@@ -7,6 +7,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import de.unratedfilms.guilib.core.MouseButton;
 import de.unratedfilms.guilib.widgets.model.Button;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingItemStack;
@@ -14,16 +15,16 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemSta
 
 public class SettingWidgetItemStackButton extends SettingWidgetAbstractItemButton<SettingItemStack> {
 
-    private static List<ItemStack> allItemsCache = null;
+    // getSubItems() only accepts NonNullList
+    private static NonNullList<ItemStack> allItemsCache = null;
 
     /**
      * See {@link net.minecraft.client.gui.inventory.GuiContainerCreative#updateCreativeSearch()}
      */
-    @SuppressWarnings ("unchecked")
     private static List<ItemStack> getAllItems() {
 
         if (allItemsCache == null) {
-            allItemsCache = new ArrayList<>();
+            allItemsCache = NonNullList.create();
             allItemsCache.add(new ItemStack((Item) null));
             for (Item item : Item.REGISTRY) {
                 if (item != null && item.getCreativeTab() != null) {

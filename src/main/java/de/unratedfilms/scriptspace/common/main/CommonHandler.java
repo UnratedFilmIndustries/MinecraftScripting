@@ -31,8 +31,8 @@ public class CommonHandler {
 
     private void registerItems() {
 
-        GameRegistry.registerItem(CustomItems.SELECTION, CustomItems.SELECTION.getName());
-        GameRegistry.registerItem(CustomItems.PROGRAM, CustomItems.PROGRAM.getName());
+        GameRegistry.register(CustomItems.SELECTION);
+        GameRegistry.register(CustomItems.PROGRAM);
     }
 
     public void init(FMLInitializationEvent event) {

@@ -2,7 +2,7 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.List;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import de.unratedfilms.guilib.core.MouseButton;
@@ -42,7 +42,7 @@ public class ItemPopup extends OverlayScreen {
         setRootWidget(mainContainer);
 
         scrollbar = new ScrollbarImpl(0);
-        scrollableContainer = new ContainerScrollableImpl(scrollbar, 0);
+        scrollableContainer = new ContainerScrollableImpl(scrollbar);
         mainContainer.addWidgets(scrollableContainer);
 
         ButtonItem[] buttons = new ButtonItem[options.size()];
@@ -101,13 +101,13 @@ public class ItemPopup extends OverlayScreen {
         int cBottom = scrollableContainer.getY() + scrollableContainer.getHeight();
 
         // Draw the 4 outlining rectangles (entire top, entire bottom, left (mid), right (mid) )
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GlStateManager.disableDepth();
         drawRect(cLeft - 1, cTop - 1, cRight - scrollbar.getWidth() + 1, cTop, 0xffffffff);
         drawRect(cLeft - 1, cBottom, cRight - scrollbar.getWidth() + 1, cBottom + 1, 0xffffffff);
         drawRect(cLeft - 1, cTop, cLeft, cBottom, 0xffffffff);
         drawRect(cRight - scrollbar.getWidth(), cTop, cRight - scrollbar.getWidth() + 1, cBottom, 0xffffffff);
         drawRect(cLeft, cTop, cRight - scrollbar.getWidth(), cBottom, 0xff444444);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GlStateManager.enableDepth();
     }
 
     /**
@@ -117,7 +117,7 @@ public class ItemPopup extends OverlayScreen {
     protected void mouseClicked(int mx, int my, int code) {
 
         if (scrollableContainer.inGlobalBounds(getRootViewport(), mx, my)) {
-            scrollableContainer.mousePressed(getRootViewport(), mx, my, MouseButton.fromCode(code));
+            super.mouseClicked(mx, my, code);
         } else {
             close();
         }

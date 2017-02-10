@@ -2,6 +2,8 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 public class ScriptEntityVillager extends ScriptEntityAgeable {
 
@@ -14,14 +16,14 @@ public class ScriptEntityVillager extends ScriptEntityAgeable {
         this.entityVillager = entityVillager;
     }
 
-    public void setProfession(int prof) {
+    public void setProfession(String prof) {
 
-        entityVillager.setProfession(prof);
+        entityVillager.setProfession(VillagerRegistry.instance().getRegistry().getValue(new ResourceLocation(prof)));
     }
 
-    public int getProfession() {
+    public String getProfession() {
 
-        return entityVillager.getProfession();
+        return entityVillager.getProfessionForge().getRegistryName().toString();
     }
 
     public void setMating(boolean mating) {

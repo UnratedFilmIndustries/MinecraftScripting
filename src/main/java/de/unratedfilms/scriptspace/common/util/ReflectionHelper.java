@@ -4,25 +4,19 @@ package de.unratedfilms.scriptspace.common.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.tileentity.TileEntity;
 
 public class ReflectionHelper {
 
-    private static final int                  ENTITY_LIVING_BASE__POTION_FIELD_INDEX = 51;
-    private static final int                  TILE_ENTITY__CLASS_TO_NAME_INDEX       = 2;
+    private static final int  ENTITY_LIVING_BASE__POTION_FIELD_INDEX = 51;
 
-    public static final Field                 ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE;
-    public static final Map<Class<?>, String> TILE_ENTITY__CLASS_TO_NAME;
+    public static final Field ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE;
 
     static {
 
         try {
             ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE = EntityLivingBase.class.getDeclaredFields()[ENTITY_LIVING_BASE__POTION_FIELD_INDEX];
             ENTITY_LIVING_BASE__POTIONS_NEED_UPDATE.setAccessible(true);
-
-            TILE_ENTITY__CLASS_TO_NAME = net.minecraftforge.fml.relauncher.ReflectionHelper.getPrivateValue(TileEntity.class, null, TILE_ENTITY__CLASS_TO_NAME_INDEX);
         }
         // Rethrow all exceptions because we can't recover from this error
         catch (RuntimeException e) {

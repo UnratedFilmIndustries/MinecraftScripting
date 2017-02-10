@@ -2,10 +2,12 @@
 package de.unratedfilms.scriptspace.common.items;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,23 +37,26 @@ public class ItemProgram extends ItemCustom {
         stack.setTagCompound(tag);
 
         String programDisplayName = program.getTitle().isEmpty() ? program.getSourceScript().getName() : program.getTitle() + " (" + program.getSourceScript().getName() + ")";
-        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(INSTANCE.getUnlocalizedName() + ".name", programDisplayName));
+        stack.setStackDisplayName(I18n.format(INSTANCE.getUnlocalizedName() + ".name", programDisplayName));
     }
 
     private ItemProgram() {
 
-        setUnlocalizedName("program");
+        setItemName("program");
         setMaxStackSize(1);
         setFull3D();
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+        ActionResult<ItemStack> result = super.onItemRightClick(worldIn, playerIn, handIn);
+        ItemStack stack = result.getResult();
 
         // Only continue on the client
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             // When the user right clicks with an item stack, that stack must be the held item stack
-            int slotId = player.inventory.currentItem;
+            int slotId = playerIn.inventory.currentItem;
 
             Program program = getProgram(stack);
 
@@ -59,7 +64,7 @@ public class ItemProgram extends ItemCustom {
             ReflectionHelper.invokeDeclaredMethod(ItemProgram.class, this, "doDisplayConfigureProgramScreen", new Class[] { Program.class, int.class }, program, slotId);
         }
 
-        return stack;
+        return result;
     }
 
     @SideOnly (Side.CLIENT)

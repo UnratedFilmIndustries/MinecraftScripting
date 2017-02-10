@@ -9,6 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,7 +47,7 @@ public class ItemSelection extends ItemCustom {
 
     private ItemSelection() {
 
-        setUnlocalizedName("selection");
+        setItemName("selection");
         setMaxStackSize(1);
         setCreativeTab(CreativeTabs.MISC);
         setFull3D();
@@ -80,20 +84,24 @@ public class ItemSelection extends ItemCustom {
      */
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+        ActionResult<ItemStack> result = super.onItemRightClick(worldIn, playerIn, handIn);
+        ItemStack stack = result.getResult();
 
         // If we're on the client, choose the clicked selection as the current selection
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             SelectionStorage.chosenSelection = getSelection(stack);
         }
 
-        return stack;
+        return result;
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 
-        TileEntity clickedTileEntity = world.getTileEntity(x, y, z);
+        ItemStack stack = player.getHeldItem(hand);
+        TileEntity clickedTileEntity = world.getTileEntity(pos);
 
         Selection oldSelection = getSelection(stack);
         Selection newSelection;
@@ -102,9 +110,9 @@ public class ItemSelection extends ItemCustom {
             newSelection = new SelectionTileEntity(clickedTileEntity);
         } else if (oldSelection instanceof SelectionBlock) {
             BlockPos corner1 = ((SelectionBlock) oldSelection).blockLocation;
-            newSelection = new SelectionCuboid(world.provider.getDimension(), corner1, new BlockPos(x, y, z));
+            newSelection = new SelectionCuboid(world.provider.getDimension(), corner1, pos);
         } else {
-            newSelection = new SelectionBlock(world.provider.getDimension(), new BlockPos(x, y, z));
+            newSelection = new SelectionBlock(world.provider.getDimension(), pos);
         }
 
         setSelection(stack, newSelection);
@@ -114,7 +122,7 @@ public class ItemSelection extends ItemCustom {
             SelectionStorage.chosenSelection = newSelection;
         }
 
-        return true;
+        return EnumActionResult.SUCCESS; // avoid vanilla handling
     }
 
     @Override

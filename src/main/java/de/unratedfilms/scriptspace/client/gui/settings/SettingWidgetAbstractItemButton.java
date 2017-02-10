@@ -2,7 +2,7 @@
 package de.unratedfilms.scriptspace.client.gui.settings;
 
 import java.util.Arrays;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import de.unratedfilms.guilib.core.MouseButton;
@@ -39,7 +39,7 @@ public abstract class SettingWidgetAbstractItemButton<S extends Setting> extends
         public CustomizedItemButton setItemStack(ItemStack itemStack) {
 
             super.setItemStack(itemStack);
-            zLevel = itemStack.getItem() != null && itemStack.hasEffect(0) ? 50 : 0;
+            zLevel = itemStack.getItem() != null && itemStack.hasEffect() ? 50 : 0;
 
             return this;
         }
@@ -62,12 +62,12 @@ public abstract class SettingWidgetAbstractItemButton<S extends Setting> extends
             int width = getWidth();
             int height = getHeight();
 
-            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GlStateManager.disableDepth();
             drawRect(x, y, x + width, y + 1, 0xff000000);
             drawRect(x, y + height - 1, x + width, y + height, 0xff000000);
             drawRect(x, y, x + 1, y + height, 0xff000000);
             drawRect(x + width - 1, y, x + width, y + height, 0xff000000);
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GlStateManager.enableDepth();
         }
 
     }
