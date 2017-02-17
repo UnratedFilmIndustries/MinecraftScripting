@@ -1,6 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
+import net.minecraft.util.MathHelper;
+
 public class SettingInt extends Setting {
 
     public final int min;
@@ -22,7 +24,7 @@ public class SettingInt extends Setting {
 
         super(name, displayName);
 
-        this.value = value;
+        this.value = MathHelper.clamp_int(value, min, max);
         this.min = min;
         this.max = max;
     }

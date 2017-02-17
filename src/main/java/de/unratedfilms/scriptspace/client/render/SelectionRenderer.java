@@ -4,6 +4,7 @@ package de.unratedfilms.scriptspace.client.render;
 import static de.unratedfilms.scriptspace.client.render.RenderSettings.SEL_CORNER_EXPANSION;
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.opengl.GL11;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -14,11 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
+import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.common.items.ItemSelection;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionBlock;
@@ -49,14 +50,14 @@ public class SelectionRenderer {
 
         renderedSelections.clear();
 
-        // If there's a currently chosen selection, render it
-        if (SelectionStorage.chosenSelection != null) {
+        // If there's a currently chosen selection and the render setting is switched on, render it
+        if (SelectionStorage.chosenSelection != null && SelectionStorage.renderChosenSelection) {
             proposeSelectionForRendering(SelectionStorage.chosenSelection);
         }
 
         // If there's a currently held selection, render it
         ItemStack heldStack = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-        if (heldStack != null && heldStack.getItem() == ItemSelection.INSTANCE) {
+        if (heldStack != null && heldStack.getItem() == CustomItems.SELECTION) {
             Selection heldSelection = ItemSelection.getSelection(heldStack);
             proposeSelectionForRendering(heldSelection);
         }

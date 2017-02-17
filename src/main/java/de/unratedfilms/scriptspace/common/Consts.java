@@ -9,7 +9,7 @@ public class Consts {
 
     public static final String MOD_ID       = "scriptspace";
     public static final String MOD_NAME     = "ScriptSpace";
-    public static String       MOD_VERSION;                                  // dynamic "constant"
+    public static final String MOD_VERSION  = "@MOD_VERSION@";               // Replaced during build
 
     public static final Logger LOGGER       = LogManager.getLogger(MOD_NAME);
 

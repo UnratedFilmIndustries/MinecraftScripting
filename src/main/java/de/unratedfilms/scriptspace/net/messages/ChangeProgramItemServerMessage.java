@@ -1,16 +1,17 @@
 
 package de.unratedfilms.scriptspace.net.messages;
 
-import io.netty.buffer.ByteBuf;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.Validate;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.common.items.ItemProgram;
 import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.ScriptsEncoder;
+import io.netty.buffer.ByteBuf;
 
 /**
  * This message tells the server that it should set the {@link Program} stored in a given {@link ItemProgram} to the supplied program object.
@@ -57,14 +58,14 @@ public class ChangeProgramItemServerMessage implements IMessage {
 
             ItemStack programItemStack;
             if (message.slotId == -1) {
-                programItemStack = new ItemStack(ItemProgram.INSTANCE);
+                programItemStack = new ItemStack(CustomItems.PROGRAM);
                 ItemProgram.setProgram(programItemStack, message.program);
                 sourcePlayer.inventory.addItemStackToInventory(programItemStack);
             } else {
                 programItemStack = sourcePlayer.inventory.getStackInSlot(message.slotId);
 
                 // Only continue if the slot id was -1 or pointed to a real program item stack
-                if (programItemStack != null && programItemStack.getItem().equals(ItemProgram.INSTANCE)) {
+                if (programItemStack != null && programItemStack.getItem().equals(CustomItems.PROGRAM)) {
                     ItemProgram.setProgram(programItemStack, message.program);
                     sourcePlayer.inventory.setInventorySlotContents(message.slotId, programItemStack);
                 }

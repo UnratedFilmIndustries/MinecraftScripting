@@ -1,6 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.script.api.util;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import net.minecraft.util.Vec3;
 import de.unratedfilms.scriptspace.common.util.Utils;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
@@ -33,11 +35,7 @@ public class ScriptVec3 {
 
     public ScriptVec3 add(ScriptVec3 vec) {
 
-        x += vec.x;
-        y += vec.y;
-        z += vec.z;
-
-        return this;
+        return add(vec.x, vec.y, vec.z);
     }
 
     public ScriptVec3 add(double x, double y, double z) {
@@ -51,11 +49,7 @@ public class ScriptVec3 {
 
     public ScriptVec3 multiply(ScriptVec3 vec) {
 
-        x *= vec.x;
-        y *= vec.y;
-        z *= vec.z;
-
-        return this;
+        return multiply(vec.x, vec.y, vec.z);
     }
 
     public ScriptVec3 multiply(double x, double y, double z) {
@@ -67,13 +61,9 @@ public class ScriptVec3 {
         return this;
     }
 
-    public ScriptVec3 scale(double s) {
+    public ScriptVec3 scale(double scale) {
 
-        x *= s;
-        y *= s;
-        z *= s;
-
-        return this;
+        return multiply(scale, scale, scale);
     }
 
     public double length() {
@@ -129,6 +119,24 @@ public class ScriptVec3 {
     public ScriptVec3 clone() {
 
         return new ScriptVec3(x, y, z);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+
+        return "(" + x + "|" + y + "|" + z + ")";
     }
 
 }

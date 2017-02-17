@@ -1,15 +1,15 @@
 
 package de.unratedfilms.scriptspace.client.keys;
 
-import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
+import net.minecraft.client.settings.KeyBinding;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import de.unratedfilms.scriptspace.common.Consts;
 
 public class KeyBindings {
 
-    public static KeyBinding createProgram   = createKeyBinding("createProgram", Keyboard.KEY_C);
-    public static KeyBinding chooseSelection = createKeyBinding("chooseSelection", Keyboard.KEY_V);
+    public static KeyBinding createProgram                   = createKeyBinding("createProgram", Keyboard.KEY_C);
+    public static KeyBinding toggleChosenSelectionVisibility = createKeyBinding("toggleChosenSelectionVisibility", Keyboard.KEY_V);
 
     private static KeyBinding createKeyBinding(String name, int key) {
 
@@ -19,7 +19,7 @@ public class KeyBindings {
     public static void initialize() {
 
         ClientRegistry.registerKeyBinding(createProgram);
-        ClientRegistry.registerKeyBinding(chooseSelection);
+        ClientRegistry.registerKeyBinding(toggleChosenSelectionVisibility);
     }
 
 }

@@ -2,22 +2,29 @@
 package de.unratedfilms.scriptspace.common.items;
 
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.unratedfilms.scriptspace.common.Consts;
 
-public class CustomItem extends Item {
+public class ItemCustom extends Item {
+
+    private static final String NAME_PREFIX = Consts.MOD_ID + ".";
+
+    public String getName() {
+
+        return StringUtils.substringAfter(getUnlocalizedName(), NAME_PREFIX);
+    }
 
     @Override
     public Item setUnlocalizedName(String unlocalizedName) {
 
-        return super.setUnlocalizedName(Consts.MOD_ID + "." + unlocalizedName);
+        return super.setUnlocalizedName(NAME_PREFIX + unlocalizedName);
     }
 
     @Override
@@ -31,7 +38,7 @@ public class CustomItem extends Item {
     @SideOnly (Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
 
-        itemIcon = iconRegister.registerIcon(Consts.MOD_ID + ":" + StringUtils.substringAfter(getUnlocalizedName(), "."));
+        itemIcon = iconRegister.registerIcon(Consts.MOD_ID + ":" + getName());
     }
 
 }

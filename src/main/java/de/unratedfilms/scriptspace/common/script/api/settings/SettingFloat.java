@@ -1,6 +1,8 @@
 
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
+import net.minecraft.util.MathHelper;
+
 public class SettingFloat extends Setting {
 
     public final float min;
@@ -15,14 +17,14 @@ public class SettingFloat extends Setting {
 
     public SettingFloat(String name, String displayName, float value) {
 
-        this(name, displayName, value, Float.MIN_VALUE, Float.MAX_VALUE);
+        this(name, displayName, value, -Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     public SettingFloat(String name, String displayName, float value, float min, float max) {
 
         super(name, displayName);
 
-        this.value = value;
+        this.value = MathHelper.clamp_float(value, min, max);
         this.min = min;
         this.max = max;
     }

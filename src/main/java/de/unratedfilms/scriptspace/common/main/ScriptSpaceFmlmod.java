@@ -9,7 +9,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import de.unratedfilms.scriptspace.common.Consts;
 
-@Mod (modid = Consts.MOD_ID)
+@Mod (modid = Consts.MOD_ID, version = Consts.MOD_VERSION)
 public class ScriptSpaceFmlmod {
 
     @SidedProxy (clientSide = Consts.ROOT_PACKAGE + ".client.main.ClientHandler", serverSide = Consts.ROOT_PACKAGE + ".common.main.CommonHandler")

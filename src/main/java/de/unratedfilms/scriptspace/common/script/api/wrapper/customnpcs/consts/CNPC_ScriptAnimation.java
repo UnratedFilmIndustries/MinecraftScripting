@@ -1,9 +1,9 @@
 
-package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
+package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
 import java.util.ArrayList;
-import noppes.npcs.constants.EnumAnimation;
 import com.google.common.collect.ImmutableBiMap;
+import noppes.npcs.constants.EnumAnimation;
 
 public class CNPC_ScriptAnimation {
 
@@ -22,14 +22,14 @@ public class CNPC_ScriptAnimation {
 
     }
 
-    public static final String[] getAllAnimations() {
+    public static final String[] getAll() {
 
         return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
     }
 
     public static String fromNative(EnumAnimation animation) {
 
-        return MAPPING.containsValue(animation) ? MAPPING.inverse().get(animation) : "Normal";
+        return MAPPING.containsValue(animation) ? MAPPING.inverse().get(animation) : fromNative(EnumAnimation.NONE);
     }
 
     public static EnumAnimation toNative(String animation) {

@@ -8,6 +8,7 @@
   "url": "http://www.unratedfilmindustries.de",
   "authorList": [ "LoadingByte", "Davidee" ],
   "credits": "Davidee, who created the MinecraftScripting mod, the base of this mod",
+  "requiredMods": [ "guilib" ],
   "dependencies": [ "guilib" ]
 }
 ]

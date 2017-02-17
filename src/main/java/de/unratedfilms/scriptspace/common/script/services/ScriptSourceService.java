@@ -24,7 +24,7 @@ import de.unratedfilms.scriptspace.common.script.SourceScript;
 
 public class ScriptSourceService {
 
-    private static final String DEFAULT_SCRIPTS_DIR = "/assets/scriptspace/defaultscripts";
+    private static final String DEFAULT_SCRIPTS_DIR = "/assets/" + Consts.MOD_ID + "/defaultscripts";
 
     public static Set<SourceScript> getAvailableScripts() {
 

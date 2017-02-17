@@ -2,15 +2,14 @@
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
 import static net.minecraftforge.common.util.Constants.NBT.TAG_STRING;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 import de.unratedfilms.scriptspace.common.util.ByteBufUtils2;
 import de.unratedfilms.scriptspace.common.util.NBTUtils;
+import io.netty.buffer.ByteBuf;
 
 public class SettingsEncoder {
 
@@ -41,7 +40,7 @@ public class SettingsEncoder {
                 int blockData = from.readInt();
                 return new SettingBlock(name, displayName, ScriptBlock.fromBlock(Block.getBlockById(blockId), blockData));
             case 6:
-                return new SettingItemStack(name, displayName, new ScriptItemStack(ByteBufUtils.readItemStack(from)));
+                return new SettingItemStack(name, displayName, new ScriptItemStack(ByteBufUtils2.readItemStack(from)));
         }
 
         throw new IllegalArgumentException("Unknown setting discriminator: " + discriminator);
@@ -97,7 +96,7 @@ public class SettingsEncoder {
         else if (setting instanceof SettingItemStack) {
             to.writeByte(6);
             SettingItemStack settingItemStack = (SettingItemStack) setting;
-            ByteBufUtils.writeItemStack(to, settingItemStack.stack.stack);
+            ByteBufUtils2.writeItemStack(to, settingItemStack.stack.stack);
         }
 
         else {
@@ -132,7 +131,7 @@ public class SettingsEncoder {
                 int blockData = from.getInteger("blockData");
                 return new SettingBlock(name, displayName, ScriptBlock.fromBlock(Block.getBlockById(blockId), blockData));
             case 6:
-                return new SettingItemStack(name, displayName, new ScriptItemStack(ItemStack.loadItemStackFromNBT(from.getCompoundTag("itemStack"))));
+                return new SettingItemStack(name, displayName, new ScriptItemStack(NBTUtils.readItemStack(from.getCompoundTag("itemStack"))));
         }
 
         throw new IllegalArgumentException("Unknown setting discriminator: " + discriminator);
@@ -188,7 +187,7 @@ public class SettingsEncoder {
         else if (setting instanceof SettingItemStack) {
             to.setByte("discriminator", (byte) 6);
             SettingItemStack settingItemStack = (SettingItemStack) setting;
-            settingItemStack.stack.stack.writeToNBT(NBTUtils.addNewCompoundTag(to, "itemStack"));
+            NBTUtils.writeItemStack(NBTUtils.addNewCompoundTag(to, "itemStack"), settingItemStack.stack.stack);
         }
 
         else {

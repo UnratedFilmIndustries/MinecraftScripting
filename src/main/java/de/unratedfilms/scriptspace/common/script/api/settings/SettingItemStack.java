@@ -1,7 +1,6 @@
 
 package de.unratedfilms.scriptspace.common.script.api.settings;
 
-import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
 public class SettingItemStack extends Setting {
@@ -17,7 +16,7 @@ public class SettingItemStack extends Setting {
 
         super(name, displayName);
 
-        this.stack = stack == null ? new ScriptItemStack(ScriptBlock.forName("stone"), 1, 0) : stack;
+        this.stack = stack == null ? new ScriptItemStack() : stack;
     }
 
     @Override

@@ -9,27 +9,52 @@ import de.unratedfilms.scriptspace.common.script.services.ScriptCompilationServi
 
 public class Program {
 
+    private final String                 title;
     private final SourceScript           sourceScript;
     private final ImmutableList<Setting> settings;
 
     /**
-     * Creates a program with the script's default settings.
+     * Creates a program with the script's default settings and no title.
      */
     public Program(SourceScript sourceScript) throws ScriptCompilationException {
 
+        this("", sourceScript);
+    }
+
+    /**
+     * Creates a program with the script's default settings and the given title.
+     *
+     * @param title The title, which can be empty but not {@code null}.
+     */
+    public Program(String title, SourceScript sourceScript) throws ScriptCompilationException {
+
+        Validate.notNull(title);
         Validate.notNull(sourceScript);
 
+        this.title = title;
         this.sourceScript = sourceScript;
         settings = getCompiledScript().getDefaultSettings();
     }
 
-    public Program(SourceScript sourceScript, List<Setting> settings) {
+    /**
+     * Creates a program with the given script settings and the given title.
+     *
+     * @param title The title, which can be empty but not {@code null}.
+     */
+    public Program(String title, SourceScript sourceScript, List<Setting> settings) {
 
+        Validate.notNull(title);
         Validate.notNull(sourceScript);
         Validate.notNull(settings);
 
+        this.title = title;
         this.sourceScript = sourceScript;
         this.settings = ImmutableList.copyOf(settings);
+    }
+
+    public String getTitle() {
+
+        return title;
     }
 
     public SourceScript getSourceScript() {

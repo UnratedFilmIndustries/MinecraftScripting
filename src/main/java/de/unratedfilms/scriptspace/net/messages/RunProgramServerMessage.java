@@ -1,9 +1,8 @@
 
 package de.unratedfilms.scriptspace.net.messages;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
 import org.apache.commons.lang3.Validate;
+import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -15,6 +14,7 @@ import de.unratedfilms.scriptspace.common.script.services.ProgramExecutionServic
 import de.unratedfilms.scriptspace.common.script.services.ScriptCompilationService;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionsEncoder;
+import io.netty.buffer.ByteBuf;
 
 /**
  * This message tells the server that it should compile and run the given {@link Program} on the given {@link Selection}.

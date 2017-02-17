@@ -4,11 +4,11 @@ package de.unratedfilms.scriptspace.common.selection;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import org.apache.commons.lang3.Validate;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
 
 public class SelectionTileEntity extends Selection {

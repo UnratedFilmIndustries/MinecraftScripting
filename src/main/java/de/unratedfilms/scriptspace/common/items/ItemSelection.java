@@ -10,6 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import de.unratedfilms.scriptspace.client.selection.SelectionStorage;
 import de.unratedfilms.scriptspace.common.selection.Selection;
 import de.unratedfilms.scriptspace.common.selection.SelectionBlock;
 import de.unratedfilms.scriptspace.common.selection.SelectionCuboid;
@@ -18,10 +21,9 @@ import de.unratedfilms.scriptspace.common.selection.SelectionTileEntity;
 import de.unratedfilms.scriptspace.common.selection.SelectionsEncoder;
 import de.unratedfilms.scriptspace.common.util.Vec3i;
 
-public class ItemSelection extends CustomItem {
+public class ItemSelection extends ItemCustom {
 
-    public static final ItemSelection INSTANCE  = new ItemSelection();
-    public static final String        ITEM_NAME = "selection";
+    static final ItemSelection INSTANCE = new ItemSelection();
 
     public static Selection getSelection(ItemStack stack) {
 
@@ -41,10 +43,10 @@ public class ItemSelection extends CustomItem {
 
     private ItemSelection() {
 
-        bFull3D = true;
-        maxStackSize = 1;
-        setUnlocalizedName(ITEM_NAME);
+        setUnlocalizedName("selection");
+        setMaxStackSize(1);
         setCreativeTab(CreativeTabs.tabMisc);
+        setFull3D();
     }
 
     @SuppressWarnings ({ "rawtypes", "unchecked" })
@@ -78,6 +80,17 @@ public class ItemSelection extends CustomItem {
      */
 
     @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+
+        // If we're on the client, choose the clicked selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = getSelection(stack);
+        }
+
+        return stack;
+    }
+
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
 
         TileEntity clickedTileEntity = world.getTileEntity(x, y, z);
@@ -96,6 +109,11 @@ public class ItemSelection extends CustomItem {
 
         setSelection(stack, newSelection);
 
+        // If we're on the client, choose the modified selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = newSelection;
+        }
+
         return true;
     }
 
@@ -104,6 +122,11 @@ public class ItemSelection extends CustomItem {
 
         SelectionEntity newSelection = new SelectionEntity(entity);
         setSelection(stack, newSelection);
+
+        // If we're on the client, choose the modified selection as the current selection
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            SelectionStorage.chosenSelection = newSelection;
+        }
 
         return true;
     }

@@ -8,6 +8,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import de.unratedfilms.scriptspace.common.Consts;
 import de.unratedfilms.scriptspace.common.script.api.js.Range;
 import de.unratedfilms.scriptspace.common.script.api.js.TagItr;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingBlock;
@@ -18,13 +19,22 @@ import de.unratedfilms.scriptspace.common.script.api.settings.SettingItemStack;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingString;
 import de.unratedfilms.scriptspace.common.script.api.settings.SettingStringList;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptArray;
-import de.unratedfilms.scriptspace.common.script.api.util.ScriptIO;
+import de.unratedfilms.scriptspace.common.script.api.util.ScriptLogger;
+import de.unratedfilms.scriptspace.common.script.api.util.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec2;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptSelection;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.CNPC_ScriptAnimation;
-import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.CNPC_ScriptRotationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementPathBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptNameVisibility;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRespawnBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRetaliationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRotationBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptShelteringBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptTacticalBehavior;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptVisibility;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagByte;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagByteArray;
@@ -40,6 +50,7 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagString
 import de.unratedfilms.scriptspace.common.script.api.wrapper.tileentity.ScriptTileEntity;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItem;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
 class ContextConfigurator {
 
@@ -55,7 +66,11 @@ class ContextConfigurator {
 
                 .build();
 
-        ABBREVIATIONS = ImmutableMap.<String, Class<?>> builder()
+    }
+
+    static {
+
+        ImmutableMap.Builder<String, Class<?>> abbreviationsBuilder = ImmutableMap.<String, Class<?>> builder()
 
                 // "settings" package
                 .put("SettingBlock", SettingBlock.class)
@@ -68,17 +83,13 @@ class ContextConfigurator {
 
                 // "util" package
                 .put("Array", ScriptArray.class)
-                .put("IO", ScriptIO.class)
+                .put("Logger", ScriptLogger.class)
+                .put("Rand", ScriptRandom.class)
                 .put("Vec2", ScriptVec2.class)
                 .put("Vec3", ScriptVec3.class)
 
                 // "wrapper" package
-                .put("Rand", ScriptRandom.class)
                 .put("Selection", ScriptSelection.class)
-
-                // "wrapper.customnpcs" package
-                .put("CNPC_Animation", CNPC_ScriptAnimation.class)
-                .put("CNPC_RotationBehavior", CNPC_ScriptRotationBehavior.class)
 
                 // "wrapper.entity" package
                 .put("Entity", ScriptEntity.class)
@@ -102,8 +113,25 @@ class ContextConfigurator {
                 // "wrapper.world" package
                 .put("Block", ScriptBlock.class)
                 .put("Item", ScriptItem.class)
+                .put("ItemStack", ScriptItemStack.class);
 
-                .build();
+        if (Consts.HASMOD_CUSTOM_NPCS) {
+            // "wrapper.customnpcs.consts" package
+            abbreviationsBuilder
+                    .put("CNPC_Animation", CNPC_ScriptAnimation.class)
+                    .put("CNPC_BossbarType", CNPC_ScriptBossbarType.class)
+                    .put("CNPC_MovementBehavior", CNPC_ScriptMovementBehavior.class)
+                    .put("CNPC_MovementPathBehavior", CNPC_ScriptMovementPathBehavior.class)
+                    .put("CNPC_NameVisibility", CNPC_ScriptNameVisibility.class)
+                    .put("CNPC_RespawnBehavior", CNPC_ScriptRespawnBehavior.class)
+                    .put("CNPC_RetaliationBehavior", CNPC_ScriptRetaliationBehavior.class)
+                    .put("CNPC_RotationBehavior", CNPC_ScriptRotationBehavior.class)
+                    .put("CNPC_ShelteringBehavior", CNPC_ScriptShelteringBehavior.class)
+                    .put("CNPC_TacticalBehavior", CNPC_ScriptTacticalBehavior.class)
+                    .put("CNPC_Visibility", CNPC_ScriptVisibility.class);
+        }
+
+        ABBREVIATIONS = abbreviationsBuilder.build();
 
     }
 

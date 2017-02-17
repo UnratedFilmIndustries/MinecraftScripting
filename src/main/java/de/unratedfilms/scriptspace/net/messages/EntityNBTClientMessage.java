@@ -1,17 +1,17 @@
 
 package de.unratedfilms.scriptspace.net.messages;
 
-import io.netty.buffer.ByteBuf;
+import org.apache.commons.lang3.Validate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import org.apache.commons.lang3.Validate;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
 
 /**
  * Tells the client it should update the {@link NBTTagCompound NBT tag} of the given entity to the supplied NBT tag.

@@ -15,10 +15,9 @@ import de.unratedfilms.scriptspace.common.script.Program;
 import de.unratedfilms.scriptspace.common.script.ScriptsEncoder;
 import de.unratedfilms.scriptspace.common.util.ReflectionHelper;
 
-public class ItemProgram extends CustomItem {
+public class ItemProgram extends ItemCustom {
 
-    public static final ItemProgram INSTANCE  = new ItemProgram();
-    public static final String      ITEM_NAME = "program";
+    static final ItemProgram INSTANCE = new ItemProgram();
 
     public static Program getProgram(ItemStack stack) {
 
@@ -35,15 +34,15 @@ public class ItemProgram extends CustomItem {
         ScriptsEncoder.writeProgramNBT(tag, program);
         stack.setTagCompound(tag);
 
-        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(INSTANCE.getUnlocalizedName() + ".name", program.getSourceScript().getName()));
+        String programDisplayName = program.getTitle().isEmpty() ? program.getSourceScript().getName() : program.getTitle() + " (" + program.getSourceScript().getName() + ")";
+        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(INSTANCE.getUnlocalizedName() + ".name", programDisplayName));
     }
 
     private ItemProgram() {
 
-        bFull3D = true;
-        maxStackSize = 1;
-        setUnlocalizedName(ITEM_NAME);
-        setCreativeTab(null);
+        setUnlocalizedName("program");
+        setMaxStackSize(1);
+        setFull3D();
     }
 
     @Override

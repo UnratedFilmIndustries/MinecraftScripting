@@ -9,8 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import de.unratedfilms.scriptspace.common.Config;
 import de.unratedfilms.scriptspace.common.Consts;
-import de.unratedfilms.scriptspace.common.items.ItemProgram;
-import de.unratedfilms.scriptspace.common.items.ItemSelection;
+import de.unratedfilms.scriptspace.common.items.CustomItems;
 import de.unratedfilms.scriptspace.net.NetworkService;
 
 public class CommonHandler {
@@ -18,7 +17,6 @@ public class CommonHandler {
     public void preInit(FMLPreInitializationEvent event) {
 
         // Retrieve dynamic "constants"
-        Consts.MOD_VERSION = event.getModMetadata().version;
         Consts.MINECRAFT_DIR = Paths.get(".");
 
         // Initialize the configuration
@@ -33,8 +31,8 @@ public class CommonHandler {
 
     private void registerItems() {
 
-        GameRegistry.registerItem(ItemSelection.INSTANCE, ItemSelection.ITEM_NAME);
-        GameRegistry.registerItem(ItemProgram.INSTANCE, ItemProgram.ITEM_NAME);
+        GameRegistry.registerItem(CustomItems.SELECTION, CustomItems.SELECTION.getName());
+        GameRegistry.registerItem(CustomItems.PROGRAM, CustomItems.PROGRAM.getName());
     }
 
     public void init(FMLInitializationEvent event) {
