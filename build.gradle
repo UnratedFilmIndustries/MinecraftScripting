@@ -52,8 +52,9 @@ repositories {
 
 dependencies {
     shade 'org.mozilla:rhino:1.7.7.1'
+
     compile 'de.unratedfilms:guilib:1.3.0-SNAPSHOT:dev'
-    compile 'noppes:npcs:1.7.10d:dev'
+    compile 'noppes:npcs:1.11.2:dev'
 }
 
 processResources {
