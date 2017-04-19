@@ -1,36 +1,37 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptNameVisibility {
 
-    private static final ImmutableBiMap<String, Integer> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Integer> builder()
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
                 .put("Visible", 0)
                 .put("Invisible", 1)
-                .put("When attacking", 2)
-                .build();
+                .put("When attacking", 2);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(int nameVisibility) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(nameVisibility) ? MAPPING.inverse().get(nameVisibility) : fromNative(0);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static int toNative(String nameVisibility) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(nameVisibility) ? MAPPING.get(nameVisibility) : 0;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptNameVisibility() {}
 
 }

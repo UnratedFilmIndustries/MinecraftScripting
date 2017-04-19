@@ -12,8 +12,7 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.C
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptShelteringBehavior;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptTacticalBehavior;
 import de.unratedfilms.scriptspace.common.util.Utils;
-import noppes.npcs.DataAI;
-import noppes.npcs.util.ValueUtil;
+import noppes.npcs.entity.data.DataAI;
 
 public class CNPC_ScriptDataAi {
 
@@ -23,17 +22,17 @@ public class CNPC_ScriptDataAi {
     public CNPC_ScriptDataAi(CNPC_ScriptEntityCustomNpc npc) {
 
         this.npc = npc;
-        ai = npc.entityNpc.ai;
+        ai = npc.entityNpc.ais;
     }
 
     public String getAnimation() {
 
-        return CNPC_ScriptAnimation.fromNative(ai.animationType);
+        return CNPC_ScriptAnimation.fromNative(ai.getAnimation());
     }
 
     public void setAnimation(String animation) {
 
-        ai.animationType = CNPC_ScriptAnimation.toNative(animation);
+        ai.setAnimation(CNPC_ScriptAnimation.toNative(animation));
     }
 
     /**
@@ -50,7 +49,7 @@ public class CNPC_ScriptDataAi {
      */
     public boolean getReturnsToHome() {
 
-        return ai.returnToStart;
+        return ai.getReturnsHome();
     }
 
     /**
@@ -58,40 +57,37 @@ public class CNPC_ScriptDataAi {
      */
     public void setReturnsToHome(boolean returnsToHome) {
 
-        ai.returnToStart = returnsToHome;
+        ai.setReturnsHome(returnsToHome);
     }
 
     public String getRetaliationBehavior() {
 
-        return CNPC_ScriptRetaliationBehavior.fromNative(ai.onAttack);
+        return CNPC_ScriptRetaliationBehavior.fromNative(ai.getRetaliateType());
     }
 
     public void setRetaliationBehavior(String retaliationBehavior) {
 
-        ai.onAttack = CNPC_ScriptRetaliationBehavior.toNative(retaliationBehavior);
-        npc.entityNpc.updateAI = true;
+        ai.setRetaliateType(CNPC_ScriptRetaliationBehavior.toNative(retaliationBehavior));
     }
 
     public String getMovementBehavior() {
 
-        return CNPC_ScriptMovementBehavior.fromNative(ai.movingType);
+        return CNPC_ScriptMovementBehavior.fromNative(ai.getMovingType());
     }
 
     public void setMovementBehavior(String movementBehavior) {
 
-        ai.movingType = CNPC_ScriptMovementBehavior.toNative(movementBehavior);
-        npc.entityNpc.updateAI = true;
+        ai.setMovingType(CNPC_ScriptMovementBehavior.toNative(movementBehavior));
     }
 
     public String getRotationBehavior() {
 
-        return CNPC_ScriptRotationBehavior.fromNative(ai.standingType);
+        return CNPC_ScriptRotationBehavior.fromNative(ai.getStandingType());
     }
 
     public void setRotationBehavior(String rotationBehavior) {
 
-        ai.standingType = CNPC_ScriptRotationBehavior.toNative(rotationBehavior);
-        npc.entityNpc.updateAI = true;
+        ai.setStandingType(CNPC_ScriptRotationBehavior.toNative(rotationBehavior));
     }
 
     public float getRotationYaw() {
@@ -109,7 +105,7 @@ public class CNPC_ScriptDataAi {
      */
     public int getWanderingRange() {
 
-        return ai.walkingRange;
+        return ai.getWanderingRange();
     }
 
     /**
@@ -117,27 +113,27 @@ public class CNPC_ScriptDataAi {
      */
     public void setWanderingRange(int range) {
 
-        ai.walkingRange = ValueUtil.CorrectInt(range, 1, 50);
+        ai.setWanderingRange(range);
     }
 
     public boolean getInteractWithNpcs() {
 
-        return ai.npcInteracting;
+        return ai.getInteractWithNPCs();
     }
 
     public void setInteractWithNpcs(boolean interactWithNpcs) {
 
-        ai.npcInteracting = interactWithNpcs;
+        ai.setInteractWithNPCs(interactWithNpcs);
     }
 
     public boolean getStopOnInteract() {
 
-        return ai.stopAndInteract;
+        return ai.getStopOnInteract();
     }
 
     public void setStopOnInteract(boolean stopOnInteract) {
 
-        ai.stopAndInteract = stopOnInteract;
+        ai.setStopOnInteract(stopOnInteract);
     }
 
     /**
@@ -153,7 +149,7 @@ public class CNPC_ScriptDataAi {
      */
     public void setWalkingSpeed(int walkingSpeed) {
 
-        ai.setWalkingSpeed(ValueUtil.CorrectInt(walkingSpeed, 0, 10));
+        ai.setWalkingSpeed(walkingSpeed);
     }
 
     public ScriptVec3[] getMovementPath() {
@@ -202,34 +198,32 @@ public class CNPC_ScriptDataAi {
 
     public int getDoorInteract() {
 
-        return ai.doorInteract;
+        return ai.getDoorInteract();
     }
 
     public void setDoorInteract(int type) {
 
-        ai.doorInteract = type;
-        npc.entityNpc.updateAI = true;
+        ai.setDoorInteract(type);
     }
 
     public boolean getCanSwim() {
 
-        return ai.canSwim;
+        return ai.getCanSwim();
     }
 
     public void setCanSwim(boolean canSwim) {
 
-        ai.canSwim = canSwim;
+        ai.setCanSwim(canSwim);
     }
 
     public String getShelteringBehavior() {
 
-        return CNPC_ScriptShelteringBehavior.fromNative(ai.findShelter);
+        return CNPC_ScriptShelteringBehavior.fromNative(ai.getSheltersFrom());
     }
 
     public void setShelteringBehavior(String shelteringBehavior) {
 
-        ai.findShelter = CNPC_ScriptShelteringBehavior.toNative(shelteringBehavior);
-        npc.entityNpc.updateAI = true;
+        ai.setSheltersFrom(CNPC_ScriptShelteringBehavior.toNative(shelteringBehavior));
     }
 
     /**
@@ -237,7 +231,7 @@ public class CNPC_ScriptDataAi {
      */
     public boolean getAttackRequiresLineOfSigth() {
 
-        return ai.directLOS;
+        return ai.getAttackLOS();
     }
 
     /**
@@ -245,40 +239,37 @@ public class CNPC_ScriptDataAi {
      */
     public void setAttackRequiresLineOfSigth(boolean attackRequiresLineOfSigth) {
 
-        ai.directLOS = attackRequiresLineOfSigth;
-        npc.entityNpc.updateAI = true;
+        ai.setAttackLOS(attackRequiresLineOfSigth);
     }
 
     public boolean getLeapAtTarget() {
 
-        return ai.canLeap;
+        return ai.getLeapAtTarget();
     }
 
     public void setLeapAtTarget(boolean leapAtTarget) {
 
-        ai.canLeap = leapAtTarget;
-        npc.entityNpc.updateAI = true;
+        ai.setLeapAtTarget(leapAtTarget);
     }
 
     public String getTacticalBehavior() {
 
-        return CNPC_ScriptTacticalBehavior.fromNative(ai.tacticalVariant);
+        return CNPC_ScriptTacticalBehavior.fromNative(ai.getTacticalType());
     }
 
     public void setTacticalBehavior(String tacticalBehavior) {
 
-        ai.tacticalVariant = CNPC_ScriptTacticalBehavior.toNative(tacticalBehavior);
-        npc.entityNpc.updateAI = true;
+        ai.setTacticalType(CNPC_ScriptTacticalBehavior.toNative(tacticalBehavior));
     }
 
     public int getTacticalRange() {
 
-        return ai.tacticalRadius;
+        return ai.getTacticalRange();
     }
 
     public void setTacticalRange(int tacticalRange) {
 
-        ai.tacticalRadius = tacticalRange;
+        ai.setTacticalRange(tacticalRange);
     }
 
 }

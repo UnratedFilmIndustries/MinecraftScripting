@@ -27,7 +27,9 @@ import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptSelection;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptDyeColor;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptEntityEquipmentSlot;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptArmorSlot;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptModelPart;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementBehavior;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementPathBehavior;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptNameVisibility;
@@ -125,7 +127,9 @@ class ContextConfigurator {
             // "wrapper.customnpcs.consts" package
             abbreviationsBuilder
                     .put("CNPC_Animation", CNPC_ScriptAnimation.class)
+                    .put("CNPC_ArmorSlot", CNPC_ScriptArmorSlot.class)
                     .put("CNPC_BossbarType", CNPC_ScriptBossbarType.class)
+                    .put("CNPC_ModelPart", CNPC_ScriptModelPart.class)
                     .put("CNPC_MovementBehavior", CNPC_ScriptMovementBehavior.class)
                     .put("CNPC_MovementPathBehavior", CNPC_ScriptMovementPathBehavior.class)
                     .put("CNPC_NameVisibility", CNPC_ScriptNameVisibility.class)

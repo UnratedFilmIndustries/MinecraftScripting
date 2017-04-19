@@ -1,36 +1,37 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptBossbarType {
 
-    private static final ImmutableBiMap<String, Byte> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Byte> builder()
-                .put("Invisible", (byte) 0)
-                .put("Visible", (byte) 1)
-                .put("When attacking", (byte) 2)
-                .build();
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
+                .put("Invisible", 0)
+                .put("Visible", 1)
+                .put("When attacking", 2);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(byte bossbarType) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(bossbarType) ? MAPPING.inverse().get(bossbarType) : fromNative((byte) 0);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static byte toNative(String bossbarType) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(bossbarType) ? MAPPING.get(bossbarType) : 0;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptBossbarType() {}
 
 }

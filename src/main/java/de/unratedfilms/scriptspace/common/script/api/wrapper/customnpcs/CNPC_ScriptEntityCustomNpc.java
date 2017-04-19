@@ -1,13 +1,14 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
+import net.minecraft.util.math.BlockPos;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityLivingBase;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityPlayer;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 import de.unratedfilms.scriptspace.common.util.Utils;
 import noppes.npcs.NoppesUtilServer;
-import noppes.npcs.controllers.Line;
+import noppes.npcs.controllers.data.Line;
 import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.ValueUtil;
 
@@ -24,12 +25,6 @@ public class CNPC_ScriptEntityCustomNpc extends ScriptEntityLivingBase {
         super(entityNpc);
 
         this.entityNpc = entityNpc;
-    }
-
-    protected void updateClient() {
-
-        entityNpc.updateClient = true;
-        entityNpc.script.clientNeedsUpdate = true;
     }
 
     public CNPC_ScriptDataDisplay getDisplay() {
@@ -64,31 +59,30 @@ public class CNPC_ScriptEntityCustomNpc extends ScriptEntityLivingBase {
 
     public ScriptVec3 getHome() {
 
-        int[] startPos = entityNpc.ai.startPos;
-        return new ScriptVec3(startPos[0], startPos[1], startPos[2]);
+        return new ScriptVec3(entityNpc.ais.startPos());
     }
 
     public void setHome(ScriptVec3 location) {
 
-        entityNpc.ai.startPos = new int[] { Utils.floor(location.x), Utils.floor(location.y), Utils.floor(location.z) };
+        entityNpc.ais.setStartPos(new BlockPos(Utils.floor(location.x), Utils.floor(location.y), Utils.floor(location.z)));
     }
 
     public ScriptVec3 getOffset() {
 
-        return new ScriptVec3(entityNpc.ai.bodyOffsetX, entityNpc.ai.bodyOffsetY, entityNpc.ai.bodyOffsetZ);
+        return new ScriptVec3(entityNpc.ais.bodyOffsetX, entityNpc.ais.bodyOffsetY, entityNpc.ais.bodyOffsetZ);
     }
 
     public void setOffset(ScriptVec3 offset) {
 
-        entityNpc.ai.bodyOffsetX = ValueUtil.correctFloat((float) offset.x, 0.0F, 9.0F);
-        entityNpc.ai.bodyOffsetY = ValueUtil.correctFloat((float) offset.y, 0.0F, 9.0F);
-        entityNpc.ai.bodyOffsetZ = ValueUtil.correctFloat((float) offset.z, 0.0F, 9.0F);
+        entityNpc.ais.bodyOffsetX = ValueUtil.correctFloat((float) offset.x, 0.0F, 9.0F);
+        entityNpc.ais.bodyOffsetY = ValueUtil.correctFloat((float) offset.y, 0.0F, 9.0F);
+        entityNpc.ais.bodyOffsetZ = ValueUtil.correctFloat((float) offset.z, 0.0F, 9.0F);
     }
 
     @Override
     public void setRotationYaw(float rotationYaw) {
 
-        entityNpc.ai.orientation = (int) rotationYaw;
+        entityNpc.ais.orientation = (int) rotationYaw;
         super.setRotationYaw(rotationYaw);
     }
 
@@ -153,7 +147,7 @@ public class CNPC_ScriptEntityCustomNpc extends ScriptEntityLivingBase {
      */
     public void executeCommand(String command) {
 
-        NoppesUtilServer.runCommand(entityNpc, entityNpc.getCommandSenderName(), command, null);
+        NoppesUtilServer.runCommand(entityNpc, entityNpc.getName(), command, null);
     }
 
     public long getAge() {

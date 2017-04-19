@@ -3,21 +3,20 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
 import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
-public class CNPC_ScriptTacticalBehavior {
+public class CNPC_ScriptModelPart {
 
     private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
         MAPPING = StringToNativeMapping
-                .withDefault(6)
-                .put("None", 6)
-                .put("Rush", 0)
-                .put("Dodge", 1)
-                .put("Surround", 2)
-                .put("Hit & run", 3)
-                .put("Ambush", 4)
-                .put("Stalk", 5);
+                .withDefault(0)
+                .put("Head", 0)
+                .put("Body", 1)
+                .put("Left arm", 2)
+                .put("Right arm", 3)
+                .put("Left leg", 4)
+                .put("Right leg", 5);
 
     }
 
@@ -36,6 +35,6 @@ public class CNPC_ScriptTacticalBehavior {
         return MAPPING.toNative(string);
     }
 
-    private CNPC_ScriptTacticalBehavior() {}
+    private CNPC_ScriptModelPart() {}
 
 }

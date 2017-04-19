@@ -2,7 +2,7 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptRespawnBehavior;
-import noppes.npcs.DataStats;
+import noppes.npcs.entity.data.DataStats;
 import noppes.npcs.util.ValueUtil;
 
 public class CNPC_ScriptDataStats {
@@ -24,7 +24,6 @@ public class CNPC_ScriptDataStats {
     public void setMaxHealth(int maxHealth) {
 
         stats.setMaxHealth(maxHealth);
-        npc.updateClient();
     }
 
     public void seExplosionResistance(float resistance) {
@@ -39,12 +38,12 @@ public class CNPC_ScriptDataStats {
 
     public void setMeleeResistance(float resistance) {
 
-        stats.resistances.playermelee = ValueUtil.correctFloat(resistance, 0.0F, 2.0F);
+        stats.resistances.melee = ValueUtil.correctFloat(resistance, 0.0F, 2.0F);
     }
 
     public float getMeleeResistance() {
 
-        return stats.resistances.playermelee;
+        return stats.resistances.melee;
     }
 
     public void setArrowResistance(float resistance) {
@@ -69,22 +68,22 @@ public class CNPC_ScriptDataStats {
 
     public int getCombatRegen() {
 
-        return stats.combatRegen;
+        return stats.getCombatRegen();
     }
 
     public void setCombatRegen(int combatRegen) {
 
-        stats.combatRegen = combatRegen;
+        stats.setCombatRegen(combatRegen);
     }
 
     public int getHealthRegen() {
 
-        return stats.healthRegen;
+        return stats.getHealthRegen();
     }
 
     public void setHealthRegen(int healthRegen) {
 
-        stats.healthRegen = healthRegen;
+        stats.setHealthRegen(healthRegen);
     }
 
     // TODO: Add mechanisms for melee and ranged stats
@@ -141,43 +140,42 @@ public class CNPC_ScriptDataStats {
 
     public String getRespawnBehavior() {
 
-        return CNPC_ScriptRespawnBehavior.fromNative(stats.spawnCycle);
+        return CNPC_ScriptRespawnBehavior.fromNative(stats.getRespawnType());
     }
 
     public void setRespawnBehavior(String respawnBehavior) {
 
-        stats.spawnCycle = CNPC_ScriptRespawnBehavior.toNative(respawnBehavior);
+        stats.setRespawnType(CNPC_ScriptRespawnBehavior.toNative(respawnBehavior));
     }
 
     public int getRespawnTime() {
 
-        return stats.respawnTime;
+        return stats.getRespawnTime();
     }
 
     public void setRespawnTime(int respawnTime) {
 
-        stats.respawnTime = respawnTime;
+        stats.setRespawnTime(respawnTime);
     }
 
     public boolean getHideDeadBody() {
 
-        return stats.hideKilledBody;
+        return stats.getHideDeadBody();
     }
 
     public void setHideDeadBody(boolean hideDeadBody) {
 
-        stats.hideKilledBody = hideDeadBody;
-        npc.updateClient();
+        stats.setHideDeadBody(hideDeadBody);
     }
 
     public int getAggroRange() {
 
-        return stats.aggroRange;
+        return stats.getAggroRange();
     }
 
     public void setAggroRange(int aggroRange) {
 
-        stats.aggroRange = aggroRange;
+        stats.setAggroRange(aggroRange);
     }
 
 }

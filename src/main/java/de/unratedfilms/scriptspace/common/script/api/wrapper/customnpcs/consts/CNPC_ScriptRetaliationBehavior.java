@@ -1,37 +1,38 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptRetaliationBehavior {
 
-    private static final ImmutableBiMap<String, Integer> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Integer> builder()
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
                 .put("Normal", 0)
                 .put("Panic", 1)
                 .put("Retreat", 2)
-                .put("None", 3)
-                .build();
+                .put("None", 3);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(int retaliationBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(retaliationBehavior) ? MAPPING.inverse().get(retaliationBehavior) : fromNative(0);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static int toNative(String retaliationBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(retaliationBehavior) ? MAPPING.get(retaliationBehavior) : 0;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptRetaliationBehavior() {}
 
 }

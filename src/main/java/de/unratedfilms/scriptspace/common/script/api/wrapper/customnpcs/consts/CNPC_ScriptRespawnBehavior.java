@@ -1,38 +1,39 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptRespawnBehavior {
 
-    private static final ImmutableBiMap<String, Integer> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Integer> builder()
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
                 .put("Always", 0)
                 .put("Day", 1)
                 .put("Night", 2)
                 .put("None", 3)
-                .put("Naturally", 4)
-                .build();
+                .put("Naturally", 4);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(int respawnBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(respawnBehavior) ? MAPPING.inverse().get(respawnBehavior) : fromNative(0);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static int toNative(String respawnBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(respawnBehavior) ? MAPPING.get(respawnBehavior) : 0;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptRespawnBehavior() {}
 
 }

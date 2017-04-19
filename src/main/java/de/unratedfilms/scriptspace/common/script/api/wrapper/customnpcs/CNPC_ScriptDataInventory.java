@@ -1,10 +1,20 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
+import net.minecraft.item.ItemStack;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptArmorSlot;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
-import noppes.npcs.DataInventory;
+import noppes.npcs.api.item.IItemStack;
+import noppes.npcs.api.wrapper.ItemStackWrapper;
+import noppes.npcs.entity.data.DataInventory;
 
 public class CNPC_ScriptDataInventory {
+
+    @SuppressWarnings ("deprecation")
+    private static IItemStack toNpcStack(ItemStack stack) {
+
+        return ItemStackWrapper.createNew(stack);
+    }
 
     public final CNPC_ScriptEntityCustomNpc npc;
     public final DataInventory              inventory;
@@ -17,64 +27,52 @@ public class CNPC_ScriptDataInventory {
 
     public ScriptItemStack getRightHand() {
 
-        return new ScriptItemStack(inventory.getWeapon());
+        return new ScriptItemStack(inventory.getRightHand().getMCItemStack());
     }
 
     public void setRightHand(ScriptItemStack stack) {
 
-        inventory.setWeapon(stack == null || stack.isAir() ? null : stack.stack);
-        npc.updateClient();
+        inventory.setRightHand(stack == null || stack.isAir() ? null : toNpcStack(stack.stack));
     }
 
     public ScriptItemStack getLeftHand() {
 
-        return new ScriptItemStack(inventory.getOffHand());
+        return new ScriptItemStack(inventory.getLeftHand().getMCItemStack());
     }
 
     public void setLeftHand(ScriptItemStack stack) {
 
-        inventory.setOffHand(stack == null || stack.isAir() ? null : stack.stack);
-        npc.updateClient();
+        inventory.setLeftHand(stack == null || stack.isAir() ? null : toNpcStack(stack.stack));
     }
 
-    public ScriptItemStack getProjectileItem() {
+    public ScriptItemStack getProjectile() {
 
-        return new ScriptItemStack(inventory.getProjectile());
+        return new ScriptItemStack(inventory.getProjectile().getMCItemStack());
     }
 
-    public void setProjectileItem(ScriptItemStack stack) {
+    public void setProjectile(ScriptItemStack stack) {
 
-        inventory.setProjectile(stack == null || stack.isAir() ? null : stack.stack);
-        npc.entityNpc.script.aiNeedsUpdate = true;
+        inventory.setProjectile(stack == null || stack.isAir() ? null : toNpcStack(stack.stack));
     }
 
-    /**
-     * @param slot The armor slot to return (0: head, 1: body, 2: legs, 3: boots).
-     * @return The item stack that is currently present in the given armor slot.
-     */
-    public ScriptItemStack getArmor(int slot) {
+    public ScriptItemStack getArmor(String slot) {
 
-        return new ScriptItemStack(inventory.armor.get(Integer.valueOf(slot)));
+        return new ScriptItemStack(inventory.getArmor(CNPC_ScriptArmorSlot.toNative(slot)).getMCItemStack());
     }
 
-    /**
-     * @param slot The armor slot to fill (0: head, 1: body, 2: legs, 3: boots).
-     * @param stack The item stack that should be put into the given armor slot.
-     */
-    public void setArmor(int slot, ScriptItemStack stack) {
+    public void setArmor(String slot, ScriptItemStack stack) {
 
-        inventory.armor.put(slot, stack == null || stack.isAir() ? null : stack.stack);
-        npc.updateClient();
+        inventory.setArmor(CNPC_ScriptArmorSlot.toNative(slot), stack == null || stack.isAir() ? null : toNpcStack(stack.stack));
     }
 
     public int getExpMin() {
 
-        return inventory.minExp;
+        return inventory.getExpMin();
     }
 
     public int getExpMax() {
 
-        return inventory.maxExp;
+        return inventory.getExpMax();
     }
 
 }

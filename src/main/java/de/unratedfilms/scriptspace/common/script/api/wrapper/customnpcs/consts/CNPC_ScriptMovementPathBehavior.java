@@ -1,35 +1,36 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptMovementPathBehavior {
 
-    private static final ImmutableBiMap<String, Integer> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Integer> builder()
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
                 .put("Looping", 0)
-                .put("Backtracking", 1)
-                .build();
+                .put("Backtracking", 1);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(int movementPathBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(movementPathBehavior) ? MAPPING.inverse().get(movementPathBehavior) : fromNative(0);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static int toNative(String movementPathBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(movementPathBehavior) ? MAPPING.get(movementPathBehavior) : 0;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptMovementPathBehavior() {}
 
 }

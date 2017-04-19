@@ -2,7 +2,7 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
 import de.unratedfilms.scriptspace.common.script.api.wrapper.entity.ScriptEntityPlayer;
-import noppes.npcs.controllers.Faction;
+import noppes.npcs.controllers.data.Faction;
 
 public class CNPC_ScriptFaction {
 
@@ -15,22 +15,22 @@ public class CNPC_ScriptFaction {
 
     public int getId() {
 
-        return faction.id;
+        return faction.getId();
     }
 
     public String getName() {
 
-        return faction.name;
+        return faction.getName();
     }
 
     public int getDefaultPoints() {
 
-        return faction.defaultPoints;
+        return faction.getDefaultPoints();
     }
 
     public int getColor() {
 
-        return faction.color;
+        return faction.getColor();
     }
 
     public boolean isFriendlyToPlayer(ScriptEntityPlayer player) {

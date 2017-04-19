@@ -1,38 +1,38 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
-import noppes.npcs.constants.EnumStandingType;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptRotationBehavior {
 
-    private static final ImmutableBiMap<String, EnumStandingType> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, EnumStandingType> builder()
-                .put("Free", EnumStandingType.RotateBody)
-                .put("Stalking", EnumStandingType.Stalking)
-                .put("Fixed body, fixed head", EnumStandingType.NoRotation)
-                .put("Fixed body, free head", EnumStandingType.HeadRotation)
-                .build();
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
+                .put("Free", 0)
+                .put("Stalking", 2)
+                .put("Fixed body, fixed head", 1)
+                .put("Fixed body, free head", 3);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(EnumStandingType rotationBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.inverse().get(rotationBehavior);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static EnumStandingType toNative(String rotationBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(rotationBehavior) ? MAPPING.get(rotationBehavior) : EnumStandingType.RotateBody;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptRotationBehavior() {}
 
 }

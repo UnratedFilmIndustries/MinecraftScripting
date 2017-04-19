@@ -1,37 +1,37 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
-import noppes.npcs.constants.EnumMovingType;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptMovementBehavior {
 
-    private static final ImmutableBiMap<String, EnumMovingType> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, EnumMovingType> builder()
-                .put("Standing", EnumMovingType.Standing)
-                .put("Wandering", EnumMovingType.Wandering)
-                .put("Moving along path", EnumMovingType.MovingPath)
-                .build();
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
+                .put("Standing", 0)
+                .put("Wandering", 1)
+                .put("Moving along path", 2);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(EnumMovingType movementBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.inverse().get(movementBehavior);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static EnumMovingType toNative(String movementBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(movementBehavior) ? MAPPING.get(movementBehavior) : EnumMovingType.Standing;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptMovementBehavior() {}
 
 }

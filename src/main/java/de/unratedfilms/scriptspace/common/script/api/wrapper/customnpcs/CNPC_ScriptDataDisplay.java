@@ -1,14 +1,11 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs;
 
-import com.mojang.authlib.GameProfile;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptModelPart;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptNameVisibility;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptVisibility;
-import noppes.npcs.DataDisplay;
-import noppes.npcs.ModelData;
-import noppes.npcs.entity.EntityCustomNpc;
-import noppes.npcs.util.ValueUtil;
+import noppes.npcs.entity.data.DataDisplay;
 
 public class CNPC_ScriptDataDisplay {
 
@@ -23,138 +20,128 @@ public class CNPC_ScriptDataDisplay {
 
     public String getName() {
 
-        return display.name;
+        return display.getName();
     }
 
     public void setName(String name) {
 
-        display.name = name;
-        npc.updateClient();
+        display.setName(name);
     }
 
     public String getNameVisibility() {
 
-        return CNPC_ScriptNameVisibility.fromNative(display.showName);
+        return CNPC_ScriptNameVisibility.fromNative(display.getShowName());
     }
 
     public void setNameVisibility(String nameVisibility) {
 
-        display.showName = CNPC_ScriptNameVisibility.toNative(nameVisibility);
-        npc.updateClient();
+        display.setShowName(CNPC_ScriptNameVisibility.toNative(nameVisibility));
     }
 
     public String getTitle() {
 
-        return display.title;
+        return display.getTitle();
     }
 
     public void setTitle(String title) {
 
-        display.title = title;
-        npc.updateClient();
+        display.setTitle(title);
     }
 
     public String getSkinUrl() {
 
-        return display.url;
+        return display.getSkinUrl();
     }
 
     public void setSkinUrl(String url) {
 
-        display.url = url;
-        if (url.isEmpty()) {
-            display.skinType = 0;
-        } else {
-            display.skinType = 2;
-        }
-        npc.updateClient();
+        display.setSkinUrl(url);
     }
 
     public String getSkinPlayer() {
 
-        return display.playerProfile == null ? "" : display.playerProfile.getName();
+        return display.getSkinPlayer();
     }
 
     public void setSkinPlayer(String name) {
 
-        if (name == null || name.isEmpty()) {
-            display.playerProfile = null;
-            display.skinType = 0;
-        } else {
-            display.playerProfile = new GameProfile(null, name);
-            display.skinType = 1;
-        }
-        npc.updateClient();
+        display.setSkinPlayer(name);
     }
 
     public String getSkinTexture() {
 
-        return display.texture;
+        return display.getSkinTexture();
     }
 
     public void setSkinTexture(String texture) {
 
-        display.texture = texture;
-        npc.entityNpc.textureLocation = null;
-        display.skinType = 0;
-        npc.updateClient();
+        display.setSkinTexture(texture);
+    }
+
+    /**
+     * @return The color format is hexadecimal, i.e. 0xFF0000 stands for red.
+     */
+    public int getSkinTint() {
+
+        return display.getTint();
+    }
+
+    /**
+     * @param tint The color format is hexadecimal, i.e. 0xFF0000 stands for red.
+     */
+    public void setSkinTint(int tint) {
+
+        display.setTint(tint);
     }
 
     public String getOverlayTexture() {
 
-        return display.glowTexture;
+        return display.getOverlayTexture();
     }
 
     public void setOverlayTexture(String texture) {
 
-        display.glowTexture = texture;
-        npc.entityNpc.textureGlowLocation = null;
-        npc.updateClient();
+        display.setOverlayTexture(texture);
     }
 
     public String getCapeTexture() {
 
-        return display.cloakTexture;
+        return display.getCapeTexture();
     }
 
     public void setCapeTexture(String texture) {
 
-        display.cloakTexture = texture;
-        npc.entityNpc.textureCloakLocation = null;
-        npc.updateClient();
+        display.setCapeTexture(texture);
     }
 
     public boolean getHasLivingAnimation() {
 
-        return !display.disableLivingAnimation;
+        return display.getHasLivingAnimation();
     }
 
     public void setHashLivingAnimation(boolean enabled) {
 
-        display.disableLivingAnimation = !enabled;
-        npc.updateClient();
+        display.setHashLivingAnimation(enabled);
     }
 
     public String getVisibility() {
 
-        return CNPC_ScriptVisibility.fromNative(display.visible);
+        return CNPC_ScriptVisibility.fromNative(display.getVisible());
     }
 
     public void setVisibility(String visibility) {
 
-        display.visible = CNPC_ScriptVisibility.toNative(visibility);
-        npc.updateClient();
+        display.setVisible(CNPC_ScriptVisibility.toNative(visibility));
     }
 
     public String getBossbarType() {
 
-        return CNPC_ScriptBossbarType.fromNative(display.showBossBar);
+        return CNPC_ScriptBossbarType.fromNative(display.getBossbar());
     }
 
-    public void setBossbar(String bossbarType) {
+    public void setBossbarType(String bossbarType) {
 
-        display.showBossBar = CNPC_ScriptBossbarType.toNative(bossbarType);
-        npc.updateClient();
+        display.setBossbar(CNPC_ScriptBossbarType.toNative(bossbarType));
     }
 
     /**
@@ -162,7 +149,7 @@ public class CNPC_ScriptDataDisplay {
      */
     public int getSize() {
 
-        return display.modelSize;
+        return display.getSize();
     }
 
     /**
@@ -170,52 +157,22 @@ public class CNPC_ScriptDataDisplay {
      */
     public void setSize(int size) {
 
-        display.modelSize = ValueUtil.CorrectInt(size, 1, 30);
-        npc.updateClient();
+        display.setSize(size);
     }
 
-    public void setHeadScale(float x, float y, float z) {
+    public float[] getModelScale(String part) {
 
-        ModelData modelData = ((EntityCustomNpc) npc.entityNpc).modelData;
-
-        modelData.head.scaleX = ValueUtil.correctFloat(x, 0.5F, 1.5F);
-        modelData.head.scaleY = ValueUtil.correctFloat(y, 0.5F, 1.5F);
-        modelData.head.scaleZ = ValueUtil.correctFloat(z, 0.5F, 1.5F);
-
-        npc.updateClient();
+        return display.getModelScale(CNPC_ScriptModelPart.toNative(part));
     }
 
-    public void setBodyScale(float x, float y, float z) {
+    public void setModelScale(String part, float[] scale) {
 
-        ModelData modelData = ((EntityCustomNpc) npc.entityNpc).modelData;
-
-        modelData.body.scaleX = ValueUtil.correctFloat(x, 0.5F, 1.5F);
-        modelData.body.scaleY = ValueUtil.correctFloat(y, 0.5F, 1.5F);
-        modelData.body.scaleZ = ValueUtil.correctFloat(z, 0.5F, 1.5F);
-
-        npc.updateClient();
+        setModelScale(part, scale[0], scale[1], scale[2]);
     }
 
-    public void setArmsScale(float x, float y, float z) {
+    public void setModelScale(String part, float x, float y, float z) {
 
-        ModelData modelData = ((EntityCustomNpc) npc.entityNpc).modelData;
-
-        modelData.arms.scaleX = ValueUtil.correctFloat(x, 0.5F, 1.5F);
-        modelData.arms.scaleY = ValueUtil.correctFloat(y, 0.5F, 1.5F);
-        modelData.arms.scaleZ = ValueUtil.correctFloat(z, 0.5F, 1.5F);
-
-        npc.updateClient();
-    }
-
-    public void setLegsScale(float x, float y, float z) {
-
-        ModelData modelData = ((EntityCustomNpc) npc.entityNpc).modelData;
-
-        modelData.legs.scaleX = ValueUtil.correctFloat(x, 0.5F, 1.5F);
-        modelData.legs.scaleY = ValueUtil.correctFloat(y, 0.5F, 1.5F);
-        modelData.legs.scaleZ = ValueUtil.correctFloat(z, 0.5F, 1.5F);
-
-        npc.updateClient();
+        display.setModelScale(CNPC_ScriptModelPart.toNative(part), x, y, z);
     }
 
 }

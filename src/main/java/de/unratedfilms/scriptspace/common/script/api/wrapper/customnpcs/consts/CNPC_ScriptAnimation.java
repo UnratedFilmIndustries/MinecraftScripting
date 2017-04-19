@@ -1,40 +1,47 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
-import noppes.npcs.constants.EnumAnimation;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptAnimation {
 
-    private static final ImmutableBiMap<String, EnumAnimation> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, EnumAnimation> builder()
-                .put("Normal", EnumAnimation.NONE)
-                .put("Sitting", EnumAnimation.SITTING)
-                .put("Lying", EnumAnimation.LYING)
-                .put("Hugging", EnumAnimation.HUG)
-                .put("Sneaking", EnumAnimation.SNEAKING)
-                .put("Dancing", EnumAnimation.DANCING)
-                .build();
+        MAPPING = StringToNativeMapping
+                .withDefault(0)
+                .put("Normal", 0)
+                .put("Sitting", 1)
+                .put("Lying", 2)
+                .put("Hugging", 3)
+                .put("Sneaking", 4)
+                .put("Aiming", 6)
+                .put("Crawling", 7)
+                .put("Pointing", 8)
+                .put("Crying", 9)
+                .put("Waving", 10)
+                .put("Bow", 11)
+                .put("No", 12)
+                .put("Yes", 13);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(EnumAnimation animation) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(animation) ? MAPPING.inverse().get(animation) : fromNative(EnumAnimation.NONE);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static EnumAnimation toNative(String animation) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(animation) ? MAPPING.get(animation) : EnumAnimation.NONE;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptAnimation() {}
 
 }

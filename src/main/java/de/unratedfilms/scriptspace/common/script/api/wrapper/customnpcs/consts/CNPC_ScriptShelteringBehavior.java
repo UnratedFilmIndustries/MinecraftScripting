@@ -1,36 +1,37 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts;
 
-import java.util.ArrayList;
-import com.google.common.collect.ImmutableBiMap;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class CNPC_ScriptShelteringBehavior {
 
-    private static final ImmutableBiMap<String, Integer> MAPPING;
+    private static final StringToNativeMapping<Integer> MAPPING;
 
     static {
 
-        MAPPING = ImmutableBiMap.<String, Integer> builder()
+        MAPPING = StringToNativeMapping
+                .withDefault(2)
                 .put("Disabled", 2)
                 .put("Darkness", 0)
-                .put("Sunlight", 1)
-                .build();
+                .put("Sunlight", 1);
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(int shelteringBehavior) {
+    public static String fromNative(int nativee) {
 
-        return MAPPING.containsValue(shelteringBehavior) ? MAPPING.inverse().get(shelteringBehavior) : fromNative(2);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static int toNative(String shelteringBehavior) {
+    public static int toNative(String string) {
 
-        return MAPPING.containsKey(shelteringBehavior) ? MAPPING.get(shelteringBehavior) : 2;
+        return MAPPING.toNative(string);
     }
+
+    private CNPC_ScriptShelteringBehavior() {}
 
 }
