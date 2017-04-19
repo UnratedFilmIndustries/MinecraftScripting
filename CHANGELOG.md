@@ -1,3 +1,10 @@
+2.3.0
+-----
+
+### Notes
+* Upgraded to Minecraft version 1.11.2.
+* Although we tried to keep as many API methods as possible untouched, some of them just had to be updated. Therefore, this upgrade might render some of your scripts unusable. It's however quite unlikely that you're affected by the few backwards-incompatible changes.
+
 2.2.0
 -----
 
