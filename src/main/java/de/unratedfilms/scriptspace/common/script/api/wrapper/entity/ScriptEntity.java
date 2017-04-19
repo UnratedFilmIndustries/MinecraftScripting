@@ -4,7 +4,6 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -62,7 +61,6 @@ public class ScriptEntity {
      * Moreover, all abstract entities are filtered out.
      * Finally, as a bonus, this method already sorts the entire map by entity name.
      */
-    @SuppressWarnings ("unchecked")
     private static SortedMap<String, Class<? extends Entity>> getSortedRealEntities() {
 
         SortedMap<String, Class<? extends Entity>> result = new TreeMap<>();
@@ -215,12 +213,11 @@ public class ScriptEntity {
 
     public void mountEntity(ScriptEntity scriptEnt) {
 
-        entity.mountEntity(scriptEnt == null ? null : scriptEnt.entity);
-    }
-
-    public ScriptDataWatcher getDataWatcher() {
-
-        return new ScriptDataWatcher(entity.getDataWatcher());
+        if (scriptEnt == null) {
+            entity.dismountRidingEntity();
+        } else {
+            entity.startRiding(scriptEnt.entity, true);
+        }
     }
 
     public ScriptWorld getWorld() {

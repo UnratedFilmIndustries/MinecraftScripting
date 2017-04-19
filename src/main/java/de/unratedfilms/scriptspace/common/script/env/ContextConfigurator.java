@@ -24,6 +24,8 @@ import de.unratedfilms.scriptspace.common.script.api.util.ScriptRandom;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec2;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.ScriptSelection;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptDyeColor;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptEntityEquipmentSlot;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptAnimation;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptBossbarType;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.customnpcs.consts.CNPC_ScriptMovementBehavior;
@@ -90,6 +92,10 @@ class ContextConfigurator {
 
                 // "wrapper" package
                 .put("Selection", ScriptSelection.class)
+
+                // "wrapper.consts" package
+                .put("DyeColor", ScriptDyeColor.class)
+                .put("EquipmentSlot", ScriptEntityEquipmentSlot.class)
 
                 // "wrapper.entity" package
                 .put("Entity", ScriptEntity.class)

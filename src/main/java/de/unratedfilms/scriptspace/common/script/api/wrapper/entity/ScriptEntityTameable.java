@@ -1,6 +1,7 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 
+import java.util.UUID;
 import net.minecraft.entity.passive.EntityTameable;
 
 public class ScriptEntityTameable extends ScriptEntityAgeable {
@@ -36,12 +37,12 @@ public class ScriptEntityTameable extends ScriptEntityAgeable {
 
     public String getOwnerUUID() {
 
-        return entityTameable.func_152113_b();
+        return entityTameable.getOwnerId().toString();
     }
 
     public void setOwnerUUID(String uuid) {
 
-        entityTameable.func_152115_b(uuid);
+        entityTameable.setOwnerId(UUID.fromString(uuid));
     }
 
 }

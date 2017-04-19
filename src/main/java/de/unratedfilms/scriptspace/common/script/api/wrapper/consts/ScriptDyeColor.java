@@ -1,39 +1,39 @@
 
 package de.unratedfilms.scriptspace.common.script.api.wrapper.consts;
 
-import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
-import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableBiMap.Builder;
 import net.minecraft.item.EnumDyeColor;
+import de.unratedfilms.scriptspace.common.util.StringToNativeMapping;
 
 public class ScriptDyeColor {
 
-    private static final ImmutableBiMap<String, EnumDyeColor> MAPPING;
+    private static final StringToNativeMapping<EnumDyeColor> MAPPING;
 
     static {
 
-        Builder<String, EnumDyeColor> builder = ImmutableBiMap.<String, EnumDyeColor> builder();
+        MAPPING = StringToNativeMapping.withDefault(EnumDyeColor.WHITE);
+
         for (EnumDyeColor dyeColor : EnumDyeColor.values()) {
-            builder.put(StringUtils.capitalize(dyeColor.getName().replace('_', ' ')), dyeColor);
+            MAPPING.put(StringUtils.capitalize(dyeColor.getName().replace('_', ' ')), dyeColor);
         }
-        MAPPING = builder.build();
 
     }
 
     public static final String[] getAll() {
 
-        return new ArrayList<>(MAPPING.keySet()).toArray(new String[0]);
+        return MAPPING.getAll();
     }
 
-    public static String fromNative(EnumDyeColor dyeColor) {
+    public static String fromNative(EnumDyeColor nativee) {
 
-        return MAPPING.containsValue(dyeColor) ? MAPPING.inverse().get(dyeColor) : fromNative(EnumDyeColor.WHITE);
+        return MAPPING.fromNative(nativee);
     }
 
-    public static EnumDyeColor toNative(String dyeColor) {
+    public static EnumDyeColor toNative(String string) {
 
-        return MAPPING.containsKey(dyeColor) ? MAPPING.get(dyeColor) : EnumDyeColor.WHITE;
+        return MAPPING.toNative(string);
     }
+
+    private ScriptDyeColor() {}
 
 }

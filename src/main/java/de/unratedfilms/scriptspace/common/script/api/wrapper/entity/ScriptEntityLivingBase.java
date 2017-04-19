@@ -4,6 +4,7 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.entity;
 import java.util.Random;
 import net.minecraft.entity.EntityLivingBase;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
+import de.unratedfilms.scriptspace.common.script.api.wrapper.consts.ScriptEntityEquipmentSlot;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptItemStack;
 
 public class ScriptEntityLivingBase extends ScriptEntity {
@@ -52,14 +53,14 @@ public class ScriptEntityLivingBase extends ScriptEntity {
         return new ScriptItemStack(entityLivingBase.getHeldItemOffhand());
     }
 
-    public ScriptItemStack getCurrentItemOrArmor(int slot) {
+    public ScriptItemStack getEquipmentInSlot(String slot) {
 
-        return new ScriptItemStack(entityLivingBase.getEquipmentInSlot(slot));
+        return new ScriptItemStack(entityLivingBase.getItemStackFromSlot(ScriptEntityEquipmentSlot.toNative(slot)));
     }
 
-    public void setCurrentItemOrArmor(int slot, ScriptItemStack stack) {
+    public void setEquipmentInSlot(String slot, ScriptItemStack stack) {
 
-        entityLivingBase.setCurrentItemOrArmor(slot, stack == null || stack.isAir() ? null : stack.stack);
+        entityLivingBase.setItemStackToSlot(ScriptEntityEquipmentSlot.toNative(slot), stack == null || stack.isAir() ? null : stack.stack);
     }
 
     public void setSprinting(boolean sprint) {

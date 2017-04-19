@@ -3,24 +3,23 @@ package de.unratedfilms.scriptspace.common.script.api.wrapper.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.LegacyNamespacedRegistry;
 import de.unratedfilms.scriptspace.common.script.api.util.ScriptVec3;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.nbt.ScriptTagCompound;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptBlock;
 import de.unratedfilms.scriptspace.common.script.api.wrapper.world.ScriptWorld;
-import de.unratedfilms.scriptspace.common.util.ReflectionHelper;
 import de.unratedfilms.scriptspace.common.util.Utils;
 
 public class ScriptTileEntity {
 
-    public static ScriptTileEntity createFromTag(ScriptTagCompound tag) {
-
-        TileEntity te = TileEntity.createAndLoadEntity(tag.tag);
-        return te != null ? new ScriptTileEntity(te) : null;
-    }
-
     public static String[] getAllTileNames() {
 
-        return ReflectionHelper.TILE_ENTITY__CLASS_TO_NAME.values().toArray(new String[0]);
+        @SuppressWarnings ("deprecation")
+        LegacyNamespacedRegistry<Class<? extends TileEntity>> registry = GameData.getTileEntityRegistry();
+
+        return registry.getKeys().stream().map(ResourceLocation::toString).toArray(l -> new String[l]);
     }
 
     public final TileEntity tile;
@@ -92,7 +91,10 @@ public class ScriptTileEntity {
 
     private static String getInternalName(TileEntity te) {
 
-        return ReflectionHelper.TILE_ENTITY__CLASS_TO_NAME.get(te.getClass());
+        @SuppressWarnings ("deprecation")
+        LegacyNamespacedRegistry<Class<? extends TileEntity>> registry = GameData.getTileEntityRegistry();
+
+        return registry.getNameForObject(te.getClass()).toString();
     }
 
 }

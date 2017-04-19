@@ -2,14 +2,15 @@
 package de.unratedfilms.scriptspace.common.script.api.wrapper.world;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 public class ScriptItem {
 
     public static ScriptItem forName(String name) {
 
         Item item = null;
-        if (Item.itemRegistry.containsKey(name)) {
-            item = (Item) Item.itemRegistry.getObject(name);
+        if (Item.REGISTRY.containsKey(new ResourceLocation(name))) {
+            item = Item.REGISTRY.getObject(new ResourceLocation(name));
         } else {
             try {
                 item = Item.getItemById(Integer.parseInt(name));
@@ -42,7 +43,7 @@ public class ScriptItem {
 
     public String getItemName() {
 
-        return Item.itemRegistry.getNameForObject(item);
+        return Item.REGISTRY.getNameForObject(item).toString();
     }
 
     @Override
