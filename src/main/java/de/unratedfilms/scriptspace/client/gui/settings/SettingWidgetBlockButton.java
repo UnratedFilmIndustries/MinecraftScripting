@@ -54,7 +54,7 @@ public class SettingWidgetBlockButton extends SettingWidgetAbstractItemButton<Se
 
     private class Handler extends SettingWidgetAbstractItemButton.Handler {
 
-        // Note that button == SetBlockButton.this
+        // Note that button == SettingWidgetBlockButton.this
         @Override
         public void buttonClicked(Button button, MouseButton mouseButton) {
 

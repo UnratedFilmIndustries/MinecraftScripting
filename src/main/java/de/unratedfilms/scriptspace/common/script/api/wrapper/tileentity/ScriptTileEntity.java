@@ -66,7 +66,7 @@ public class ScriptTileEntity {
 
     public ScriptBlock getBlock() {
 
-        return ScriptBlock.atLocation(tile.getWorld(), tile.getPos().getX(), tile.getPos().getX(), tile.getPos().getX());
+        return new ScriptWorld(tile.getWorld()).getBlock(tile.getPos().getX(), tile.getPos().getX(), tile.getPos().getX());
     }
 
     public ScriptVec3 getLocation() {

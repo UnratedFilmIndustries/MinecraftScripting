@@ -7,12 +7,12 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import de.unratedfilms.scriptspace.net.NetworkService;
 import de.unratedfilms.scriptspace.net.messages.EntityNBTClientMessage;
 
@@ -85,10 +85,10 @@ public class Utils {
      */
     public static void syncTileEntityToClients(TileEntity tileEntity) {
 
-        Packet packet = tileEntity.getDescriptionPacket();
+        SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
         if (packet != null) {
             int dim = tileEntity.getWorld().provider.getDimension();
-            MinecraftServer.getServer().getConfigurationManager().sendPacketToAllPlayersInDimension(packet, dim);
+            FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendPacketToAllPlayersInDimension(packet, dim);
         }
     }
 
